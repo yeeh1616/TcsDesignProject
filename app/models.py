@@ -3,8 +3,10 @@ import datetime
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from app.__init__ import db
 
-db = SQLAlchemy(current_app)
+# with current_app.app_context():
+#     db = SQLAlchemy(current_app)
 
 
 class User(db.Model):

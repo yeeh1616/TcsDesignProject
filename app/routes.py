@@ -5,7 +5,7 @@ from werkzeug.utils import redirect
 from app import app
 from app import db
 from app.forms import RegistrationForm
-from app.models.User import User
+from app.model.User import User
 
 
 @app.route('/hello')

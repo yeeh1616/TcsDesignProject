@@ -47,5 +47,14 @@
         </library>
       </libraries>
     </data-source>
+    <data-source source="LOCAL" name="project_database" uuid="1df12e43-3d1e-47fe-8ce4-af3c836730af">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../TcsDesignProject\project_database</jdbc-url>
+      <driver-properties>
+        <property name="enable_load_extension" value="true" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
