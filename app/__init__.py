@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+
+#from flask_migrate import Migrate
 
 def create_app(test_config = None):
     app = Flask(__name__, instance_relative_config=True)
@@ -9,8 +9,8 @@ def create_app(test_config = None):
     else:
         app.config.from_pyfile('config_test.py',silent = True)
 
-    db = SQLAlchemy(app)
-    migrate = Migrate(app, db)
+
+    #migrate = Migrate(app, db)
     from . import auth
     app.register_blueprint(auth.bp)
     from . import main_page
