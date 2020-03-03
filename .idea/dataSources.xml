@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:D:\Software\PycharmPro\Workspace\M11TcsDesignProject\app\app.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="app [2]" uuid="55b97ea5-b7e6-4a14-b009-88da50632938">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\Software\PycharmPro\Workspace\M11TcsDesignProject\app.db</jdbc-url>
+    </data-source>
   </component>
 </project>

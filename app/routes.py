@@ -8,10 +8,22 @@ from app.forms import RegistrationForm
 from app.models.User import User
 
 
+@app.route('/hello')
+def hello():
+    return "Hello, World!"
+
+
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    return "Homepage"
+
+
+@app.route('/login')
+def login():
+    # return "Homepage"
+    return render_template('login.html', title='Home')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -26,3 +38,16 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+'''
+Feature 01: login
+'''
+
+'''
+Feature 02: register
+-- 1. Show register page from login page
+-- 2. Click submit send form to back-end
+-- 3. Back end store the data into DB
+-- 4. If success, redirect to homepage
+-- 5. If fail, show error_info
+'''
