@@ -1,8 +1,10 @@
 <html>
     <head>
-        <title>{{ title }} - Microblog</title>
+        <title> Microblog</title>
     </head>
     <body>
-        <h1>Hello, {{ user.username }}!</h1>
+       {% block content %}
+            <h1>Hi, {{ current_user.uname }}!</h1>
+       {% endblock %}
     </body>
 </html>

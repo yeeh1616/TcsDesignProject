@@ -2,9 +2,11 @@ import datetime
 
 from flask import current_app
 from flask_login import UserMixin
+
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
+#from app.__init__ import db
 
 # with current_app.app_context():
 #     db = SQLAlchemy(current_app)
@@ -31,7 +33,7 @@ class User(UserMixin, db.Model):
     def serialize(self):
         return {"id": self.id,
                 "uname": self.uname,
-                "password": self.password,
+                "password": self. password_hash,
                 "email" : self.email,
                 "phone": self.phone,
                 "confirmed": self.confirmed,
@@ -166,12 +168,14 @@ def create_all_table():
 
 def get_user_by_name(uname):
     user = User.query.filter_by(uname=uname).first()
-    return user.serialize()
+    if user is None:
+        return None
+    else:
+        return user.serialize()
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+
+
 
 
 def add_a_user(uname, password, email, phone, confirmed, confirmed_on):
@@ -189,10 +193,14 @@ def add_a_user_by_enity(user):
 
 def delete_a_user(uname):
     # Maybe try this
-    # user = User.query.filter_by(uname=uname).first()
-    # db.session.delete(user)
-    User.query.filter_by(uname=uname).delete()
-    db.session.commit()
+    user = User.query.filter_by(uname=uname).first()
+    if user is not None:
+        print(user.serialize())
+        db.session.delete(user)
+        db.session.commit()
+
+    # User.query.filter_by(uname=uname).delete()
+    # db.session.commit()
 
 
 def confirm_a_user_by_email(email):
