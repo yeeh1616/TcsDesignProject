@@ -1,18 +1,20 @@
 import datetime
 
 from flask import current_app
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.__init__ import db
+from app.__init__ import db, login_manager
 
 # with current_app.app_context():
 #     db = SQLAlchemy(current_app)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     uname = db.Column(db.String(80), unique=True)
-    password = db.Column(db.String(80))
+    password_hash = db.Column(db.String(80))
     email = db.Column(db.String(80), unique=True)
     phone = db.Column(db.String(20), unique=True)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
@@ -20,7 +22,7 @@ class User(db.Model):
 
     def __init__(self, uname,password,email,phone = None, confirmed=False,confirmed_on = None ):
         self.uname = uname
-        self.password = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
         self.email = email
         self.phone = phone
         self.confirmed = confirmed
@@ -34,6 +36,12 @@ class User(db.Model):
                 "phone": self.phone,
                 "confirmed": self.confirmed,
                 "confirmed_on" : self.confirmed_on}
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
 class Manager(db.Model):
@@ -161,8 +169,19 @@ def get_user_by_name(uname):
     return user.serialize()
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 def add_a_user(uname, password, email, phone, confirmed, confirmed_on):
     user = User(uname, password, email, phone, confirmed, confirmed_on)
+    db.session.add(user)
+    db.session.commit()
+    return user.serialize()
+
+
+def add_a_user_by_enity(user):
     db.session.add(user)
     db.session.commit()
     return user.serialize()
