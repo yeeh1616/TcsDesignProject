@@ -2,6 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import login_required,current_user
+from app.decorators import check_confirmed
 from app import models
 bp = Blueprint('main', __name__,template_folder = 'templates')
 
@@ -14,6 +15,7 @@ def test():
 
 @bp.route('/mpage')
 @login_required
+@check_confirmed
 def mpage():
     print(current_user.uname)
     return render_template('index.html')

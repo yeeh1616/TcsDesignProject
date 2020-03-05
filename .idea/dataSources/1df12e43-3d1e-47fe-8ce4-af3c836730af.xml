@@ -1,14 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="project_database">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.17">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.14">
     <root id="1">
       <ServerVersion>3.25.1</ServerVersion>
     </root>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
+      <Visible>1</Visible>
     </schema>
     <collation id="3" parent="1" name="BINARY"/>
     <collation id="4" parent="1" name="NOCASE"/>
     <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="course"/>
+    <table id="7" parent="2" name="house"/>
+    <table id="8" parent="2" name="house_keeper"/>
+    <table id="9" parent="2" name="manager"/>
+    <table id="10" parent="2" name="module"/>
+    <table id="11" parent="2" name="request"/>
+    <table id="12" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="13" parent="2" name="student"/>
+    <table id="14" parent="2" name="users"/>
+    <column id="15" parent="6" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="6" name="name">
+      <Position>2</Position>
+      <DataType>VARCHAR(80)|0s</DataType>
+    </column>
+    <column id="17" parent="6" name="description">
+      <Position>3</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <column id="18" parent="6" name="module">
+      <Position>4</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <index id="19" parent="6" name="sqlite_autoindex_course_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="20" parent="6">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="21" parent="6">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_course_1</UnderlyingIndexName>
+    </key>
+    <column id="22" parent="7" name="house_id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="23" parent="7" name="house_keeper">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="24" parent="7" name="module">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="25" parent="7" name="color">
+      <Position>4</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <key id="26" parent="7">
+      <ColNames>house_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="27" parent="8" name="user_id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="8" name="module_id">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="29" parent="8" name="course_id">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <key id="30" parent="8">
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="31" parent="9" name="user_id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="32" parent="9">
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>VARCHAR(80)|0s</DataType>
+    </column>
+    <column id="35" parent="10" name="description">
+      <Position>3</Position>
+      <DataType>VARCHAR|0s</DataType>
+    </column>
+    <index id="36" parent="10" name="sqlite_autoindex_module_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="37" parent="10">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="38" parent="10">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_module_1</UnderlyingIndexName>
+    </key>
+    <column id="39" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="40" parent="11" name="owner_id">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="41" parent="11" name="module_id">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="42" parent="11" name="content">
+      <Position>4</Position>
+      <DataType>VARCHAR|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="11" name="status">
+      <Position>5</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="11" name="sqlite_autoindex_request_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>owner_id</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="45" parent="11">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="46" parent="11">
+      <ColNames>owner_id</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_request_1</UnderlyingIndexName>
+    </key>
+    <column id="47" parent="12" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="48" parent="12" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="49" parent="12" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="50" parent="12" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="51" parent="12" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="52" parent="13" name="user_id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="53" parent="13" name="house_id">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="54" parent="13" name="module_id">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <key id="55" parent="13">
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="56" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="14" name="uname">
+      <Position>2</Position>
+      <DataType>VARCHAR(80)|0s</DataType>
+    </column>
+    <column id="58" parent="14" name="password_hash">
+      <Position>3</Position>
+      <DataType>VARCHAR(80)|0s</DataType>
+    </column>
+    <column id="59" parent="14" name="email">
+      <Position>4</Position>
+      <DataType>VARCHAR(80)|0s</DataType>
+    </column>
+    <column id="60" parent="14" name="phone">
+      <Position>5</Position>
+      <DataType>VARCHAR(20)|0s</DataType>
+    </column>
+    <column id="61" parent="14" name="confirmed">
+      <Position>6</Position>
+      <DataType>BOOLEAN|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="14" name="confirmed_on">
+      <Position>7</Position>
+      <DataType>DATETIME|0s</DataType>
+    </column>
+    <index id="63" parent="14" name="sqlite_autoindex_users_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>uname</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="64" parent="14" name="sqlite_autoindex_users_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>email</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="65" parent="14" name="sqlite_autoindex_users_3">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>phone</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="66" parent="14">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="67" parent="14">
+      <ColNames>uname</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_users_1</UnderlyingIndexName>
+    </key>
+    <key id="68" parent="14">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_users_2</UnderlyingIndexName>
+    </key>
+    <key id="69" parent="14">
+      <ColNames>phone</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_users_3</UnderlyingIndexName>
+    </key>
+    <check id="70" parent="14">
+      <Predicate>confirmed IN (0, 1)</Predicate>
+    </check>
   </database-model>
 </dataSource>

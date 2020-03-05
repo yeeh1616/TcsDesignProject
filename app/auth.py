@@ -45,8 +45,8 @@ def login():
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-    models.delete_a_user('dfsdfsdfa')
-    models.delete_a_user('s1956124')
+    # models.delete_a_user('dfsdfsdfa')
+    # models.delete_a_user('s1956124')
     if current_user.is_authenticated:
         return redirect(url_for('main.mpage'))
     form = RegistrationForm()
@@ -66,7 +66,7 @@ def register():
         # db.session.add(user)
         # db.session.commit()
         flash('Congratulations, you are now a registered user! Please confirm your email first')
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.unconfirmed'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -83,16 +83,36 @@ def confirm_email(token):
     except:
         flash('The confirmation link is invalid or has expired.', 'danger')
     user =  User.query.filter_by(email=email).first_or_404()
+    print('confirm')
+    print(user.serialize())
     if user.confirmed:
         flash('Account already confirmed. Please login.', 'success')
     else:
         user.confirmed = True
         user.confirmed_on = datetime.datetime.now()
         #db.session.add(user)
+        db.session.merge(user)
         db.session.commit()
-        user = User.query.filter_by(email=email).first_or_404()
+        # user = User.query.filter_by(email=email).first_or_404()
         print('check')
-        print(user.confirmed)
-        print(user.confirmed_on)
+        print(current_user.uname)
+        print(current_user.confirmed)
+        print(current_user.confirmed_on)
         flash('You have confirmed your account. Thanks!', 'success')
     return redirect(url_for('main.mpage'))
+
+@bp.route('/unconfirmed')
+@login_required
+def unconfirmed():
+    print('check3')
+    user = User.query.filter_by(uname=current_user.uname).first_or_404()
+    print(user.serialize())
+    # print(current_user.uname)
+    # print(current_user.confirmed)
+    # print(current_user.confirmed_on)
+    if current_user.confirmed:
+        return redirect('main.mpage')
+    flash('Please confirm your account!', 'warning')
+    return render_template('unconfirmed.html')
+
+

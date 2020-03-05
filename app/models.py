@@ -195,7 +195,7 @@ def delete_a_user(uname):
     # Maybe try this
     user = User.query.filter_by(uname=uname).first()
     if user is not None:
-        print(user.serialize())
+        #print(user.serialize())
         db.session.delete(user)
         db.session.commit()
 

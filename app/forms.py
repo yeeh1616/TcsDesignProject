@@ -22,9 +22,9 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(uname=username.data).first()
         if user is not None:
-            # print(user.serialize())
-            # delete_a_user(username.data)
-            raise ValidationError('Please use a different username.')
+            print(user.serialize())
+            delete_a_user(username.data)
+            #raise ValidationError('Please use a different username.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
