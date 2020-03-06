@@ -10,7 +10,7 @@ from app.token import generate_confirmation_token, confirm_token
 import datetime
 from app.email import send_email
 
-bp = Blueprint('auth', __name__,template_folder = 'templates/auth')
+bp = Blueprint('auth', __name__,template_folder = 'templates/account')
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -67,7 +67,7 @@ def register():
         # db.session.commit()
         flash('Congratulations, you are now a registered user! Please confirm your email first')
         return redirect(url_for('auth.unconfirmed'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('signup.html', title='Register', form=form)
 
 
 @bp.route('/logout')
