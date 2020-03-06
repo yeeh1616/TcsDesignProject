@@ -47,14 +47,19 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="project_database" uuid="1df12e43-3d1e-47fe-8ce4-af3c836730af">
+    <data-source source="LOCAL" name="app [5]" uuid="71ed9110-4968-40e1-8d4c-bec5ea966cce">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../TcsDesignProject\project_database</jdbc-url>
-      <driver-properties>
-        <property name="enable_load_extension" value="true" />
-      </driver-properties>
+      <jdbc-url>jdbc:sqlite:C:\Users\Yan\PycharmProjects\TcsDesignProject\app.db</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.25.1/license.txt</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.25.1/sqlite-jdbc-3.25.1.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>
