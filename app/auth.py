@@ -1,4 +1,4 @@
-from app import models, main_page,db
+from app import models, homepage,db
 from app.forms import RegistrationForm, LoginForm
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
