@@ -36,9 +36,12 @@ def create_app(test_config=None):
 
     from . import auth
     app.register_blueprint(auth.bp, url_prefix='/auth')
-    from . import main_page
-    app.register_blueprint(main_page.bp)
-
+    # from . import module
+    # app.register_blueprint(module.bp)
+    from . import homepage
+    app.register_blueprint(homepage.bp)
+    from . import module_info
+    app.register_blueprint(module_info.bp, url_prefix='/module')
     print('Fuck 05')
 
     return app

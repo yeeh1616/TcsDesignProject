@@ -5,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Philosophy</title>
+    <title>Gallery Post Format - Philosophy</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -15,19 +15,20 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="../../static/home/css/base.css">
-    <link rel="stylesheet" href="../../static/home/css/vendor.css">
-    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/module/css/base.css">
+    <link rel="stylesheet" href="../../static/module/css/vendor.css">
+    <link rel="stylesheet" href="../../static/module/css/main.css">
+    <link rel="stylesheet" href="../../static/module/css/news.css">
 
     <!-- script
     ================================================== -->
-    <script src="../../static/home/js/modernizr.js"></script>
-    <script src="../../static/home/js/pace.min.js"></script>
+    <script src="../../static/module/js/modernizr.js"></script>
+    <script src="../../static/module/js/pace.min.js"></script>
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="../../static/home/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../../static/home/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -35,14 +36,14 @@
 
     <!-- pageheader
     ================================================== -->
-    <section class="s-pageheader s-pageheader--home">
+    <div class="s-pageheader">
 
         <header class="header">
             <div class="header__content row">
 
                 <div class="header__logo">
                     <a class="logo" href="index.html">
-                        <img src="../../static/home/images/logo.svg" alt="Homepage">
+                        <img src="../../static/module/images/logo.svg" alt="Homepage">
                     </a>
                 </div> <!-- end header__logo -->
 
@@ -85,7 +86,7 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
-                        <li class="current"><a href="index.html" title="">Home</a></li>
+                        <li><a href="index.html" title="">Home</a></li>
                         <li class="has-children">
                             <a href="#0" title="">Categories</a>
                             <ul class="sub-menu">
@@ -97,7 +98,7 @@
                             <li><a href="category.html">Work</a></li>
                             </ul>
                         </li>
-                        <li class="has-children">
+                        <li class="has-children current">
                             <a href="#0" title="">Blog</a>
                             <ul class="sub-menu">
                             <li><a href="single-video.html">Video Post</a></li>
@@ -118,158 +119,122 @@
             </div> <!-- header-content -->
         </header> <!-- header -->
 
-
-        <div class="pageheader-content row">
-            <div class="col-full">
-
-                <div class="featured">
-
-                    <div class="featured__column featured__column--big">
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-guitarman.jpg');">
-                            
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Music</a></span>
-
-                                <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 29, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-                            
-                        </div> <!-- end entry -->
-                    </div> <!-- end featured__big -->
-
-                    <div class="featured__column featured__column--small">
-
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-watch.jpg');">
-                            
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Management</a></span>
-
-                                <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 27, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-                          
-                        </div> <!-- end entry -->
-
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-beetle.jpg');">
-
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
-
-                                <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 21, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-
-                        </div> <!-- end entry -->
-
-                    </div> <!-- end featured__small -->
-                </div> <!-- end featured -->
-
-            </div> <!-- end col-full -->
-        </div> <!-- end pageheader-content row -->
-
-    </section> <!-- end s-pageheader -->
+    </div> <!-- end s-pageheader -->
 
 
     <!-- s-content
     ================================================== -->
-    <section class="s-content">
-        
-        <div class="row masonry-wrap">
-            <div class="masonry">
+    <section class="s-content s-content--narrow s-content--no-padding-bottom">
+        <article class="row format-gallery">
+            <form action="save" method="post" novalidate>
+                <div style="text-align:center; padding-bottom: 40px">
+                    <button type="submit" class="submit btn--primary btn--large medium-width">Done</button>
+                </div>
 
-                <div class="grid-sizer"></div>
-                    <script>
-                        function selectModule(id)
-                        {
-                            window.location.href="module/info?id="+id;
-                        }
-                    </script>
-                    {% for module in moduleList %}
-                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                <input type="hidden" id="id" name="id" value="{{ module.id }}">
 
-                            <div class="entry__thumb">
-{#                                <form action="module" method="post">#}
-                                    <a href="javascript:" onclick="selectModule({{module.id}})" class="entry__thumb-link">
-                                        <img src="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg"
-                                                srcset="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ module.img }}-800.jpg 2x" alt="">
-                                    </a>
-{#                                    <input type="hidden" id="id" name="id" value="{{ module.id }}">#}
-{#                                </form>#}
+                <div class="form-field">
+				    <input name="name" type="text" id="name" class="full-width" placeholder="Course Name" value="{{ module.name }}">
+                </div>
+
+                <div class="message form-field">
+                    <textarea name="description" id="description" class="full-width" placeholder="Course Information" value="{{ module.description }}">{{ module.description }}</textarea>
+                </div>
+            </form>
+
+            <div class="col-full s-content__main">
+
+              
+                <div class="s-content__author">
+                    <img src="../../static/module/images/avatars/user-03.jpg" alt="">
+
+                    <div class="s-content__author-about">
+                        <h4 class="s-content__author-name">
+                            <a href="#0">Module coordinator</a>
+                        </h4>
+                    
+                        <p>Contact information.
+                        </p>
+
+                        <ul class="s-content__author-social">
+                           <li><a href="#0">Facebook</a></li>
+                           <li><a href="#0">Twitter</a></li>
+                           <li><a href="#0">GooglePlus</a></li>
+                           <li><a href="#0">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div> <!-- end s-content__main -->
+
+        </article>
+
+        <!-- comments
+        ================================================== -->
+        <div class="comments-wrap">
+
+            <div id="comments" class="row">
+                <div class="col-full">
+
+                    <h3 class="h2">1 Comments</h3>
+					<div style="font-size:24px" class="rating">
+						<span  class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star checked"></span>
+						<span class="fa fa-star"></span>
+						4
+					</div>
+
+                    <!-- commentlist -->
+                    <ol class="commentlist">
+
+                        
+                        <li class="depth-1 comment">
+
+                            <div class="comment__avatar">
+                                <img width="50" height="50" class="avatar" src="../../static/module/images/avatars/user-02.jpg" alt="">
                             </div>
 
-                            <div class="entry__text">
-                                <div class="entry__header">
+                            <div class="comment__content">
 
-                                    <div class="entry__date">
-                                        <a href="single-standard.html">December 15, 2017</a>
-                                    </div>
-                                    <h1 class="entry__title"><a href="single-standard.html"> {{ module.name }} </a></h1>
+                                <div class="comment__info">
+                                <cite>Shikamaru Nara</cite>
+                                <div class="comment__meta">
+                                    <time class="comment-time">Dec 16, 2017 @ 25:15</time>
+                                </div>
+                                </div>
+								<div class="rating">
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star checked"></span>
+									<span class="fa fa-star"></span>
+								</div>
+									
+                                <div class="comment__text">
+                                <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
+								<i style="font-size:24px" class="fa">&#xf087;</i>
+								10
+								<i style="font-size:24px" class="fa">&#xf0e5;</i>
+									
+                                </div>
 
-                                </div>
-                                <div class="entry__excerpt">
-                                    <p>
-                                        {{ module.description }}
-                                    </p>
-                                </div>
-                                <div class="entry__meta">
-                                    <span class="entry__meta-links">
-                                        <a href="category.html">Design</a>
-                                        <a href="category.html">Photography</a>
-                                    </span>
-                                </div>
                             </div>
-                        </article> <!-- end article -->
-                    {% endfor %}
-            </div> <!-- end masonry -->
-        </div> <!-- end masonry-wrap -->
+					
 
-        <div class="row">
-            <div class="col-full">
-                <nav class="pgn">
-                    <ul>
-                        <li><a class="pgn__prev" href="#0">Prev</a></li>
-                        <li><a class="pgn__num" href="#0">1</a></li>
-                        <li><span class="pgn__num current">2</span></li>
-                        <li><a class="pgn__num" href="#0">3</a></li>
-                        <li><a class="pgn__num" href="#0">4</a></li>
-                        <li><a class="pgn__num" href="#0">5</a></li>
-                        <li><span class="pgn__num dots">…</span></li>
-                        <li><a class="pgn__num" href="#0">8</a></li>
-                        <li><a class="pgn__next" href="#0">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                        </li>  <!-- end comment level 1 -->
+
+                    </ol> <!-- end commentlist -->
+
+
+                    
+
+                </div> <!-- end col-full -->
+
+            </div> <!-- end row comments -->
+        </div> <!-- end comments-wrap -->
 
     </section> <!-- s-content -->
 
@@ -286,7 +251,7 @@
                 <div class="block-1-2 block-m-full popular__posts">
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="../../static/home/images/thumbs/small/wheel-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/wheel-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
                         <section class="popular__meta">
@@ -296,7 +261,7 @@
                     </article>
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="images/thumbs/small/shutterbug-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/shutterbug-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
                         <section class="popular__meta">
@@ -306,7 +271,7 @@
                     </article>
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="../../static/home/images/thumbs/small/cookies-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/cookies-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
                         <section class="popular__meta">
@@ -316,7 +281,7 @@
                     </article>
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="../../static/home/images/thumbs/small/beetle-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/beetle-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
                         <section class="popular__meta">
@@ -326,7 +291,7 @@
                     </article>
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="../../static/home/images/thumbs/small/tulips-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/tulips-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">10 Interesting Facts About Caffeine.</a></h5>
                         <section class="popular__meta">
@@ -336,7 +301,127 @@
                     </article>
                     <article class="col-block popular__post">
                         <a href="#0" class="popular__thumb">
-                            <img src="../../static/home/images/thumbs/small/salad-150.jpg" alt="">
+                            <img src="../../static/module/images/thumbs/small/salad-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Healthy Mediterranean Salad Recipes</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-12">Dec 12, 2017</time></span>
+                        </section>
+                    </article>
+                </div> <!-- end popular_posts -->
+            </div> <!-- end popular -->
+            
+            <div class="col-four md-six tab-full about">
+                <h3>About Philosophy</h3>
+
+                <p>
+                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+                </p>
+
+                <ul class="about__social">
+                    <li>
+                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </li>
+                    <li>
+                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                    </li>
+                </ul> <!-- end header__social -->
+            </div> <!-- end about -->
+
+        </div> <!-- end row -->
+
+        <div class="row bottom tags-wrap">
+            <div class="col-full tags">
+                <h3>Tags</h3>
+
+                <div class="tagcloud">
+                    <a href="#0">Salad</a>
+                    <a href="#0">Recipe</a>
+                    <a href="#0">Places</a>
+                    <a href="#0">Tips</a>
+                    <a href="#0">Friends</a>
+                    <a href="#0">Travel</a>
+                    <a href="#0">Exercise</a>
+                    <a href="#0">Reading</a>
+                    <a href="#0">Running</a>
+                    <a href="#0">Self-Help</a>
+                    <a href="#0">Vacation</a>
+                </div> <!-- end tagcloud -->
+            </div> <!-- end tags -->
+        </div> <!-- end tags-wrap -->
+
+    </section> <!-- end s-extra -->
+
+    <!-- s-extra
+    ================================================== -->
+    <section class="s-extra">
+
+        <div class="row top">
+
+            <div class="col-eight md-six tab-full popular">
+                <h3>Popular Posts</h3>
+
+                <div class="block-1-2 block-m-full popular__posts">
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/wheel-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
+                        <section class="popular__meta">
+                                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-19">Dec 19, 2017</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/shutterbug-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-18">Dec 18, 2017</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/cookies-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
+                        <section class="popular__meta">
+                                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/beetle-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/tulips-150.jpg" alt="">
+                        </a>
+                        <h5><a href="#0">10 Interesting Facts About Caffeine.</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2017-12-14">Dec 14, 2017</time></span>
+                        </section>
+                    </article>
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="../../static/module/images/thumbs/small/salad-150.jpg" alt="">
                         </a>
                         <h5><a href="#0">Healthy Mediterranean Salad Recipes</a></h5>
                         <section class="popular__meta">
@@ -505,9 +590,9 @@
 
     <!-- Java Script
     ================================================== -->
-    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
-    <script src="../../static/home/js/plugins.js"></script>
-    <script src="../../static/home/js/main.js"></script>
+    <script src="../../static/module/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/module/js/plugins.js"></script>
+    <script src="../../static/module/js/main.js"></script>
 
 </body>
 

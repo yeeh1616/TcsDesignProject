@@ -4,6 +4,8 @@ from flask import (
 from flask_login import login_required,current_user
 from app.decorators import check_confirmed
 from app import models
+from app.models import Module
+
 bp = Blueprint('main', __name__,template_folder = 'templates')
 
 
@@ -13,12 +15,14 @@ def test():
     return "Hello, test!"
 
 
-@bp.route('/mpage')
-@login_required
-@check_confirmed
-def mpage():
-    print(current_user.uname)
-    return render_template('index.html')
+@bp.route('/home')
+# @login_required
+# @check_confirmed
+def home():
+    # print(current_user.uname)
+    user_id = '1'
+    moduleList = Module.query.filter_by(owner_id=user_id).all()
+    return render_template('index.html', moduleList=moduleList)
 
 
 @bp.route('/hello')
@@ -27,3 +31,4 @@ def hello():
     # models.add_a_user("yeye2","bbb","bbb","bbb", False, None)
     print(models.get_user_by_name("yeye2"))
     return "Hello, World!"
+
