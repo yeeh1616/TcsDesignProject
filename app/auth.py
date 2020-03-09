@@ -30,7 +30,7 @@ def test2():
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.mpage'))
+        return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(uname=form.username.data).first()
@@ -38,7 +38,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('main.mpage'))
+        return redirect(url_for('main.home'))
     return render_template('login.html', title='Sign In', form=form)
     # return 'Wo ni ma'
 
@@ -48,7 +48,7 @@ def register():
     # models.delete_a_user('dfsdfsdfa')
     # models.delete_a_user('s1956124')
     if current_user.is_authenticated:
-        return redirect(url_for('main.mpage'))
+        return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(form.username.data,form.password.data,form.email.data,None,False,None)
@@ -99,7 +99,7 @@ def confirm_email(token):
         print(current_user.confirmed)
         print(current_user.confirmed_on)
         flash('You have confirmed your account. Thanks!', 'success')
-    return redirect(url_for('main.mpage'))
+    return redirect(url_for('main.home'))
 
 @bp.route('/unconfirmed')
 @login_required
@@ -111,7 +111,7 @@ def unconfirmed():
     # print(current_user.confirmed)
     # print(current_user.confirmed_on)
     if current_user.confirmed:
-        return redirect('main.mpage')
+        return redirect('main.home')
     flash('Please confirm your account!', 'warning')
     return render_template('unconfirmed.html')
 

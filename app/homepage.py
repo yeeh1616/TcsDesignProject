@@ -19,8 +19,7 @@ def test():
 # @login_required
 # @check_confirmed
 def home():
-    user_id = current_user.id
-    moduleList = Module.query.filter_by(owner_id=user_id).all()
+    moduleList = Module.query.filter_by(owner_id=current_user.id).all()
     return render_template('index.html', moduleList=moduleList)
 
 
