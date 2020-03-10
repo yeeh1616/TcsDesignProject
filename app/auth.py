@@ -40,7 +40,6 @@ def login():
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('main.home'))
     return render_template('login.html', title='Sign In', form=form)
-    # return 'Wo ni ma'
 
 
 @bp.route('/register', methods=['GET', 'POST'])
