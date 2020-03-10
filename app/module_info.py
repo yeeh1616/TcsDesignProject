@@ -55,10 +55,10 @@ def edit():
 @login_required
 @check_confirmed
 def save():
-    moduleInfoForm = ModuleInfoForm()
-    module_id = moduleInfoForm.id.data
-    module_name = moduleInfoForm.name.data
-    module_desc = moduleInfoForm.description.data
+    form = ModuleInfoForm()
+    module_id = form.id.data
+    module_name = form.name.data
+    module_desc = form.description.data
     module = Module(module_id, module_name, module_desc, None)
     # if moduleInfoForm.validate_on_submit():
     if Module.update_a_module_by_enity(module):
