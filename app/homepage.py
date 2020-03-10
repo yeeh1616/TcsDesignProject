@@ -16,8 +16,8 @@ def test():
 
 
 @bp.route('/home')
-# @login_required
-# @check_confirmed
+@login_required
+@check_confirmed
 def home():
     moduleList = Module.query.filter_by(owner_id=current_user.id).all()
     return render_template('index.html', moduleList=moduleList)
