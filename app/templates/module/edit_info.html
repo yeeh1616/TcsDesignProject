@@ -126,12 +126,10 @@
     ================================================== -->
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
         <article class="row format-gallery">
-            <form action="save" method="post" novalidate>
+            <form action="save" method="post">
                 <div style="text-align:center; padding-bottom: 40px">
-                    <button type="submit" class="submit btn--primary btn--large medium-width">Done</button>
+                    <button type="submit" class="submit btn--primary btn--large medium-width">Save</button>
                 </div>
-
-                <input type="hidden" id="id" name="id" value="{{ module.id }}">
 
                 <div class="form-field">
 				    <input name="name" type="text" id="name" class="full-width" placeholder="Course Name" value="{{ module.name }}">

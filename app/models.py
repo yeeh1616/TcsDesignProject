@@ -171,14 +171,14 @@ class Comment(db.Model):
     owner_id = db.Column(db.Integer, unique=True)
     module_id = db.Column(db.Integer)
     content = db.Column(db.String, nullable=False)
-    stars = db.Column(db.Integer)
+    star = db.Column(db.Integer)
     status = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, owner_id, module_id, content, stars, status):
+    def __init__(self, owner_id, module_id, content, star, status):
         self.owner_id = owner_id
         self.module_id = module_id
         self.content = content
-        self.stars = stars
+        self.star = star
         self.status = status
 
     def serialize(self):
@@ -186,7 +186,7 @@ class Comment(db.Model):
                 "owner_id": self.owner_id,
                 "module_id": self.module_id,
                 "content": self.content,
-                "stars": self.stars,
+                "star": self.star,
                 "status": self.status}
 
 # database methods
@@ -243,7 +243,7 @@ def confirm_a_user_by_email(email):
 
 
 def get_avg_stars(module_id):
-    avg_star = db.session.query(func.avg(Comment.stars).label('avg_star')).filter(Comment.module_id == module_id).first()
+    avg_star = db.session.query(func.avg(Comment.star).label('avg_star')).filter(Comment.module_id == module_id).first()
     db.session.commit()
     if avg_star.avg_star is None:
         return 0

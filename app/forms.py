@@ -33,12 +33,10 @@ class RegistrationForm(FlaskForm):
 
 
 class ModuleInfoForm(FlaskForm):
-    id = StringField('Id', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
 
 
 class CommentForm(FlaskForm):
-    # stars = StringField('Stars', validators=[DataRequired()])
-    # module_id = StringField('ModuleId', validators=[DataRequired()])
+    star = StringField('Star', validators=[DataRequired()])
     comment = StringField('Comment', validators=[DataRequired()])

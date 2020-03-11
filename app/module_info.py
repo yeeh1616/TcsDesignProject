@@ -37,7 +37,7 @@ def info():
     user_id = current_user.id
     module = Module.query.filter_by(id=module_id).first()
     user = User.query.filter_by(id=user_id).first()
-    comment_list = db.session.query(User.id, User.uname, User.img, Comment.content, Comment.module_id).filter(Comment.owner_id == User.id).filter(Comment.module_id==module_id).all()
+    comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
     return render_template('module_info.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
 
@@ -46,8 +46,7 @@ def info():
 @login_required
 @check_confirmed
 def edit():
-    form = ModuleInfoForm()
-    module = Module.query.filter_by(id=form.id.data).first()
+    module = Module.query.filter_by(id=session.get('moduleId')).first()
     return render_template('edit_info.html', module=module)
 
 
@@ -56,15 +55,15 @@ def edit():
 @check_confirmed
 def save():
     form = ModuleInfoForm()
-    module_id = form.id.data
+    module_id = session.get('moduleId')
     module_name = form.name.data
     module_desc = form.description.data
     module = Module(module_id, module_name, module_desc, None)
-    # if moduleInfoForm.validate_on_submit():
+    # if form.validate_on_submit():
     if Module.update_a_module_by_enity(module):
         return redirect(url_for('module_info.info', id=module_id))
     else:
-        return 'save module info error ..........'
+        return 'Save module info error ..........'
 
 
 @bp.route('/comment', methods=['GET', 'POST'])
@@ -73,7 +72,9 @@ def save():
 def comment():
     owner_id = current_user.id
     module_id = session.get('moduleId')
-    content = CommentForm().comment.data
-    comment = Comment(owner_id, module_id, content, 0, 0)
+    form = CommentForm()
+    star = form.star.data
+    content = form.comment.data
+    comment = Comment(owner_id, module_id, content, star, 0)
     add_comment_by_entity(comment)
     return redirect(url_for('module_info.info', id=module_id))
