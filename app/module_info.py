@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import (
     Blueprint, flash, redirect, render_template, url_for,
     session, request)
@@ -37,7 +39,7 @@ def info():
     user_id = current_user.id
     module = Module.query.filter_by(id=module_id).first()
     user = User.query.filter_by(id=user_id).first()
-    comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
+    comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star, Comment.date).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
     return render_template('module_info.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
 
@@ -70,11 +72,12 @@ def save():
 @login_required
 @check_confirmed
 def comment():
+    today = date.today()
     owner_id = current_user.id
     module_id = session.get('moduleId')
     form = CommentForm()
     star = form.star.data
     content = form.comment.data
-    comment = Comment(owner_id, module_id, content, star, 0)
+    comment = Comment(owner_id, module_id, content, star, 0, today)
     add_comment_by_entity(comment)
     return redirect(url_for('module_info.info', id=module_id))

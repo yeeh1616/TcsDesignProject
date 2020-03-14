@@ -173,13 +173,15 @@ class Comment(db.Model):
     content = db.Column(db.String, nullable=False)
     star = db.Column(db.Integer)
     status = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.String, nullable=False)
 
-    def __init__(self, owner_id, module_id, content, star, status):
+    def __init__(self, owner_id, module_id, content, star, status, date):
         self.owner_id = owner_id
         self.module_id = module_id
         self.content = content
         self.star = star
         self.status = status
+        self.date = date
 
     def serialize(self):
         return {"id": self.id,
@@ -187,7 +189,8 @@ class Comment(db.Model):
                 "module_id": self.module_id,
                 "content": self.content,
                 "star": self.star,
-                "status": self.status}
+                "status": self.status,
+                "date": self.date}
 
 # database methods
 
@@ -202,10 +205,6 @@ def get_user_by_name(uname):
         return None
     else:
         return user.serialize()
-
-
-
-
 
 
 def add_a_user(uname, password, email, phone, confirmed, confirmed_on):

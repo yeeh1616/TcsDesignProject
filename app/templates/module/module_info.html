@@ -212,10 +212,10 @@
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                         {% else %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
                         {% endif %}
 						{{ avgStar }}
@@ -236,7 +236,7 @@
                                     <cite>{{ comment.uname }}</cite>
 
                                     <div class="comment__meta">
-                                        <time class="comment-time">Dec 16, 2017 @ 25:15</time>
+                                        <time class="comment-time">{{ comment.date }}</time>
                                     </div>
                                     </div>
                                     {% if comment.star == 1 %}
