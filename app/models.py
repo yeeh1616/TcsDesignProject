@@ -21,15 +21,17 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(80), unique=True)
     phone = db.Column(db.String(20), unique=True)
     img = db.Column(db.String(80))
+    title = db.Column(db.Integer)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, uname, password, email, phone = None, img = None, confirmed=False,confirmed_on = None ):
+    def __init__(self, uname, password, email, phone = None, img = None, title = None , confirmed=False,confirmed_on = None ):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
         self.email = email
         self.phone = phone
         self.img = img
+        self.title = title
         self.confirmed = confirmed
         self.confirmed_on = confirmed_on
 
@@ -40,6 +42,7 @@ class User(UserMixin, db.Model):
                 "email" : self.email,
                 "phone": self.phone,
                 "img": self.img,
+                "title": self.title,
                 "confirmed": self.confirmed,
                 "confirmed_on" : self.confirmed_on}
 

@@ -2,6 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 app = None
 db = SQLAlchemy()
@@ -32,6 +33,8 @@ def create_app(test_config=None):
     app.register_blueprint(homepage.bp)
     from . import module_info
     app.register_blueprint(module_info.bp, url_prefix='/module')
+    from app.models import db
+    migrate = Migrate(app, db, render_as_batch=True)
 
     return app
 
