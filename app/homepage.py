@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import login_required,current_user
-from app.decorators import check_confirmed
+from app.decorators import check_confirmed, check_assigned_house
 from app import models
 from app.models import Module
 
@@ -18,6 +18,7 @@ def test():
 @bp.route('/home')
 @login_required
 @check_confirmed
+@check_assigned_house
 def home():
     moduleList = Module.query.filter_by(owner_id=current_user.id).all()
     return render_template('index.html', moduleList=moduleList)

@@ -2,7 +2,6 @@ import datetime
 
 from flask import current_app
 from flask_login import UserMixin
-
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -11,6 +10,11 @@ from app.__init__ import db, login_manager
 
 # with current_app.app_context():
 #     db = SQLAlchemy(current_app)
+STUDENT = 0
+TEACHER_WITH_NO_HOUSE = 1
+HOUSEKEEPER = 2
+COORDINATOR = 3
+MANAGER = 4
 
 
 class User(UserMixin, db.Model):

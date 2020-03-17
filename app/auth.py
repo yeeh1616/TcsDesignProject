@@ -5,7 +5,7 @@ from flask import (
 )
 from flask_login import current_user, login_user, logout_user, login_required
 from app import login_manager
-from app.models import User
+from app.models import User, STUDENT, TEACHER_WITH_NO_HOUSE, HOUSEKEEPER, COORDINATOR, add_a_user_by_enity
 from app.token import generate_confirmation_token, confirm_token
 import datetime
 from app.email import send_email
@@ -50,10 +50,22 @@ def register():
         return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(form.username.data,form.password.data,form.email.data,None,False,None)
-        db.session.add(user)
-        db.session.commit()
-        print(user.email)
+        email = form.email.data
+        email_split = email.split("@")
+        user = None
+        if email_split[1].startswith('student'):
+            user = User(form.username.data,form.password.data, email, None, None,
+                        title=STUDENT, confirmed=False, confirmed_on=None)
+            print("student")
+        else:
+            user = User(form.username.data, form.password.data, email, None, None,
+                        title=TEACHER_WITH_NO_HOUSE, confirmed=False, confirmed_on=None)
+            print("teacher")
+        add_a_user_by_enity(user)
+        # db.session.add(user)
+        # db.session.commit()
+        print("register")
+        print(user.serialize())
         login_user(user)
         token = generate_confirmation_token(user.email)
         confirm_url = url_for('auth.confirm_email', token=token, _external=True)
@@ -73,6 +85,7 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
 
 @bp.route('/confirm/<token>')
 @login_required
@@ -100,6 +113,7 @@ def confirm_email(token):
         flash('You have confirmed your account. Thanks!', 'success')
     return redirect(url_for('main.home'))
 
+
 @bp.route('/unconfirmed')
 @login_required
 def unconfirmed():
@@ -125,3 +139,18 @@ def resend_confirmation():
     send_email(current_user.email, subject, html)
     flash('A new confirmation email has been sent.', 'success')
     return redirect(url_for('auth.unconfirmed'))
+
+
+@bp.route('/unassigned')
+@login_required
+def unassigned():
+    print('check_link_unassigned')
+    user = User.query.filter_by(uname=current_user.uname).first_or_404()
+    print(user.serialize())
+    # print(current_user.uname)
+    # print(current_user.confirmed)
+    # print(current_user.confirmed_on)
+    if current_user.title != TEACHER_WITH_NO_HOUSE:
+        return redirect('main.home')
+    flash('You have not been assigned a house!', 'warning')
+    return render_template('unassigned.html')
