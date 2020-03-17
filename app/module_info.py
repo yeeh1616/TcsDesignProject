@@ -41,7 +41,11 @@ def info():
     user = User.query.filter_by(id=user_id).first()
     comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star, Comment.date).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
-    return render_template('module_info.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
+    if user.role == 1:
+        return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
+    else:
+        return render_template('module_info_student.html', module=module, user=user, commentList=comment_list,
+                               totalComments=len(comment_list), avgStar=avg_star)
 
 
 @bp.route('/edit', methods=['GET', 'POST'])
@@ -60,7 +64,8 @@ def save():
     module_id = session.get('moduleId')
     module_name = form.name.data
     module_desc = form.description.data
-    module = Module(module_id, module_name, module_desc, None)
+    module = Module(module_name, module_desc, current_user.id, None)
+    module.id = module_id
     # if form.validate_on_submit():
     if Module.update_a_module_by_enity(module):
         return redirect(url_for('module_info.info', id=module_id))
