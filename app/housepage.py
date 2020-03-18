@@ -2,15 +2,16 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import login_required,current_user
-from app.decorators import check_confirmed, check_assigned_house
+from app.decorators import check_confirmed, check_assigned_house, check_coordinator
 from app import models
 from app.models import Module, db, User, HouseKeeper, House, add_house_keeper_by_entity, update_by_entity, HOUSEKEEPER
 from app.forms import AssignHouseForm
 
-bp = Blueprint('house', __name__,template_folder = 'templates/house')
+bp = Blueprint('house', __name__, template_folder='templates/house')
 
 
 @bp.route('/assignhouse', methods=['GET', 'POST'])
+@check_coordinator
 def assignhouse():
     form = AssignHouseForm()
     if form.validate_on_submit():
@@ -25,5 +26,5 @@ def assignhouse():
         user.title = HOUSEKEEPER
         update_by_entity(user)
         flash("assigned house successfully")
-        return render_template('assignhouse.html', form=form)
+        return redirect(url_for('house.assignhouse'))
     return render_template('assignhouse.html', form=form)

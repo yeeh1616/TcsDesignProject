@@ -150,7 +150,7 @@ def unassigned():
     # print(current_user.uname)
     # print(current_user.confirmed)
     # print(current_user.confirmed_on)
-    if current_user.title != TEACHER_WITH_NO_HOUSE:
-        return redirect('main.home')
-    flash('You have not been assigned a house!', 'warning')
+    # if current_user.title != TEACHER_WITH_NO_HOUSE:
+    #     return redirect(url_for('main.home'))
+    # flash('You have not been assigned a house!', 'warning')
     return render_template('unassigned.html')
