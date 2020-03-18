@@ -107,7 +107,7 @@
                             </ul>
                         </li>
                         <li><a href="style-guide.html" title="">Styles</a></li>
-                        <li><a href="javascript:" onclick="notification_student()" title="">Notificatoin</a></li>
+                        <li><a href="about.html" title="">About</a></li>
                         <li><a href="contact.html" title="">Contact</a></li>
                     </ul> <!-- end header__nav -->
 
@@ -117,86 +117,6 @@
 
             </div> <!-- header-content -->
         </header> <!-- header -->
-
-
-        <div class="pageheader-content row">
-            <div class="col-full">
-
-                <div class="featured">
-
-                    <div class="featured__column featured__column--big">
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-guitarman.jpg');">
-                            
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Music</a></span>
-
-                                <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 29, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-                            
-                        </div> <!-- end entry -->
-                    </div> <!-- end featured__big -->
-
-                    <div class="featured__column featured__column--small">
-
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-watch.jpg');">
-                            
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">Management</a></span>
-
-                                <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 27, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-                          
-                        </div> <!-- end entry -->
-
-                        <div class="entry" style="background-image:url('images/thumbs/featured/featured-beetle.jpg');">
-
-                            <div class="entry__content">
-                                <span class="entry__category"><a href="#0">LifeStyle</a></span>
-
-                                <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
-
-                                <div class="entry__info">
-                                    <a href="#0" class="entry__profile-pic">
-                                        <img class="avatar" src="../../static/home/images/avatars/user-03.jpg" alt="">
-                                    </a>
-
-                                    <ul class="entry__meta">
-                                        <li><a href="#0">John Doe</a></li>
-                                        <li>December 21, 2017</li>
-                                    </ul>
-                                </div>
-                            </div> <!-- end entry__content -->
-
-                        </div> <!-- end entry -->
-
-                    </div> <!-- end featured__small -->
-                </div> <!-- end featured -->
-
-            </div> <!-- end col-full -->
-        </div> <!-- end pageheader-content row -->
-
     </section> <!-- end s-pageheader -->
 
 
@@ -209,54 +129,36 @@
 
                 <div class="grid-sizer"></div>
                     <script>
-                        function  notification_student() {
-                            window.location.href="notification/send_request_page";
-                        }
-                        
                         function selectModule(id)
                         {
-                            window.location.href="module/info?id="+id;
+                            //window.location.href="module/info?id="+id;
                         }
                     </script>
-                    {% for module in moduleList %}
+                    {% for house in houseList %}
                         <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                             <div class="entry__thumb">
-{#                                <form action="module" method="post">#}
-                                    <a href="javascript:" onclick="selectModule({{module.id}})" class="entry__thumb-link">
-                                        <img src="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg"
-                                                srcset="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ module.img }}-800.jpg 2x" alt="">
-                                    </a>
-{#                                    <input type="hidden" id="id" name="id" value="{{ module.id }}">#}
-{#                                </form>#}
+                                <a href="javascript:" onclick="selectModule({{house.id}})" class="entry__thumb-link">
+                                    <img src="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg"
+                                            srcset="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-800.jpg 2x" alt="">
+                                </a>
                             </div>
 
                             <div class="entry__text">
                                 <div class="entry__header">
-
-                                    <div class="entry__date">
-                                        <a href="single-standard.html">December 15, 2017</a>
-                                    </div>
-                                    <h1 class="entry__title"><a href="single-standard.html"> {{ module.name }} </a></h1>
-
+                                    <h1 class="entry__title"><a href="single-standard.html"> {{ house.color_name }} house</a></h1>
                                 </div>
                                 <div class="entry__excerpt">
                                     <p>
-                                        {{ module.description }}
+                                        {{ house.color_name }} house
                                     </p>
-                                </div>
-                                <div class="entry__meta">
-                                    <span class="entry__meta-links">
-                                        <a href="category.html">Design</a>
-                                        <a href="category.html">Photography</a>
-                                    </span>
                                 </div>
                             </div>
                         </article> <!-- end article -->
                     {% endfor %}
             </div> <!-- end masonry -->
             <form action="add_module_page">
-                <button type="submit" class="submit btn--primary btn--large full-width">Add a new module</button>
+                <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
             </form>
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->

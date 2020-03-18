@@ -16,6 +16,8 @@ HOUSEKEEPER = 2
 COORDINATOR = 3
 MANAGER = 4
 
+color_dict = {"1": "red", "2": "green", "3": "blue", "4": "yellow"}
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -105,18 +107,25 @@ class Student(db.Model):
 class House(db.Model):
     house_id = db.Column(db.Integer, primary_key=True)
     house_keeper = db.Column(db.Integer)
-    module = db.Column(db.Integer)
+    module_id = db.Column(db.Integer)
     color = db.Column(db.String)
+    color_name = None
 
-    def __init__(self, house_keeper, module, color):
+    def __init__(self, house_keeper, module_id, color):
         self.house_keeper = house_keeper
-        self.module = module
+        self.module_id = module_id
         self.color = color
+
+    def get_houselist_by_mid(mid):
+        houseList = House.query.filter_by(module_id=mid).all()
+        for house in houseList:
+            house.color_name = color_dict.get(house.color)
+        return houseList
 
     def serialize(self):
         return {"house_id": self.house_id,
                 "house_keeper": self.house_keeper,
-                "module": self.module,
+                "module_id": self.module_id,
                 "color": self.color}
 
 
@@ -200,6 +209,7 @@ class Comment(db.Model):
                 "star": self.star,
                 "status": self.status,
                 "date": self.date}
+
 
 # database methods
 
