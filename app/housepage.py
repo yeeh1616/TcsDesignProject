@@ -4,7 +4,7 @@ from flask import (
 from flask_login import login_required,current_user
 from app.decorators import check_confirmed, check_assigned_house
 from app import models
-from app.models import Module, db, User, HouseKeeper, House, add_house_keeper_by_entity, update_by_entity
+from app.models import Module, db, User, HouseKeeper, House, add_house_keeper_by_entity, update_by_entity, HOUSEKEEPER
 from app.forms import AssignHouseForm
 
 bp = Blueprint('house', __name__,template_folder = 'templates/house')
@@ -22,6 +22,8 @@ def assignhouse():
         # add_house_keeper_by_entity(house_keeper)
         house.house_keeper = user.id
         update_by_entity(house)
+        user.title = HOUSEKEEPER
+        update_by_entity(user)
         flash("assigned house successfully")
         return render_template('assignhouse.html', form=form)
     return render_template('assignhouse.html', form=form)
