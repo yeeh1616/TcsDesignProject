@@ -22,6 +22,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uname = db.Column(db.String(80), unique=True)
     password_hash = db.Column(db.String(80))
+    role = db.Column(db.Integer)
     email = db.Column(db.String(80), unique=True)
     phone = db.Column(db.String(20), unique=True)
     img = db.Column(db.String(80))
@@ -29,9 +30,10 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, uname, password, email, phone = None, img = None, title = None , confirmed=False,confirmed_on = None ):
+    def __init__(self, uname, password, role, email, phone = None, img = None, title = None, confirmed=False, confirmed_on = None):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
+        self.role = role
         self.email = email
         self.phone = phone
         self.img = img
@@ -43,6 +45,7 @@ class User(UserMixin, db.Model):
         return {"id": self.id,
                 "uname": self.uname,
                 "password": self. password_hash,
+                "role": self. role,
                 "email" : self.email,
                 "phone": self.phone,
                 "img": self.img,
@@ -124,8 +127,7 @@ class Module(db.Model):
     owner_id = db.Column(db.Integer)
     img = db.Column(db.String(80))
 
-    def __init__(self, id, name, description, owner_id, img=None):
-        self.id = id
+    def __init__(self, name, description, owner_id, img):
         self.name = name
         self.description = description
         self.owner_id = owner_id
@@ -214,8 +216,8 @@ def get_user_by_name(uname):
         return user.serialize()
 
 
-def add_a_user(uname, password, email, phone, confirmed, confirmed_on):
-    user = User(uname, password, email, phone, confirmed, confirmed_on)
+def add_a_user(uname, password, role, email, phone, confirmed, confirmed_on):
+    user = User(uname, password, role, email, phone, confirmed, confirmed_on)
     db.session.add(user)
     db.session.commit()
     return user.serialize()
