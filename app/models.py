@@ -107,17 +107,21 @@ class House(db.Model):
     house_keeper = db.Column(db.Integer)
     module = db.Column(db.Integer)
     color = db.Column(db.String)
+    house_name = db.Column(db.String(30))
 
-    def __init__(self, house_keeper, module, color):
-        self.house_keeper = house_keeper
+    def __init__(self,  module, house_name, house_keeper=None, color=None):
+
         self.module = module
+        self.house_name = house_name
+        self.house_keeper = house_keeper
         self.color = color
 
     def serialize(self):
         return {"house_id": self.house_id,
                 "house_keeper": self.house_keeper,
                 "module": self.module,
-                "color": self.color}
+                "color": self.color,
+                "house_name": self.house_name}
 
 
 class Module(db.Model):
@@ -262,3 +266,15 @@ def add_comment_by_entity(comment):
     db.session.add(comment)
     db.session.commit()
     return comment.serialize()
+
+
+def add_house_keeper_by_entity(house_keeper):
+    db.session.add(house_keeper)
+    db.session.commit()
+    return house_keeper.serialize()
+
+
+def update_by_entity(entity):
+    db.session.merge(entity)
+    db.session.commit()
+    return entity.serialize

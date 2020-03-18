@@ -47,4 +47,4 @@ class CommentForm(FlaskForm):
 
 class AssignHouseForm(FlaskForm):
     teacher_email = StringField('Email', validators=[DataRequired()])
-    house_number = StringField('HouseNumber', validators=[DataRequired()])
+    house_name = StringField('HouseName', validators=[DataRequired()])

@@ -5,14 +5,23 @@ from flask_login import login_required,current_user
 from app.decorators import check_confirmed, check_assigned_house
 from app import models
 from app.forms import ModuleInfoForm
-from app.models import Module
+from app.models import Module, db, House
 
 bp = Blueprint('main', __name__,template_folder = 'templates')
 
 
 @bp.route('/test')
-@login_required
 def test():
+    house = House(module=1, house_name="house2")
+    db.session.add(house)
+    db.session.commit()
+    return "Hello, test!"
+
+
+@bp.route('/test2')
+def test2():
+    house = House.query.first()
+    print(house.serialize())
     return "Hello, test!"
 
 
