@@ -37,6 +37,8 @@ def create_app(test_config=None):
     app.register_blueprint(module_info.bp, url_prefix='/module')
     from . import notification
     app.register_blueprint(notification.bp, url_prefix='/notification')
+    from . import housepage
+    app.register_blueprint(housepage.bp, url_prefix='/house')
     from app.models import db
     migrate = Migrate(app, db, render_as_batch=True)
 
