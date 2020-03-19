@@ -107,17 +107,18 @@ class Student(db.Model):
 class House(db.Model):
     house_id = db.Column(db.Integer, primary_key=True)
     house_keeper = db.Column(db.Integer)
-    module_id = db.Column(db.Integer)
+    module = db.Column(db.Integer)
     color = db.Column(db.String)
-    color_name = None
+    house_name = db.Column(db.String(30))
 
-    def __init__(self, house_keeper, module_id, color):
+    def __init__(self, house_keeper, module, color, house_name):
         self.house_keeper = house_keeper
-        self.module_id = module_id
+        self.module = module
         self.color = color
+        self.house_name = house_name
 
     def get_houselist_by_mid(mid):
-        houseList = House.query.filter_by(module_id=mid).all()
+        houseList = House.query.filter_by(module=mid).all()
         for house in houseList:
             house.color_name = color_dict.get(house.color)
         return houseList
@@ -125,8 +126,9 @@ class House(db.Model):
     def serialize(self):
         return {"house_id": self.house_id,
                 "house_keeper": self.house_keeper,
-                "module_id": self.module_id,
-                "color": self.color}
+                "module": self.module,
+                "color": self.color,
+                "house_name": self.house_name}
 
 
 class Module(db.Model):
@@ -272,3 +274,13 @@ def add_comment_by_entity(comment):
     db.session.add(comment)
     db.session.commit()
     return comment.serialize()
+
+def add_house_keeper_by_entity(house_keeper):
+    db.session.add(house_keeper)
+    db.session.commit()
+    return house_keeper.serialize()
+
+def update_by_entity(entity):
+    db.session.merge(entity)
+    db.session.commit()
+    return entity.serialize
