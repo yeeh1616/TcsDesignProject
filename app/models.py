@@ -98,6 +98,10 @@ class Student(db.Model):
         self.house_id = house_id
         self.module_id = module_id
 
+    def get_full_info_by_id(id):
+        student = db.session.query(User.uname, User.img, House.house_name).filter(User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
+        return student
+
     def serialize(self):
         return {"user_id": self.user_id,
                 "house_id": self.house_id,

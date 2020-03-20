@@ -7,16 +7,10 @@
         <p>
             {{ form.teacher_email.label }}<br>
             {{ form.teacher_email(size=32) }}<br>
-            {% for error in form.teacher_email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
         </p>
         <p>
             {{ form.house_name.label }}<br>
             {{ form.house_name(size=32) }}<br>
-            {% for error in form.house_name.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
         </p>
        <button type="submit">Confirm</button>
     </form>

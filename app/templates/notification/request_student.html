@@ -129,34 +129,44 @@
 
                 <div class="grid-sizer"></div>
                     <script>
-                        function selectModule(id)
+                        function selectHouse(mname)
                         {
-                            //window.location.href="module/info?id="+id;
+                            {#alert("Haha");#}
+                            targetHouse = document.getElementById("target_house_img");
+                            targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+mname+"_house-400.jpg");
                         }
                     </script>
                     {% for house in houseList %}
                         <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                             <div class="entry__thumb">
-                                <a href="javascript:" onclick="selectModule({{house.id}})" class="entry__thumb-link">
+                                <a href="javascript:" onclick="selectHouse('{{house.color_name}}')" class="entry__thumb-link">
                                     <img src="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg"
                                             srcset="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-800.jpg 2x" alt="">
                                 </a>
                             </div>
 
                             <div class="entry__text">
-                                <div class="entry__header">
-                                    <h1 class="entry__title"><a href="single-standard.html"> {{ house.color_name }} house</a></h1>
+                                <div  align="center" class="entry__header">
+                                    <h1 style="text-transform:uppercase;color:{{ house.color_name }}" class="entry__title">{{ house.color_name }} house</h1>
                                 </div>
                                 <div class="entry__excerpt">
                                     <p>
-                                        {{ house.color_name }} house
+                                        100 memebers
                                     </p>
                                 </div>
                             </div>
                         </article> <!-- end article -->
                     {% endfor %}
             </div> <!-- end masonry -->
+
+            <div align="center">
+{#                <span>From <span style="color:red;font-size:200%;">{{ student.house_name }} house</span> to <span id="targetHouse" style="color:blue;font-size:200%;">Blue House</span></span>#}
+                <img src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
+                <img src="../../static/home/images/thumbs/masonry/arrow.png">
+                <img id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
+            </div>
+
             <form action="add_module_page">
                 <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
             </form>

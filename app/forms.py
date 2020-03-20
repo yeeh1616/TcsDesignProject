@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from app.models import User, delete_a_user, House, Module
-from flask import session
+from app.models import User, delete_a_user
 
 
 class LoginForm(FlaskForm):
@@ -19,12 +18,14 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField(
         'confirm_password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
+
     def validate_username(self, username):
         user = User.query.filter_by(uname=username.data).first()
         if user is not None:
             print(user.serialize())
             delete_a_user(username.data)
             #raise ValidationError('Please use a different username.')
+
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
@@ -47,18 +48,3 @@ class CommentForm(FlaskForm):
 class AssignHouseForm(FlaskForm):
     teacher_email = StringField('Email', validators=[DataRequired()])
     house_name = StringField('HouseName', validators=[DataRequired()])
-
-    def validate_teacher_email(self, teacher_email):
-        user = User.query.filter_by(email=teacher_email.data).first()
-
-        if user is None:
-            raise ValidationError('Wrong email or this teacher have not registered yet')
-
-    def validate_house_name(self, house_name):
-        module_id = session['moduleId']
-        house = House.query.filter_by(module=module_id, house_name=house_name.data).first()
-
-        if house is None:
-            module = Module.query.filter_by(id=int(module_id)).first()
-            house_name.data = ''
-            raise ValidationError("{0} is not existed in Module {1}".format(house_name.data, module.name))

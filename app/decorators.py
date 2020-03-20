@@ -58,11 +58,7 @@ def check_coordinator(func):
 
 def own_module():
     module_list = Module.query.filter_by(owner_id=current_user.id)
-    print(session['moduleId'])
-    print(type(session['moduleId']))
     for module in module_list:
-        print(module.id)
-        print(type(module.id))
-        if int(session['moduleId']) == module.id:
+        if session['moduleId'] == module.id:
             return True
     return False
