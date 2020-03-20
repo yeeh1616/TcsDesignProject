@@ -111,13 +111,13 @@ class Student(db.Model):
 class House(db.Model):
     house_id = db.Column(db.Integer, primary_key=True)
     house_keeper = db.Column(db.Integer)
-    module = db.Column(db.Integer)
+    year = db.Column(db.Integer)
     color = db.Column(db.String)
     house_name = db.Column(db.String(30))
 
-    def __init__(self, house_keeper, module, color, house_name):
+    def __init__(self, house_keeper, year, color, house_name):
         self.house_keeper = house_keeper
-        self.module = module
+        self.module = year
         self.color = color
         self.house_name = house_name
 
@@ -130,7 +130,7 @@ class House(db.Model):
     def serialize(self):
         return {"house_id": self.house_id,
                 "house_keeper": self.house_keeper,
-                "module": self.module,
+                "year": self.year,
                 "color": self.color,
                 "house_name": self.house_name}
 

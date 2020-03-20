@@ -15,10 +15,11 @@ bp = Blueprint('house', __name__, template_folder='templates/house')
 def assignhouse():
     form = AssignHouseForm()
     if form.validate_on_submit():
+        study_year = form.study_year.data
         email = form.teacher_email.data
         house_name = form.house_name.data
         user = User.query.filter_by(email=email).first()
-        house = House.query.filter_by(module=session['moduleId'], house_name=house_name).first()
+        house = House.query.filter_by(year=study_year, house_name=house_name).first()
         # house_keeper = HouseKeeper(user.id, module_id=session['moduleId'])
         # add_house_keeper_by_entity(house_keeper)
         house.house_keeper = user.id
