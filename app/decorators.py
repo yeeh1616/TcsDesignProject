@@ -2,7 +2,7 @@ from functools import wraps
 from flask import flash, redirect, url_for, session
 from flask_login import current_user
 
-from app.models import User, TEACHER_WITH_NO_HOUSE, COORDINATOR, Module
+from app.models import User, TEACHER_WITH_NO_HOUSE, COORDINATOR, Module, MANAGER
 
 
 def check_confirmed(func):
@@ -39,7 +39,7 @@ def check_assigned_house(func):
     return decorated_function
 
 
-def check_coordinator(func):
+def check_manager(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         print('coordinator')
@@ -48,7 +48,7 @@ def check_coordinator(func):
         # print(current_user.uname)
         # print(current_user.confirmed)
         # print(current_user.confirmed_on)
-        if current_user.title != COORDINATOR:
+        if current_user.title != MANAGER:
             flash('You can not assign house', 'warning')
             return redirect(url_for('auth.unassigned'))
         return func(*args, **kwargs)

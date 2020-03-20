@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import login_required,current_user
-from app.decorators import check_confirmed, check_assigned_house, check_coordinator
+from app.decorators import check_confirmed, check_assigned_house, check_manager
 from app import models
 from app.models import Module, db, User, HouseKeeper, House, add_house_keeper_by_entity, update_by_entity, HOUSEKEEPER
 from app.forms import AssignHouseForm
@@ -11,10 +11,11 @@ bp = Blueprint('house', __name__, template_folder='templates/house')
 
 
 @bp.route('/assignhouse', methods=['GET', 'POST'])
-@check_coordinator
+@check_manager
 def assignhouse():
     form = AssignHouseForm()
     if form.validate_on_submit():
+        print('submit')
         study_year = form.study_year.data
         email = form.teacher_email.data
         house_name = form.house_name.data
@@ -28,4 +29,4 @@ def assignhouse():
         update_by_entity(user)
         flash("assigned house successfully")
         return redirect(url_for('house.assignhouse'))
-    return render_template('assignhouse.html', form=form)
+    return render_template('assign_house.html', form=form)

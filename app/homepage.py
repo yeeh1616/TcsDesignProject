@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import login_required,current_user
-from app.decorators import check_confirmed, check_assigned_house, check_coordinator
+from app.decorators import check_confirmed, check_assigned_house
 from app import models
 from app.forms import ModuleInfoForm
 from app.models import Module, db, House, get_all_user,add_house_keeper_by_entity

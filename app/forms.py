@@ -27,6 +27,7 @@ class RegistrationForm(FlaskForm):
             #raise ValidationError('Please use a different username.')
 
     def validate_email(self, email):
+
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
@@ -46,8 +47,9 @@ class CommentForm(FlaskForm):
 
 
 class AssignHouseForm(FlaskForm):
-    study_year = StringField('StudyYear', validators=[DataRequired()])
+
     teacher_email = StringField('Email', validators=[DataRequired()])
+    study_year = StringField('StudyYear', validators=[DataRequired()])
     house_name = StringField('HouseName', validators=[DataRequired()])
 
     def validate_teacher_email(self, teacher_email):
@@ -56,8 +58,9 @@ class AssignHouseForm(FlaskForm):
             raise ValidationError('Wrong email or this teacher have not registered yet')
 
     def validate_house_name(self, house_name):
-        house = House.query.filter_by(year=study_year.data, house_name=house_name.data).first()
+        house = House.query.filter_by(year=self.study_year.data, house_name=house_name.data).first()
 
         if house is None:
+            housen = house_name.data
             house_name.data = ''
-            raise ValidationError("{0} is not existed in year {1}".format(house_name.data, study_year.data))
+            raise ValidationError("{0} is not existed in year {1}".format(housen, self.study_year.data))
