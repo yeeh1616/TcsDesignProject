@@ -1,6 +1,6 @@
 import datetime
 
-from flask import current_app
+from flask import current_app, jsonify
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -230,6 +230,13 @@ def get_user_by_name(uname):
         return None
     else:
         return user.serialize()
+
+def get_all_user():
+    users = User.query.all()
+    if users is None:
+        return None
+    else:
+        return jsonify({'users': list((map(lambda ft: ft.serialize(), users)))})
 
 
 def add_a_user(uname, password, role, email, phone, confirmed, confirmed_on):
