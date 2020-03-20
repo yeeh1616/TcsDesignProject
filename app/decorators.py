@@ -48,7 +48,7 @@ def check_coordinator(func):
         # print(current_user.uname)
         # print(current_user.confirmed)
         # print(current_user.confirmed_on)
-        if current_user.title != COORDINATOR or not own_module():
+        if current_user.title != COORDINATOR:
             flash('You can not assign house', 'warning')
             return redirect(url_for('auth.unassigned'))
         return func(*args, **kwargs)
@@ -56,9 +56,9 @@ def check_coordinator(func):
     return decorated_function
 
 
-def own_module():
-    module_list = Module.query.filter_by(owner_id=current_user.id)
-    for module in module_list:
-        if session['moduleId'] == module.id:
-            return True
-    return False
+# def own_module():
+#     module_list = Module.query.filter_by(owner_id=current_user.id)
+#     for module in module_list:
+#         if session['moduleId'] == module.id:
+#             return True
+#     return False

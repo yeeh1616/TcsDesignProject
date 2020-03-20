@@ -5,17 +5,20 @@ from flask_login import login_required,current_user
 from app.decorators import check_confirmed, check_assigned_house, check_coordinator
 from app import models
 from app.forms import ModuleInfoForm
-from app.models import Module, db, House
+from app.models import Module, db, House, get_all_user,add_house_keeper_by_entity
 
 bp = Blueprint('main', __name__,template_folder = 'templates')
 
 
 @bp.route('/test')
 def test():
-    house = House(module=1, house_name="house3")
-    db.session.add(house)
-    db.session.commit()
-    return "Hello, test!"
+    # house = House(module=1, house_name="house3")
+    # db.session.add(house)
+    # db.session.commit()
+    #db.create_all()
+    house = House(None, 2019, None, 'house1')
+    add_house_keeper_by_entity(house)
+    return get_all_user()
 
 
 @bp.route('/test2')
