@@ -117,12 +117,12 @@ class House(db.Model):
 
     def __init__(self, house_keeper, year, color, house_name):
         self.house_keeper = house_keeper
-        self.module = year
+        self.year = year
         self.color = color
         self.house_name = house_name
 
     def get_houselist_by_mid(mid):
-        houseList = House.query.filter_by(module=mid).all()
+        houseList = House.query.filter_by(year=mid).all()
         for house in houseList:
             house.color_name = color_dict.get(house.color)
         return houseList
