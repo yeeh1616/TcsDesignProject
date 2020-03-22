@@ -16,8 +16,6 @@ HOUSEKEEPER = 2
 COORDINATOR = 3
 MANAGER = 4
 
-color_dict = {"1": "red", "2": "green", "3": "blue", "4": "yellow"}
-
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
@@ -99,7 +97,7 @@ class Student(db.Model):
         self.module_id = module_id
 
     def get_full_info_by_id(id):
-        student = db.session.query(User.uname, User.img, House.house_name).filter(User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
+        student = db.session.query(User.uname, User.img, House.house_id, House.house_name).filter(User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
         return student
 
     def serialize(self):
@@ -123,9 +121,11 @@ class House(db.Model):
 
     def get_houselist_by_mid(mid):
         houseList = House.query.filter_by(year=mid).all()
-        for house in houseList:
-            house.color_name = color_dict.get(house.color)
         return houseList
+
+    def get_house_by_id(house_id):
+        house = House.query.filter_by(house_id=house_id).first()
+        return house
 
     def serialize(self):
         return {"house_id": self.house_id,
@@ -215,6 +215,38 @@ class Comment(db.Model):
                 "star": self.star,
                 "status": self.status,
                 "date": self.date}
+
+
+class Request(db.Model):
+    __tablename__ = 'request'
+    owner_id = db.Column(db.Integer, primary_key=True)
+    house_from = db.Column(db.Integer, primary_key=True)
+    house_to = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.String, nullable=False)
+
+    def __init__(self, owner_id, house_from, house_to, status, date):
+        self.owner_id = owner_id
+        self.house_from = house_from
+        self.house_to = house_to
+        self.status = status
+        self.date = date
+
+    def serialize(self):
+        return {"owner_id": self.owner_id,
+                "house_from": self.house_from,
+                "house_to": self.house_to,
+                "status": self.status,
+                "date": self.date}
+
+    def get_request_by_owner_id(owner_id):
+        request = Request.query.filter_by(owner_id=owner_id).filter_by(status=0).first()
+        return request
+
+    def add_request_by_entity(request):
+        db.session.add(request)
+        db.session.commit()
+        return True
 
 
 # database methods

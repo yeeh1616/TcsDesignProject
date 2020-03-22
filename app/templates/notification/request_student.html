@@ -129,20 +129,23 @@
 
                 <div class="grid-sizer"></div>
                     <script>
-                        function selectHouse(mname)
+                        function selectHouse(color, house_id)
                         {
+                            document.getElementById("houseTo").value = house_id;
                             {#alert("Haha");#}
                             targetHouse = document.getElementById("target_house_img");
-                            targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+mname+"_house-400.jpg");
+                            targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
+
+                            {#alert(document.getElementById("houseTo").value);#}
                         }
                     </script>
                     {% for house in houseList %}
                         <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                             <div class="entry__thumb">
-                                <a href="javascript:" onclick="selectHouse('{{house.color_name}}')" class="entry__thumb-link">
-                                    <img src="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg"
-                                            srcset="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-800.jpg 2x" alt="">
+                                <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{house.house_id}}')" class="entry__thumb-link">
+                                    <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg"
+                                            srcset="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-800.jpg 2x" alt="">
                                 </a>
                             </div>
 
@@ -167,7 +170,9 @@
                 <img id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
             </div>
 
-            <form action="add_module_page">
+            <form action="send_request" method="post">
+                <input type="hidden" id="houseFrom" name="houseFrom" value="{{ student.house_id }}">
+                <input type="hidden" id="houseTo" name="houseTo" value="x">
                 <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
             </form>
         </div> <!-- end masonry-wrap -->

@@ -125,75 +125,15 @@
     <section class="s-content">
         
         <div class="row masonry-wrap">
-            <div class="masonry">
+            <span>From <span style="color:red;font-size:200%;">{{ my_house.house_name }} House</span> to <span id="targetHouse" style="color:blue;font-size:200%;">{{target_house.house_name}} House</span></span>
+            <div align="center">
+                <img src="../../static/home/images/thumbs/masonry/{{ my_house.house_name }}_house-400.jpg">
+                <img src="../../static/home/images/thumbs/masonry/arrow.png">
+                <img id="target_house_img" src="../../static/home/images/thumbs/masonry/{{ target_house.house_name }}_house-400.jpg">
+            </div>
 
-                <div class="grid-sizer"></div>
-                    <script>
-                        function selectModule(id)
-                        {
-                            //window.location.href="module/info?id="+id;
-                        }
-                    </script>
-                    {% for house in houseList %}
-                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
-
-                            <div class="entry__thumb">
-                                <a href="javascript:" onclick="selectModule({{house.id}})" class="entry__thumb-link">
-                                    <img src="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg"
-                                            srcset="../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.color_name }}_house-800.jpg 2x" alt="">
-                                </a>
-                            </div>
-
-                            <div class="entry__text">
-                                <div class="entry__header">
-                                    <h1 class="entry__title"><a href="single-standard.html"> {{ house.color_name }} house</a></h1>
-                                </div>
-                                <div class="entry__excerpt">
-                                    <p>
-                                        {{ house.color_name }} house
-                                    </p>
-                                </div>
-                            </div>
-                        </article> <!-- end article -->
-                    {% endfor %}
-            </div> <!-- end masonry -->
-
-            <div class="comments-wrap">
-
-                <div id="comments" class="row">
-                    <div class="col-full">
-
-                        <!-- commentlist -->
-                        <ol class="commentlist">
-                            <li class="depth-1 comment">
-
-                                    <div class="comment__avatar">
-{#                                        <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{  }}.jpg" alt="">#}
-                                    </div>
-
-                                    <div class="comment__content">
-
-                                        <div class="comment__info">
-                                            <cite>1111111111111</cite>
-
-                                            <div class="comment__meta">
-                                                <time class="comment-time">1111111111111</time>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                </li>  <!-- end comment level 1 -->
-                        </ol> <!-- end commentlist -->
-
-                    </div> <!-- end col-full -->
-
-                </div> <!-- end row comments -->
-            </div> <!-- end comments-wrap -->
-
-            <form action="add_module_page">
-                <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
+            <form action="send_request" method="post">
+                <button type="submit" class="submit btn--primary btn--large full-width">Return to home page</button>
             </form>
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->

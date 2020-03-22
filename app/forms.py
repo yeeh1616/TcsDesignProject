@@ -46,6 +46,11 @@ class CommentForm(FlaskForm):
     comment = StringField('Comment', validators=[DataRequired()])
 
 
+class RequestForm(FlaskForm):
+    houseFrom = StringField('HouseFrom', validators=[DataRequired()])
+    houseTo = StringField('HouseTo', validators=[DataRequired()])
+
+
 class AssignHouseForm(FlaskForm):
 
     teacher_email = StringField('Email', validators=[DataRequired()])
