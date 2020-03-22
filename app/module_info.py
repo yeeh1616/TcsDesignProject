@@ -1,3 +1,4 @@
+import csv
 from datetime import date
 
 from flask import (
@@ -9,7 +10,7 @@ from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
 from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity
-
+import sqlite3
 bp = Blueprint('module_info', __name__, template_folder = 'templates/module')
 
 
@@ -86,3 +87,22 @@ def comment():
     comment = Comment(owner_id, module_id, content, star, 0, today)
     add_comment_by_entity(comment)
     return redirect(url_for('module_info.info', id=module_id))
+
+
+@bp.route('/download', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def download():
+    try:
+        conn = sqlite3.connect('project_database')
+        with open('sss.csv', 'w+', newline='') as write_file:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM user')
+            csv_writer = csv.writer(write_file)
+            csv_writer.writerow([i[0] for i in cursor.description])
+            csv_writer.writerows(cursor)
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        conn.close()
+    return 'Download Success'
