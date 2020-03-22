@@ -199,91 +199,36 @@
 
     </section> <!-- end s-pageheader -->
 
-<!-- commentlist -->
-                        <ol class="commentlist">
-                            <li class="depth-1 comment">
+    <!-- commentlist -->
+    <ol class="commentlist">
+        {% for request in request_owner_list %}
+            <li class="depth-1 comment">
 
-                                    <div class="comment__avatar">
-{#                                        <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{  }}.jpg" alt="">#}
-                                    </div>
+                <div class="comment__avatar">
+                    <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{ request.img }}.jpg" alt="">
+                </div>
+                <span>From <span style="color:red;font-size:200%;">{{ request.house_from }} House</span> to <span id="targetHouse" style="color:blue;font-size:200%;">{{request.house_to}} House</span></span>
+                <div class="comment__content">
 
-                                    <div class="comment__content">
+{#                    <div class="comment__info">#}
+{#                        <cite>1111111111111</cite>#}
+{##}
+{#                        <div class="comment__meta">#}
+{#                            <time class="comment-time">1111111111111</time>#}
+{#                        </div>#}
+{#                    </div>#}
 
-                                        <div class="comment__info">
-                                            <cite>1111111111111</cite>
+                    <div class="comment__text">
+                        <a href="accept_request?request_id={{ request.id }}">Accept</a>
+                        <a href="reject_request?request_id={{ request.id }}">Reject</a>
+                    </div>
 
-                                            <div class="comment__meta">
-                                                <time class="comment-time">1111111111111</time>
-                                            </div>
-                                        </div>
-
-                                        <div class="comment__text">
-                                            <p>1111111111111111111111</p>
-                                            <button type="submit" class="submit btn--primary btn--large full-width">Accept</button>
-                                            <button type="submit" class="submit btn--primary btn--large full-width">Reject</button>
-                                        </div>
-
-                                    </div>
+                </div>
 
 
-                                </li>  <!-- end comment level 1 -->
-                        </ol> <!-- end commentlist -->
-    <!-- s-content
-    ================================================== -->
-    <section class="s-content">
-        
-        <div class="row masonry-wrap">
-            <div class="masonry">
-
-                <div class="grid-sizer"></div>
-                    <script>
-                        function selectModule(id)
-                        {
-                            window.location.href="module/info?id="+id;
-                        }
-                    </script>
-                    {% for module in moduleList %}
-                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
-
-                            <div class="entry__thumb">
-{#                                <form action="module" method="post">#}
-                                    <a href="javascript:" onclick="selectModule({{module.id}})" class="entry__thumb-link">
-                                        <img src="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg"
-                                                srcset="../../static/home/images/thumbs/masonry/{{ module.img }}-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ module.img }}-800.jpg 2x" alt="">
-                                    </a>
-{#                                    <input type="hidden" id="id" name="id" value="{{ module.id }}">#}
-{#                                </form>#}
-                            </div>
-
-                            <div class="entry__text">
-                                <div class="entry__header">
-
-                                    <div class="entry__date">
-                                        <a href="single-standard.html">December 15, 2017</a>
-                                    </div>
-                                    <h1 class="entry__title"><a href="single-standard.html"> {{ module.name }} </a></h1>
-
-                                </div>
-                                <div class="entry__excerpt">
-                                    <p>
-                                        {{ module.description }}
-                                    </p>
-                                </div>
-                                <div class="entry__meta">
-                                    <span class="entry__meta-links">
-                                        <a href="category.html">Design</a>
-                                        <a href="category.html">Photography</a>
-                                    </span>
-                                </div>
-                            </div>
-                        </article> <!-- end article -->
-                    {% endfor %}
-            </div> <!-- end masonry -->
-            <form action="add_module_page">
-                <button type="submit" class="submit btn--primary btn--large full-width">Add a new module</button>
-            </form>
-        </div> <!-- end masonry-wrap -->
-    </section> <!-- s-content -->
+            </li>  <!-- end comment level 1 -->
+        {% endfor %}
+    </ol> <!-- end commentlist -->
 
     <!-- s-footer
     ================================================== -->

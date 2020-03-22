@@ -125,16 +125,20 @@
     <section class="s-content">
         
         <div class="row masonry-wrap">
-            <span>From <span style="color:red;font-size:200%;">{{ my_house.house_name }} House</span> to <span id="targetHouse" style="color:blue;font-size:200%;">{{target_house.house_name}} House</span></span>
+            <span>From
+                <span style="color:red;font-size:200%;">{{ my_house.house_name }} House</span> to
+                <span id="targetHouse" style="color:blue;font-size:200%;">{{target_house.house_name}} House</span>
+                <span id="request_status"> Status: {{ request.status_txt }}</span>
+            </span>
             <div align="center">
                 <img src="../../static/home/images/thumbs/masonry/{{ my_house.house_name }}_house-400.jpg">
                 <img src="../../static/home/images/thumbs/masonry/arrow.png">
                 <img id="target_house_img" src="../../static/home/images/thumbs/masonry/{{ target_house.house_name }}_house-400.jpg">
             </div>
 
-            <form action="send_request" method="post">
-                <button type="submit" class="submit btn--primary btn--large full-width">Return to home page</button>
-            </form>
+{#            <form action="send_request" method="post">#}
+{#                <button type="submit" class="submit btn--primary btn--large full-width">Return to home page</button>#}
+{#            </form>#}
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
 

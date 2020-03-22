@@ -17,12 +17,20 @@ COORDINATOR = 3
 MANAGER = 4
 
 
+# status for request
+PENDING = 0
+REJECTED = -1
+ACCEPTED = 1
+status_dict = {PENDING:'Pending',
+               REJECTED:'Rejected',
+               ACCEPTED:'Accepted'}
+
+
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     uname = db.Column(db.String(80), unique=True)
     password_hash = db.Column(db.String(80))
-    role = db.Column(db.Integer)
     email = db.Column(db.String(80), unique=True)
     phone = db.Column(db.String(20), unique=True)
     img = db.Column(db.String(80))
@@ -33,7 +41,7 @@ class User(UserMixin, db.Model):
     def __init__(self, uname, password, role, email, phone = None, img = None, title = None, confirmed=False, confirmed_on = None):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
-        self.role = role
+        self.title = role
         self.email = email
         self.phone = phone
         self.img = img
@@ -45,7 +53,7 @@ class User(UserMixin, db.Model):
         return {"id": self.id,
                 "uname": self.uname,
                 "password": self. password_hash,
-                "role": self. role,
+                "role": self. title,
                 "email" : self.email,
                 "phone": self.phone,
                 "img": self.img,
@@ -58,6 +66,9 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def get_user_by_id(id):
+        return User.query.filter_by(id=id).first()
 
 
 class Manager(db.Model):
@@ -125,6 +136,10 @@ class House(db.Model):
 
     def get_house_by_id(house_id):
         house = House.query.filter_by(house_id=house_id).first()
+        return house
+
+    def get_house_by_housekeeper(hkid):
+        house = House.query.filter_by(house_keeper=hkid).first()
         return house
 
     def serialize(self):
@@ -219,8 +234,9 @@ class Comment(db.Model):
 
 class Request(db.Model):
     __tablename__ = 'request'
-    owner_id = db.Column(db.Integer, primary_key=True)
-    house_from = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, nullable=False)
+    house_from = db.Column(db.Integer, nullable=False)
     house_to = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
     date = db.Column(db.String, nullable=False)
@@ -248,6 +264,15 @@ class Request(db.Model):
         db.session.commit()
         return True
 
+    def accept_request_by_id(id):
+        request = Request.query.filter_by(id=id).first()
+        request.status = ACCEPTED
+        db.session.commit()
+
+    def reject_request_by_id(id):
+        request = Request.query.filter_by(id=id).first()
+        request.status = REJECTED
+        db.session.commit()
 
 # database methods
 
@@ -262,6 +287,7 @@ def get_user_by_name(uname):
         return None
     else:
         return user.serialize()
+
 
 def get_all_user():
     users = User.query.all()
@@ -327,3 +353,8 @@ def update_by_entity(entity):
     db.session.merge(entity)
     db.session.commit()
     return entity.serialize
+
+def get_request_owner_list_by_hid(house_id):
+    # result = db.session.query().filter((Request.house_from == house_id)|(Request.house_to == house_id)).filter(Request.owner_id == User.id).all()
+    result = db.session.query(User.img, Request.id, Request.house_from, Request.house_to).filter(Request.house_from == house_id).filter(Request.owner_id == User.id).all()
+    return result

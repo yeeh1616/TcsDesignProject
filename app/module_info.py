@@ -5,7 +5,7 @@ from flask import (
     session, request)
 from flask_login import login_required, current_user
 
-from app import db
+from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
 from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity
@@ -41,7 +41,7 @@ def info():
     user = User.query.filter_by(id=user_id).first()
     comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star, Comment.date).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
-    if user.role == 1:
+    if user.title == models.HOUSEKEEPER:
         return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
     else:
         return render_template('module_info_student.html', module=module, user=user, commentList=comment_list,
