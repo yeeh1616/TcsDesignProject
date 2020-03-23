@@ -1,11 +1,14 @@
 import csv
+import os
 from datetime import date
 
 from flask import (
     Blueprint, flash, redirect, render_template, url_for,
     session, request)
 from flask_login import login_required, current_user
-
+import tkinter.filedialog
+from tkinter import *
+from tkinter.filedialog import askdirectory
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
@@ -93,9 +96,15 @@ def comment():
 @login_required
 @check_confirmed
 def download():
+    root = Tk()
+    path_ = askdirectory(initialdir=os.getcwd(),title='Please select a directory')
+    print(path_)
+    path_ = path_ + '/student.csv'
+    print(path_)
+    root.destroy()
     try:
         conn = sqlite3.connect('project_database')
-        with open('sss.csv', 'w+', newline='') as write_file:
+        with open(path_, 'w+', newline='') as write_file:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM user')
             csv_writer = csv.writer(write_file)
