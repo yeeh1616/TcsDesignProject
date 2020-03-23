@@ -1,20 +1,24 @@
 import csv
 import os
 from datetime import date
+from sqlite3 import IntegrityError
 
+import pandas as pandas
 from flask import (
     Blueprint, flash, redirect, render_template, url_for,
     session, request)
 from flask_login import login_required, current_user
 import tkinter.filedialog
 from tkinter import *
-from tkinter.filedialog import askdirectory
+import tkinter
+from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
 from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity
 import sqlite3
-bp = Blueprint('module_info', __name__, template_folder = 'templates/module')
+
+bp = Blueprint('module_info', __name__, template_folder='templates/module')
 
 
 @bp.route('/test1', methods=['GET', 'POST'])
@@ -43,10 +47,13 @@ def info():
     user_id = current_user.id
     module = Module.query.filter_by(id=module_id).first()
     user = User.query.filter_by(id=user_id).first()
-    comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star, Comment.date).filter(Comment.owner_id == User.id).filter(Comment.module_id == module_id).all()
+    comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star,
+                                    Comment.date).filter(Comment.owner_id == User.id).filter(
+        Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
     if user.title == models.HOUSEKEEPER:
-        return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list, totalComments=len(comment_list), avgStar=avg_star)
+        return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list,
+                               totalComments=len(comment_list), avgStar=avg_star)
     else:
         return render_template('module_info_student.html', module=module, user=user, commentList=comment_list,
                                totalComments=len(comment_list), avgStar=avg_star)
@@ -97,10 +104,8 @@ def comment():
 @check_confirmed
 def download():
     root = Tk()
-    path_ = askdirectory(initialdir=os.getcwd(),title='Please select a directory')
-    print(path_)
+    path_ = askdirectory(initialdir=os.getcwd(), title='Please select a directory')
     path_ = path_ + '/student.csv'
-    print(path_)
     root.destroy()
     try:
         conn = sqlite3.connect('project_database')
@@ -115,3 +120,26 @@ def download():
     finally:
         conn.close()
     return 'Download Success'
+
+
+@bp.route('/upload', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def upload():
+    root = Tk()
+    path_ = askopenfilename(title='Please select a directory')
+    root.destroy()
+    try:
+        conn = sqlite3.connect('project_database')
+        df = pandas.read_csv(path_)
+        # df.to_sql('student', conn, if_exists='append', index_label='user_id')
+        for i in range(len(df)):
+            try:
+                df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
+            except IntegrityError:
+                pass
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        conn.close()
+    return 'Upload Success'
