@@ -49,18 +49,26 @@
                 </div> <!-- end header__logo -->
 
                 <ul class="header__social">
-                    <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
+{#                    <li>#}
+{#                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>#}
+{#                    </li>#}
+                    {% if title == 0 %}
+                        <li>
+                            <a href="../notification/request_page" class="notification">
+                                <span>Notificatoin</span>
+                                <span class="badge">{{ notification_num }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul> <!-- end header__social -->
 
                 <a class="header__search-trigger" href="#0"></a>
@@ -108,7 +116,6 @@
                             <li><a href="single-standard.html">Standard Post</a></li>
                             </ul>
                         </li>
-                        <li><a href="style-guide.html" title="">Styles</a></li>
                         <li><a href="about.html" title="">About</a></li>
                         <li><a href="contact.html" title="">Contact</a></li>
                     </ul> <!-- end header__nav -->

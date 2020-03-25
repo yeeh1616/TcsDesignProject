@@ -15,7 +15,7 @@ from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
-from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity
+from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House
 import sqlite3
 
 bp = Blueprint('module_info', __name__, template_folder='templates/module')
@@ -55,8 +55,16 @@ def info():
         return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list,
                                totalComments=len(comment_list), avgStar=avg_star)
     else:
-        return render_template('module_info_student.html', module=module, user=user, commentList=comment_list,
-                               totalComments=len(comment_list), avgStar=avg_star)
+        house = House.get_house_by_housekeeper(current_user.id)
+        notification_num = len(models.get_request_owner_list_by_hid(house.house_id))
+        title = User.get_user_by_id(current_user.id).title
+        return render_template('module_info_student.html',
+                               module=module, user=user,
+                               commentList=comment_list,
+                               totalComments=len(comment_list),
+                               avgStar=avg_star,
+                               notification_num=notification_num,
+                               title=title)
 
 
 @bp.route('/edit', methods=['GET', 'POST'])

@@ -22,7 +22,7 @@ def request_page():
         house = House.get_house_by_housekeeper(current_user.id)
         request_owner_list = models.get_request_owner_list_by_hid(house.house_id)
         return render_template('notification/request_teacher.html', request_owner_list=request_owner_list)
-    elif user_temp.title()==models.STUDENT:
+    elif user_temp.title==models.STUDENT:
         module_id = session.get('moduleId')
         student = Student.get_full_info_by_id(current_user.id)
         request = Request.get_request_by_owner_id(current_user.id)
