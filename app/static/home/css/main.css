@@ -4254,3 +4254,11 @@ footer h4::after {
    padding: 10px 15px;
    contrast: 1.97;
 }
+
+.solved_button{
+   color: #ffffff;
+   background: #7f7f7f;
+   margin: 0px 0px 10px;
+   padding: 10px 15px;
+   contrast: 1.97;
+}

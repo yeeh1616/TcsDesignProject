@@ -211,9 +211,16 @@
                                 <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{ request.img }}.jpg" alt="">
                             </div>
                             <span>
-                                From <span style="color:red;font-size:200%;text-transform:capitalize;">{{ request.house_from_name }} House</span> to <span id="targetHouse" style="color:blue;font-size:200%;text-transform:capitalize;">{{request.house_to_name}} House</span>
-                                <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>
-                                <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>
+                                From <span style="color:{{request.house_from_name}};font-size:200%;text-transform:capitalize;">{{ request.house_from_name }} House</span> to <span id="targetHouse" style="color:{{request.house_to_name}};font-size:200%;text-transform:capitalize;">{{request.house_to_name}} House</span>
+
+                                {% if request.status == 0 %}
+                                    <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>
+                                    <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>
+                                {% elif request.status == 1 %}
+                                    <a class="solved_button" href="#" onclick="return false;">ACCEPTED</a>
+                                {% elif request.status == -1 %}
+                                    <a class="solved_button" href="#" onclick="return false;">REJECTED</a>
+                                {% endif %}
                             </span>
 
                         </li>  <!-- end comment level 1 -->

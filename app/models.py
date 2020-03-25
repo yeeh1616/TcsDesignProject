@@ -365,6 +365,7 @@ def get_request_owner_list_by_hid(house_id):
                               Request.id,
                               Request.house_from,
                               Request.house_to,
+                              Request.status,
                               house_from_alias.house_name.label("house_from_name"),
                               house_to_alias.house_name.label("house_to_name")).\
         filter(Request.house_from == house_id).\

@@ -39,8 +39,7 @@ def request_page():
 
 
 '''
-5. 点击按钮
--- ajax替换按钮为不可用
+9. accept or reject Request 改为ajax
 8. 美化 teacher request页面
 1. notification，右上角有数量
 6. 过滤器
@@ -55,7 +54,7 @@ def request_page():
 def accept_request():
     request_id = request.args.get("request_id")
     Request.accept_request_by_id(request_id)
-    return ""
+    return redirect(url_for('notification.request_page'))
 
 
 @bp.route('/reject_request', methods=['GET', 'POST'])
@@ -64,7 +63,7 @@ def accept_request():
 def reject_request():
     request_id = request.args.get("request_id")
     Request.reject_request_by_id(request_id)
-    return ""
+    return redirect(url_for('notification.request_page'))
 
 
 @bp.route('/send_request', methods=['GET', 'POST'])
