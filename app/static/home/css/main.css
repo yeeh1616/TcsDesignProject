@@ -4256,6 +4256,7 @@ footer h4::after {
 }
 
 .solved_button{
+   pointer-events: none;
    color: #ffffff;
    background: #7f7f7f;
    margin: 0px 0px 10px;
