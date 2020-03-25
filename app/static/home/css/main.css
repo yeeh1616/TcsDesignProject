@@ -4238,3 +4238,19 @@ footer h4::after {
   background: red;
   color: white;
 }
+
+.accept_button{
+   color: #ffffff;
+   background: #77cc6d;
+   margin: 0px 0px 10px;
+   padding: 10px 15px;
+   contrast: 1.97;
+}
+
+.reject_button{
+   color: #ffffff;
+   background: #f6653c;
+   margin: 0px 0px 10px;
+   padding: 10px 15px;
+   contrast: 1.97;
+}

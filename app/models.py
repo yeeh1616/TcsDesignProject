@@ -4,6 +4,7 @@ from flask import current_app, jsonify
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
 #from app.__init__ import db
@@ -356,5 +357,18 @@ def update_by_entity(entity):
 
 def get_request_owner_list_by_hid(house_id):
     # result = db.session.query().filter((Request.house_from == house_id)|(Request.house_to == house_id)).filter(Request.owner_id == User.id).all()
-    result = db.session.query(User.img, Request.id, Request.house_from, Request.house_to).filter(Request.house_from == house_id).filter(Request.owner_id == User.id).all()
+    house_from_alias = aliased(House)
+    house_to_alias = aliased(House)
+    # house_from_name = aliased(house_from_alias.house_name)
+    # house_to_name = aliased(house_to_alias.house_name)
+    result = db.session.query(User.img,
+                              Request.id,
+                              Request.house_from,
+                              Request.house_to,
+                              house_from_alias.house_name.label("house_from_name"),
+                              house_to_alias.house_name.label("house_to_name")).\
+        filter(Request.house_from == house_id).\
+        filter(Request.owner_id == User.id).\
+        filter(Request.house_from == house_from_alias.house_id).\
+        filter(Request.house_to == house_to_alias.house_id).all()
     return result
