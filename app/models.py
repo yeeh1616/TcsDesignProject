@@ -112,6 +112,10 @@ class Student(db.Model):
         student = db.session.query(User.uname, User.img, House.house_id, House.house_name).filter(User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
         return student
 
+    def get_student_by_id(user_id):
+        student = Student.query.filter(Student.user_id == user_id).first()
+        return student
+
     def serialize(self):
         return {"user_id": self.user_id,
                 "house_id": self.house_id,
@@ -268,6 +272,8 @@ class Request(db.Model):
     def accept_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
         request.status = ACCEPTED
+        student = Student.get_student_by_id(request.owner_id)
+        student.house_id = request.house_to
         db.session.commit()
 
     def reject_request_by_id(id):

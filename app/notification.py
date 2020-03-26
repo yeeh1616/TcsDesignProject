@@ -39,8 +39,7 @@ def request_page():
 
 
 '''
-1. send request 添加 确认弹窗
-2. accept: update学生的house_id
+2. accept: 修改学生的house_id
 3. accept 或 reject 一个request后，显示结果。
 -- 添加一个计时界面，2天内不能再发。
 4. request 添加 理由
@@ -50,6 +49,7 @@ def request_page():
 7. 美化request result页
 8. 美化 teacher request页面
 9. 剔除页面不要的内容
+1. send request 确认弹窗 美化
 '''
 
 
