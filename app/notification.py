@@ -39,12 +39,17 @@ def request_page():
 
 
 '''
-9. accept or reject Request 改为ajax
-8. 美化 teacher request页面
-1. notification，右上角有数量
-6. 过滤器
+1. send request 添加 确认弹窗
+2. accept: update学生的house_id
+3. accept 或 reject 一个request后，显示结果。
+-- 添加一个计时界面，2天内不能再发。
+4. request 添加 理由
+5. accept or reject Request 改为ajax
+6. 过滤器，排序器
 -- 未处理，已拒绝，已接受
 7. 美化request result页
+8. 美化 teacher request页面
+9. 剔除页面不要的内容
 '''
 
 

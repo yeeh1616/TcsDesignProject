@@ -129,21 +129,23 @@
 
                 <div class="grid-sizer"></div>
                     <script>
-                        function selectHouse(color, house_id)
+                        function selectHouse(color, my_house_id, house_id)
                         {
-                            document.getElementById("houseTo").value = house_id;
-                            {#alert("Haha");#}
-                            targetHouse = document.getElementById("target_house_img");
-                            targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
-
-                            {#alert(document.getElementById("houseTo").value);#}
+                            if(my_house_id != house_id)
+                            {
+                                document.getElementById("sendBtn").style.visibility="visible";
+                                document.getElementById("houseTo").value = house_id;
+                                targetHouse = document.getElementById("target_house_img");
+                                targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
+                                document.getElementById("target_house_txt").textContent= color +" House";
+                            }
                         }
                     </script>
                     {% for house in houseList %}
                         <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                             <div class="entry__thumb">
-                                <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{house.house_id}}')" class="entry__thumb-link">
+                                <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">
                                     <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg"
                                             srcset="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-800.jpg 2x" alt="">
                                 </a>
@@ -173,7 +175,21 @@
             <form action="send_request" method="post">
                 <input type="hidden" id="houseFrom" name="houseFrom" value="{{ student.house_id }}">
                 <input type="hidden" id="houseTo" name="houseTo" value="x">
-                <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
+{#                <button type="submit" class="submit btn--primary btn--large full-width">Send</button>#}
+
+                <button id="sendBtn" type="button" class="trigger_popup_fricc submit btn--primary btn--large full-width" style="visibility:hidden;">Send</button>
+                <div class="hover_bkgr_fricc">
+                    <div>
+                        <span>From
+                            <span style="text-transform:capitalize;font-size:120%;font-weight:bold">{{ student.house_name }} House</span> to
+                            <span id="target_house_txt" style="text-transform:capitalize;font-size:120%;font-weight:bold"></span>
+                        </span>
+                        <p></p>
+                        <p>Send the request?</p>
+                         <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
+                    </div>
+                </div>
+
             </form>
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
@@ -291,7 +307,7 @@
     <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
     <script src="../../static/home/js/plugins.js"></script>
     <script src="../../static/home/js/main.js"></script>
-
+    <script src="../../static/home/js/newfunc.js"></script>
 </body>
 
 </html>
