@@ -39,17 +39,23 @@ def request_page():
 
 
 '''
-2. accept: 修改学生的house_id
-3. accept 或 reject 一个request后，显示结果。
--- 添加一个计时界面，2天内不能再发。
-4. request 添加 理由
-5. accept or reject Request 改为ajax
-6. 过滤器，排序器
+1. accept 或 reject 一个request后，显示结果。
+-- 发送时 添加时间戳A
+-- 老师确认时 添加时间戳B
+-- 如果A和B是同一天，学生结果页面 显示 ‘1天内不能再发’
+-- 如果B在A之后，显示 ‘确认’按钮，
+-- 学生点击 ‘确认’ 按钮后，request的状态改为 ‘4:confirmed’ 已确认，跳转到request发送页面
+-- 
+10. 修改第一次提交request不显示status的bug
+2. request 添加 理由
+3. 过滤器，排序器
 -- 未处理，已拒绝，已接受
-7. 美化request result页
-8. 美化 teacher request页面
-9. 剔除页面不要的内容
-1. send request 确认弹窗 美化
+4. send request 确认弹窗 美化
+5. 美化request result页
+6. 美化 teacher request页面
+7. 剔除页面不要的内容
+8. accept or reject Request 改为ajax
+9. group chat
 '''
 
 
@@ -87,4 +93,4 @@ def send_request():
                                my_house=my_house,
                                target_house=target_house)
     else:
-        return "Request already exist......"
+        return redirect(url_for('notification.request_page'))

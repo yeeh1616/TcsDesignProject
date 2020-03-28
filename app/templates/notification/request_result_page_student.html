@@ -125,12 +125,13 @@
     <section class="s-content">
         
         <div class="row masonry-wrap">
-            <span>From
-                <span style="color:red;font-size:200%;">{{ my_house.house_name }} House</span> to
-                <span id="targetHouse" style="color:blue;font-size:200%;">{{target_house.house_name}} House</span>
-                <span id="request_status"> Status: {{ request.status_txt }}</span>
-            </span>
             <div align="center">
+                <span>From
+                    <span style="font-size:200%;text-transform:capitalize;">{{ my_house.house_name }} House</span> to
+                    <span id="targetHouse" style="font-size:200%;text-transform:capitalize;">{{target_house.house_name}} House</span>
+                </span>
+                <p id="request_status"> Status: <span style="font-size:200%;text-transform:capitalize;">{{ request.status_txt }}</span></p>
+
                 <img src="../../static/home/images/thumbs/masonry/{{ my_house.house_name }}_house-400.jpg">
                 <img src="../../static/home/images/thumbs/masonry/arrow.png">
                 <img id="target_house_img" src="../../static/home/images/thumbs/masonry/{{ target_house.house_name }}_house-400.jpg">

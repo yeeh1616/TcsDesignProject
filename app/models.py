@@ -3,7 +3,7 @@ import datetime
 from flask import current_app, jsonify
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
@@ -22,9 +22,11 @@ MANAGER = 4
 PENDING = 0
 REJECTED = -1
 ACCEPTED = 1
+CONFIRMED = 2
 status_dict = {PENDING:'Pending',
                REJECTED:'Rejected',
-               ACCEPTED:'Accepted'}
+               ACCEPTED:'Accepted',
+               CONFIRMED:'Confirmed'}
 
 
 class User(UserMixin, db.Model):
@@ -261,7 +263,7 @@ class Request(db.Model):
                 "date": self.date}
 
     def get_request_by_owner_id(owner_id):
-        request = Request.query.filter_by(owner_id=owner_id).filter_by(status=0).first()
+        request = Request.query.filter(Request.owner_id==owner_id).filter(or_(Request.status==-1, Request.status==0, Request.status==1)).first()
         return request
 
     def add_request_by_entity(request):
