@@ -122,89 +122,63 @@
 
     <!-- s-content
     ================================================== -->
+    <script>
+        function selectHouse(color, my_house_id, house_id)
+        {
+            if(my_house_id != house_id)
+            {
+                document.getElementById("sendBtn").style.visibility="visible";
+                document.getElementById("houseTo").value = house_id;
+                targetHouse = document.getElementById("target_house_img");
+                targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
+                document.getElementById("target_house_txt").textContent= color +" House";
+            }
+        }
+    </script>
     <section class="s-content">
-        
         <div class="row masonry-wrap">
             <div class="masonry">
-
                 <div class="grid-sizer"></div>
-                    <script>
-                        function selectHouse(color, my_house_id, house_id)
-                        {
-                            if(my_house_id != house_id)
-                            {
-                                document.getElementById("sendBtn").style.visibility="visible";
-                                document.getElementById("houseTo").value = house_id;
-                                targetHouse = document.getElementById("target_house_img");
-                                targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
-                                document.getElementById("target_house_txt").textContent= color +" House";
-                            }
-                        }
-                    </script>
-                    {% for house in houseList %}
-                        <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                {% for house in houseList %}
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                        <div class="entry__thumb">
+                            <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">
+                                <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg"
+                                        srcset="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-800.jpg 2x" alt="">
+                            </a>
+                        </div>
 
-                            <div class="entry__thumb">
-                                <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">
-                                    <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg"
-                                            srcset="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-800.jpg 2x" alt="">
-                                </a>
+                        <div class="entry__text">
+                            <div  align="center" class="entry__header">
+                                <h1 style="text-transform:uppercase;color:{{ house.color_name }}" class="entry__title">{{ house.color_name }} house</h1>
                             </div>
-
-                            <div class="entry__text">
-                                <div  align="center" class="entry__header">
-                                    <h1 style="text-transform:uppercase;color:{{ house.color_name }}" class="entry__title">{{ house.color_name }} house</h1>
-                                </div>
-                                <div class="entry__excerpt">
-                                    <p>
-                                        100 memebers
-                                    </p>
-                                </div>
+                            <div class="entry__excerpt">
+                                <p>
+                                    100 memebers
+                                </p>
                             </div>
-                        </article> <!-- end article -->
-                    {% endfor %}
+                        </div>
+                    </article> <!-- end article -->
+                {% endfor %}
             </div> <!-- end masonry -->
 
-            <div align="center">
-{#                <span>From <span style="color:red;font-size:200%;">{{ student.house_name }} house</span> to <span id="targetHouse" style="color:blue;font-size:200%;">Blue House</span></span>#}
+            <!-- reason -->
+            <div class="respond"  align="center">
                 <img src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
                 <img src="../../static/home/images/thumbs/masonry/arrow.png">
                 <img id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
-            </div>
-
-            <!-- reason
-            ================================================== -->
-            <div class="respond">
                 <div id="commentBlock" class="content">
-                    <form action="send_request" method="post">
+                    <form action="send_request" method="post" id="request-form">
                         <fieldset>
-{#                            <p class="h4">What is your reason for switching house?</p>#}
-{#                            <label><input type="radio" name="q1" value="c1">#}
-{#                                Group member leaving#}
-{#                            </label>#}
-{#                            <label><input type="radio" name="q1" value="c2">#}
-{#                              Negative#}
-{#                            </label>#}
-{#                            <label><input type="radio" name="q1" value="c3">#}
-{#                              Suggestions to teachers#}
-{#                            </label>#}
-{#                            <label><input type="radio" name="q1" value="c4">#}
-{#                              Suggestions to students#}
-{#                            </label>#}
-{#                            <label><input type="radio" name="q1" value="c4">#}
-{#                              Other#}
-{#                            </label>#}
-
                             <p class="h4">Put you reason here</p>
                             <div class="message form-field">
                                 <textarea name="comment" id="comment" class="full-width" placeholder="Your reason for switching house ..."></textarea>
-                                <input type="hidden" id="star" name="star" value="0">
                             </div>
 
                             <input type="hidden" id="houseFrom" name="houseFrom" value="{{ student.house_id }}">
                             <input type="hidden" id="houseTo" name="houseTo" value="x">
 
-                            <button id="sendBtn" type="button" class="trigger_popup_fricc submit btn--primary btn--large full-width" style="visibility:hidden;">Send</button>
+                            <button type="button" id="sendBtn" class="trigger_popup_fricc submit btn--primary btn--large full-width" style="visibility:hidden;">Send</button>
                         </fieldset>
                     </form>
                 </div>
@@ -221,7 +195,7 @@
             </span>
             <p></p>
             <p>You want to send the request?</p>
-            <button type="submit" class="submit btn--primary btn--large full-width">OK</button>
+            <button type="submit" form="request-form" class="submit btn--primary btn--large full-width">OK</button>
         </div>
     </div>
     <!-- popup window -->
