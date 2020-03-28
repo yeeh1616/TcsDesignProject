@@ -84,8 +84,16 @@ def send_request():
     if request is None:
         request = Request(current_user.id, my_house.house_id, target_house.house_id, models.PENDING, date.today())
         Request.add_request_by_entity(request)
+        request.status_txt = models.status_dict.get(request.status)
+
+        if request.send_date == date.today().strftime("%Y-%m-%d"):
+            request.is_frozen = True
+        else:
+            request.is_frozen = False
+
         return render_template('notification/request_result_page_student.html',
-                               my_house=my_house,
-                               target_house=target_house)
+                                my_house=my_house,
+                                target_house=target_house,
+                                request=request)
     else:
         return redirect(url_for('notification.request_page'))
