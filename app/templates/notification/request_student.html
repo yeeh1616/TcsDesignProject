@@ -205,23 +205,26 @@
                             <input type="hidden" id="houseTo" name="houseTo" value="x">
 
                             <button id="sendBtn" type="button" class="trigger_popup_fricc submit btn--primary btn--large full-width" style="visibility:hidden;">Send</button>
-                            <div class="hover_bkgr_fricc">
-                                <div>
-                                    <span>From
-                                        <span style="text-transform:capitalize;font-size:120%;font-weight:bold">{{ student.house_name }} House</span> to
-                                        <span id="target_house_txt" style="text-transform:capitalize;font-size:120%;font-weight:bold"></span>
-                                    </span>
-                                    <p></p>
-                                    <p>Send the request?</p>
-                                     <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
-                                </div>
-                            </div>
                         </fieldset>
                     </form>
                 </div>
             </div> <!-- end reason -->
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
+
+    <!-- popup window -->
+    <div class="hover_bkgr_fricc">
+        <div>
+            <span>From
+                <span style="text-transform:capitalize;font-size:120%;font-weight:bold">{{ student.house_name }} House</span> to
+                <span id="target_house_txt" style="text-transform:capitalize;font-size:120%;font-weight:bold"></span>
+            </span>
+            <p></p>
+            <p>Send the request?</p>
+            <button type="submit" class="submit btn--primary btn--large full-width">Send</button>
+        </div>
+    </div>
+    <!-- popup window -->
 
     <!-- s-footer
     ================================================== -->
