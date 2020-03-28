@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -30,34 +31,18 @@ def request_page():
             my_house = House.get_house_by_id(request.house_from)
             target_house = House.get_house_by_id(request.house_to)
             request.status_txt = models.status_dict.get(request.status)
-            request.is_frozen = (request.send_date == request.confirm_date)
+
+            if request.send_date == date.today().strftime("%Y-%m-%d"):
+                request.is_frozen = True
+            else:
+                request.is_frozen = False
+
             return render_template('notification/request_result_page_student.html',
                                 my_house=my_house,
                                 target_house=target_house,
                                 request=request)
         houseList = House.get_houselist_by_mid(module_id)
         return render_template('notification/request_student.html', houseList=houseList, student=student)
-
-
-'''
-1. accept 或 reject 一个request后，显示结果。
--- 发送时 添加时间戳A
--- 老师确认时 添加时间戳B
--- 如果A和B是同一天，学生结果页面 显示 ‘1天内不能再发’
--- 如果B在A之后，显示 ‘确认’按钮，
--- 学生点击 ‘确认’ 按钮后，request的状态改为 ‘4:confirmed’ 已确认，跳转到request发送页面
--- 
-10. 修改第一次提交request不显示status的bug
-2. request 添加 理由
-3. 过滤器，排序器
--- 未处理，已拒绝，已接受
-4. send request 确认弹窗 美化
-5. 美化request result页
-6. 美化 teacher request页面
-7. 剔除页面不要的内容
-8. accept or reject Request 改为ajax
-9. group chat
-'''
 
 
 @bp.route('/accept_request', methods=['GET', 'POST'])
