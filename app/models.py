@@ -246,21 +246,24 @@ class Request(db.Model):
     house_from = db.Column(db.Integer, nullable=False)
     house_to = db.Column(db.Integer, nullable=False)
     status = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.String, nullable=False)
+    send_date = db.Column(db.String, nullable=False)
+    confirm_date = db.Column(db.String)
 
     def __init__(self, owner_id, house_from, house_to, status, date):
         self.owner_id = owner_id
         self.house_from = house_from
         self.house_to = house_to
         self.status = status
-        self.date = date
+        self.send_date = date
+        self.confirm_date = date
 
     def serialize(self):
         return {"owner_id": self.owner_id,
                 "house_from": self.house_from,
                 "house_to": self.house_to,
                 "status": self.status,
-                "date": self.date}
+                "send_date": self.send_date,
+                "confirm_date": self.confirm_date}
 
     def get_request_by_owner_id(owner_id):
         request = Request.query.filter(Request.owner_id==owner_id).filter(or_(Request.status==-1, Request.status==0, Request.status==1)).first()
@@ -281,6 +284,11 @@ class Request(db.Model):
     def reject_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
         request.status = REJECTED
+        db.session.commit()
+
+    def confirm_request_by_id(id):
+        request = Request.query.filter_by(id=id).first()
+        request.status = CONFIRMED
         db.session.commit()
 
 # database methods

@@ -30,6 +30,7 @@ def request_page():
             my_house = House.get_house_by_id(request.house_from)
             target_house = House.get_house_by_id(request.house_to)
             request.status_txt = models.status_dict.get(request.status)
+            request.is_frozen = (request.send_date == request.confirm_date)
             return render_template('notification/request_result_page_student.html',
                                 my_house=my_house,
                                 target_house=target_house,
@@ -77,6 +78,15 @@ def reject_request():
     return redirect(url_for('notification.request_page'))
 
 
+@bp.route('/confirm_request', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def confirm_request():
+    request_id = request.args.get("request_id")
+    Request.confirm_request_by_id(request_id)
+    return redirect(url_for('notification.request_page'))
+
+
 @bp.route('/send_request', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
@@ -87,7 +97,7 @@ def send_request():
 
     request = Request.get_request_by_owner_id(current_user.id)
     if request is None:
-        request = Request(current_user.id, my_house.house_id, target_house.house_id, 0, date.today())
+        request = Request(current_user.id, my_house.house_id, target_house.house_id, models.PENDING, date.today())
         Request.add_request_by_entity(request)
         return render_template('notification/request_result_page_student.html',
                                my_house=my_house,
