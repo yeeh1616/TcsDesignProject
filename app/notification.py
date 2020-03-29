@@ -20,27 +20,31 @@ bp = Blueprint('notification', __name__, template_folder='templates/notification
 def request_page():
     user_temp = User.get_user_by_id(current_user.id)
     if user_temp.title==models.HOUSEKEEPER:
+        filter = request.args.get("filter")
         house = House.get_house_by_housekeeper(current_user.id)
-        request_owner_list = models.get_request_owner_list_by_hid(house.house_id)
+        if filter == None:
+            request_owner_list = models.get_request_owner_list_by_hid(house.house_id)
+        else:
+            request_owner_list = models.get_request_owner_list_by_hid_filter(house.house_id, filter)
         return render_template('notification/request_teacher.html', request_owner_list=request_owner_list)
     elif user_temp.title==models.STUDENT:
         module_id = session.get('moduleId')
         student = Student.get_full_info_by_id(current_user.id)
-        request = Request.get_request_by_owner_id(current_user.id)
-        if request is not None:
-            my_house = House.get_house_by_id(request.house_from)
-            target_house = House.get_house_by_id(request.house_to)
-            request.status_txt = models.status_dict.get(request.status)
+        switching_request = Request.get_request_by_owner_id(current_user.id)
+        if switching_request is not None:
+            my_house = House.get_house_by_id(switching_request.house_from)
+            target_house = House.get_house_by_id(switching_request.house_to)
+            switching_request.status_txt = models.status_dict.get(switching_request.status)
 
-            if request.send_date == date.today().strftime("%Y-%m-%d"):
-                request.is_frozen = True
+            if switching_request.send_date == date.today().strftime("%Y-%m-%d"):
+                switching_request.is_frozen = True
             else:
-                request.is_frozen = False
+                switching_request.is_frozen = False
 
             return render_template('notification/request_result_page_student.html',
                                 my_house=my_house,
                                 target_house=target_house,
-                                request=request)
+                                request=switching_request)
         houseList = House.get_houselist_by_mid(module_id)
         return render_template('notification/request_student.html', houseList=houseList, student=student)
 
