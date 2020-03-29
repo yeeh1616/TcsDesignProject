@@ -212,7 +212,9 @@
                             </div>
                             <span>
                                 From <span style="color:{{request.house_from_name}};font-size:200%;text-transform:capitalize;">{{ request.house_from_name }} House</span> to <span id="targetHouse" style="color:{{request.house_to_name}};font-size:200%;text-transform:capitalize;">{{request.house_to_name}} House</span>
-
+                            </span>
+                            <div class="comment__text">
+                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>
                                 {% if request.status == 0 %}
                                     <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>
                                     <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>
@@ -221,8 +223,7 @@
                                 {% elif request.status == -1 %}
                                     <a class="solved_button" href="#" onclick="return false;">REJECTED</a>
                                 {% endif %}
-                            </span>
-
+                            </div>
                         </li>  <!-- end comment level 1 -->
                     {% endfor %}
                 </ol> <!-- end commentlist -->

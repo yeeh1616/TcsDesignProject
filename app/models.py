@@ -22,11 +22,9 @@ MANAGER = 4
 PENDING = 0
 REJECTED = -1
 ACCEPTED = 1
-CONFIRMED = 2
 status_dict = {PENDING:'Pending',
                REJECTED:'Rejected',
-               ACCEPTED:'Accepted',
-               CONFIRMED:'Confirmed'}
+               ACCEPTED:'Accepted'}
 
 
 class User(UserMixin, db.Model):
@@ -248,16 +246,16 @@ class Request(db.Model):
     reason = db.Column(db.String)
     status = db.Column(db.Integer, nullable=False)
     send_date = db.Column(db.String, nullable=False)
-    confirm_date = db.Column(db.String)
+    confirmed = db.Column(db.String)
 
-    def __init__(self, owner_id, house_from, house_to, reason, status, date):
+    def __init__(self, owner_id, house_from, house_to, reason, status, date, confirmed):
         self.owner_id = owner_id
         self.house_from = house_from
         self.house_to = house_to
         self.reason = reason
         self.status = status
         self.send_date = date
-        self.confirm_date = date
+        self.confirmed = confirmed
 
     def serialize(self):
         return {"owner_id": self.owner_id,
@@ -266,10 +264,10 @@ class Request(db.Model):
                 "reason": self.reason,
                 "status": self.status,
                 "send_date": self.send_date,
-                "confirm_date": self.confirm_date}
+                "confirmed": self.confirmed}
 
     def get_request_by_owner_id(owner_id):
-        request = Request.query.filter(Request.owner_id==owner_id).filter(or_(Request.status==-1, Request.status==0, Request.status==1)).first()
+        request = Request.query.filter(Request.owner_id==owner_id).filter(Request.confirmed == 0).first()
         return request
 
     def add_request_by_entity(request):
@@ -291,7 +289,7 @@ class Request(db.Model):
 
     def confirm_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
-        request.status = CONFIRMED
+        request.confirmed = 1
         db.session.commit()
 
 # database methods
@@ -384,6 +382,7 @@ def get_request_owner_list_by_hid(house_id):
                               Request.id,
                               Request.house_from,
                               Request.house_to,
+                              Request.reason,
                               Request.status,
                               house_from_alias.house_name.label("house_from_name"),
                               house_to_alias.house_name.label("house_to_name")).\

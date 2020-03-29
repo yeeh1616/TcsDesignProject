@@ -154,6 +154,10 @@
                             <button type="submit" class="submit btn--primary btn--large full-width">Send a new request</button>
                         </form>
                     {% endif %}
+                {% elif request.status == 0 %}
+                    <br/>
+                    <p style="font-size:200%;">Your request unhandled yet.</p>
+                    <p style="font-size:200%;font-weight:bold;">Sent date: <span style="font-weight:lighter;"> {{ request.send_date }} </span></p>
                 {% endif %}
             </div>
         </div> <!-- end masonry-wrap -->
