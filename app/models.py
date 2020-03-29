@@ -245,14 +245,16 @@ class Request(db.Model):
     owner_id = db.Column(db.Integer, nullable=False)
     house_from = db.Column(db.Integer, nullable=False)
     house_to = db.Column(db.Integer, nullable=False)
+    reason = db.Column(db.String)
     status = db.Column(db.Integer, nullable=False)
     send_date = db.Column(db.String, nullable=False)
     confirm_date = db.Column(db.String)
 
-    def __init__(self, owner_id, house_from, house_to, status, date):
+    def __init__(self, owner_id, house_from, house_to, reason, status, date):
         self.owner_id = owner_id
         self.house_from = house_from
         self.house_to = house_to
+        self.reason = reason
         self.status = status
         self.send_date = date
         self.confirm_date = date
@@ -261,6 +263,7 @@ class Request(db.Model):
         return {"owner_id": self.owner_id,
                 "house_from": self.house_from,
                 "house_to": self.house_to,
+                "reason": self.reason,
                 "status": self.status,
                 "send_date": self.send_date,
                 "confirm_date": self.confirm_date}
