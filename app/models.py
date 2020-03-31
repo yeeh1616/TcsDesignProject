@@ -246,15 +246,17 @@ class Request(db.Model):
     reason = db.Column(db.String)
     status = db.Column(db.Integer, nullable=False)
     send_date = db.Column(db.String, nullable=False)
+    confirmed_date = db.Column(db.String, nullable=False)
     confirmed = db.Column(db.String)
 
-    def __init__(self, owner_id, house_from, house_to, reason, status, date, confirmed):
+    def __init__(self, owner_id, house_from, house_to, reason, status, send_date, confirmed_date, confirmed):
         self.owner_id = owner_id
         self.house_from = house_from
         self.house_to = house_to
         self.reason = reason
         self.status = status
-        self.send_date = date
+        self.send_date = send_date
+        self.confirmed_date = confirmed_date
         self.confirmed = confirmed
 
     def serialize(self):
@@ -264,6 +266,7 @@ class Request(db.Model):
                 "reason": self.reason,
                 "status": self.status,
                 "send_date": self.send_date,
+                "confirmed_date": self.confirmed_date,
                 "confirmed": self.confirmed}
 
     def get_request_by_owner_id(owner_id):
@@ -278,6 +281,7 @@ class Request(db.Model):
     def accept_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
         request.status = ACCEPTED
+        request.confirmed_date = datetime.date.today()
         student = Student.get_student_by_id(request.owner_id)
         student.house_id = request.house_to
         db.session.commit()
@@ -285,6 +289,7 @@ class Request(db.Model):
     def reject_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
         request.status = REJECTED
+        request.confirmed_date = datetime.date.today()
         db.session.commit()
 
     def confirm_request_by_id(id):
@@ -395,6 +400,7 @@ def get_request_owner_list_base(house_id):
                               Request.house_from,
                               Request.house_to,
                               Request.send_date,
+                              Request.confirmed_date,
                               Request.reason,
                               Request.status,
                               house_from_alias.house_name.label("house_from_name"),

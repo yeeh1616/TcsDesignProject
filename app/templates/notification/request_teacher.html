@@ -202,7 +202,7 @@
                                   <th>From</th>
                                   <th>To</th>
                                   <th>Sent date</th>
-                                  <th>Solved date</th>
+                                  <th>Confirmed date</th>
                                   <th></th>
                                 </tr>
                             </thead>
@@ -215,7 +215,7 @@
                                     <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>
                                     <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>
                                     <td>{{ request.send_date }}</td>
-                                    <td></td>
+                                    <td>{{ request.confirmed_date }}</td>
                                     <td>
                                         {% if request.status == 0 %}
                                             <div>
