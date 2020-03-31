@@ -6,3 +6,4 @@ Flask-WTF == 0.14.3
 Flask-Migrate == 2.5.2
 Flask-Mail == 0.9.1
 Werkzeug == 1.0.0
+Flask-Pagiante == 0.50
