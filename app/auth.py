@@ -1,11 +1,11 @@
 from app import models, homepage,db
-from app.forms import RegistrationForm, LoginForm
+from app.forms import RegistrationForm, LoginForm, ResetPasswordRequestForm, ResetPasswordForm
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from flask_login import current_user, login_user, logout_user, login_required
 from app import login_manager
-from app.models import User, STUDENT, TEACHER_WITH_NO_HOUSE, HOUSEKEEPER, COORDINATOR, add_a_user_by_enity
+from app.models import User, STUDENT, TEACHER_WITH_NO_HOUSE, HOUSEKEEPER, COORDINATOR, add_a_user_by_enity,update_by_entity
 from app.token import generate_confirmation_token, confirm_token
 import datetime
 from app.email import send_email
@@ -129,6 +129,43 @@ def unconfirmed():
     return render_template('unconfirmed.html')
 
 
+@bp.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            token = generate_confirmation_token(user.email)
+            confirm_url = url_for('auth.reset_password', token=token, _external=True)
+            html = render_template('reset_password_email.html', confirm_url=confirm_url)
+            subject = "Please confirm your email"
+            send_email(user.email, subject, html)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('auth.login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
+
+
+@bp.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    try:
+        email = confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    user = User.query.filter_by(email=email).first_or_404()
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        update_by_entity(user)
+        flash('Your password has been reset.')
+        return redirect(url_for('auth.login'))
+    return render_template('reset_password.html', form=form)
+
 @bp.route('/resend')
 @login_required
 def resend_confirmation():
@@ -154,3 +191,4 @@ def unassigned():
     #     return redirect(url_for('main.home'))
     # flash('You have not been assigned a house!', 'warning')
     return render_template('unassigned.html')
+
