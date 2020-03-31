@@ -139,7 +139,7 @@
         <div class="row masonry-wrap">
             <div class="masonry">
                 <div class="grid-sizer"></div>
-                {% for house in houseList %}
+                {% for house in house_list %}
                     <article class="masonry__brick entry format-standard" data-aos="fade-up">
                         <div class="entry__thumb">
                             <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">

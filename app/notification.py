@@ -1,5 +1,6 @@
 from datetime import date
 from datetime import datetime
+from flask_paginate import Pagination, get_page_parameter
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -19,34 +20,74 @@ bp = Blueprint('notification', __name__, template_folder='templates/notification
 @check_confirmed
 def request_page():
     user_temp = User.get_user_by_id(current_user.id)
-    if user_temp.title==models.HOUSEKEEPER:
-        filter = request.args.get("filter")
-        house = House.get_house_by_housekeeper(current_user.id)
-        if filter == None:
-            request_owner_list = models.get_request_owner_list_by_hid(house.house_id)
+    if user_temp.title == models.HOUSEKEEPER:
+        search = False
+        q = request.args.get('q')
+        if q:
+            search = True
+        return request_page_teacher(search)
+    elif user_temp.title == models.STUDENT:
+        return request_page_student()
+
+
+def request_page_student():
+    module_id = session.get('moduleId')
+    student = Student.get_full_info_by_id(current_user.id)
+    switching_request = Request.get_request_by_owner_id(current_user.id)
+
+    if switching_request is not None:
+        my_house = House.get_house_by_id(switching_request.house_from)
+        target_house = House.get_house_by_id(switching_request.house_to)
+        switching_request.status_txt = models.status_dict.get(switching_request.status)
+
+        if switching_request.send_date == date.today().strftime("%Y-%m-%d"):
+            switching_request.is_frozen = True
         else:
-            request_owner_list = models.get_request_owner_list_by_hid_filter(house.house_id, filter)
-        return render_template('notification/request_teacher.html', request_owner_list=request_owner_list)
-    elif user_temp.title==models.STUDENT:
-        module_id = session.get('moduleId')
-        student = Student.get_full_info_by_id(current_user.id)
-        switching_request = Request.get_request_by_owner_id(current_user.id)
-        if switching_request is not None:
-            my_house = House.get_house_by_id(switching_request.house_from)
-            target_house = House.get_house_by_id(switching_request.house_to)
-            switching_request.status_txt = models.status_dict.get(switching_request.status)
+            switching_request.is_frozen = False
 
-            if switching_request.send_date == date.today().strftime("%Y-%m-%d"):
-                switching_request.is_frozen = True
-            else:
-                switching_request.is_frozen = False
+        return render_template('notification/request_result_page_student.html',
+                               my_house=my_house,
+                               target_house=target_house,
+                               request=switching_request)
 
-            return render_template('notification/request_result_page_student.html',
-                                my_house=my_house,
-                                target_house=target_house,
-                                request=switching_request)
-        houseList = House.get_houselist_by_mid(module_id)
-        return render_template('notification/request_student.html', houseList=houseList, student=student)
+    house_list = House.get_houselist_by_mid(module_id)
+    return render_template('notification/request_student.html',
+                           house_list=house_list,
+                           student=student)
+
+
+def request_page_teacher(search):
+    f = request.args.get("filter")
+    house = House.get_house_by_housekeeper(current_user.id)
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 10
+    offset = (page - 1) * per_page
+
+    if f is None:
+        request_owner_list = models.get_request_owner_list_by_hid(house.house_id, per_page, offset)
+    else:
+        request_owner_list = models.get_request_owner_list_by_hid_filter(house.house_id, f, per_page, offset)
+
+    pagination = Pagination(page=page,
+                            total=models.get_request_owner_list_count(house.house_id),
+                            search=search,
+                            record_name='request_owner_list',
+                            per_page=per_page,
+                            show_single_page=True,
+                            link='<li><a class="pgn__num" href="{0}">{1}</a></li>')
+
+    pagination.current_page_fmt = '<li><span class="pgn__num current">{0}</span></li>'
+    pagination.prev_page_fmt = '<li><a class="pgn__prev" href="{0}">{1}</a></li>'
+    pagination.next_page_fmt = '<li><a class="pgn__next" href="{0}">{1}</a></li>'
+    pagination.gap_marker_fmt = '<li><span class="pgn__num dots">…</span></li>'
+    pagination.link = '<li><a class="pgn__num" href="{0}">{1}</a></li>'
+    pagination.link_css_fmt = '<div class="{0}{1}"><ul>'
+    pagination.prev_disabled_page_fmt = ''
+    pagination.next_disabled_page_fmt = ''
+
+    return render_template('notification/request_teacher.html',
+                           request_owner_list=request_owner_list,
+                           pagination=pagination)
 
 
 @bp.route('/accept_request', methods=['GET', 'POST'])
