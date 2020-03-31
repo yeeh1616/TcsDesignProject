@@ -35,7 +35,7 @@ def test2():
 def home():
     moduleList = Module.query.filter_by(owner_id=current_user.id).all()
     house = House.get_house_by_housekeeper(current_user.id)
-    notification_num = len(models.get_request_owner_list_by_hid(house.house_id))
+    notification_num = models.get_request_owner_list_count(house.house_id)
     title = User.get_user_by_id(current_user.id).title
     return render_template('index.html', moduleList=moduleList, notification_num=notification_num, title=title)
 
