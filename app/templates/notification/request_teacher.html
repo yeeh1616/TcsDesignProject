@@ -210,7 +210,7 @@
                         {% for request in request_owner_list %}
                             <tbody>
                                 <tr>
-                                    <td style='white-space: nowrap'>{{ loop.index + pagination.skip }}</td>
+                                    <td>{{ loop.index + pagination.skip }}</td>
                                     <td>{{ request.uname }}</td>
                                     <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>
                                     <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>
@@ -231,6 +231,7 @@
                                 </tr>
                                 {% if request.reason is not none %}
                                     <tr>
+                                        <td></td>
                                         <td>
                                             <div class="comment__text">
                                                 <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>
