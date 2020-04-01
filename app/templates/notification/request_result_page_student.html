@@ -140,8 +140,8 @@
                     {% if request.is_frozen %}
                         <br/>
                         <p style="font-size:200%;">Your request has been <span style="text-transform:lowercase;">{{ request.status_txt }}.</span></p>
-                        <p style="font-size:200%;">You are allowed to send another request after:</p>
-                        <p style="font-size:200%;font-weight:bold;">{{ request.send_date }}</p>
+                        <p style="font-size:200%;">You are allowed to send another request after (7 days after sent date):</p>
+                        <p style="font-size:200%;font-weight:bold;">{{ request.unfrozen_date }}</p>
                     {% else %}
                         <br/>
                         <br/>

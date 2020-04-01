@@ -1,5 +1,6 @@
 from datetime import date
 from datetime import datetime
+from datetime import timedelta
 from flask_paginate import Pagination, get_page_parameter
 
 from flask import (
@@ -40,7 +41,11 @@ def request_page_student():
         target_house = House.get_house_by_id(switching_request.house_to)
         switching_request.status_txt = models.status_dict.get(switching_request.status)
 
-        if switching_request.send_date == date.today().strftime("%Y-%m-%d"):
+        d1 = datetime.strptime(switching_request.send_date, '%Y-%m-%d')
+        d2 = datetime.now()
+        delta = d2 - d1
+        switching_request.unfrozen_date = (d1 + timedelta(days=7)).strftime("%Y-%m-%d")
+        if delta.days <= 7:
             switching_request.is_frozen = True
         else:
             switching_request.is_frozen = False

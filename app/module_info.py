@@ -56,7 +56,7 @@ def info():
                                totalComments=len(comment_list), avgStar=avg_star)
     else:
         house = House.get_house_by_housekeeper(current_user.id)
-        notification_num = len(models.get_request_owner_list_by_hid(house.house_id))
+        notification_num = models.get_request_owner_list_count(house.house_id)
         title = User.get_user_by_id(current_user.id).title
         return render_template('module_info_student.html',
                                module=module, user=user,
