@@ -15,7 +15,7 @@ from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
-from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House
+from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Student
 import sqlite3
 
 bp = Blueprint('module_info', __name__, template_folder='templates/module')
@@ -111,6 +111,8 @@ def comment():
 @login_required
 @check_confirmed
 def download():
+    student = Student.get_full_info_by_id(current_user.id)
+    houseid = student.house_id
     root = Tk()
     path_ = askdirectory(initialdir=os.getcwd(), title='Please select a directory')
     path_ = path_ + '/student.csv'
@@ -119,7 +121,8 @@ def download():
         conn = sqlite3.connect('project_database')
         with open(path_, 'w+', newline='') as write_file:
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM user')
+            cursor.execute('SELECT uname,email FROM user, student WHERE student.user_id ='
+                           ' user.id AND student.house_id = '+str(houseid))
             csv_writer = csv.writer(write_file)
             csv_writer.writerow([i[0] for i in cursor.description])
             csv_writer.writerows(cursor)
@@ -135,7 +138,7 @@ def download():
 @check_confirmed
 def upload():
     root = Tk()
-    path_ = askopenfilename(title='Please select a directory')
+    path_ = askopenfilename(title='Please select csv file')
     root.destroy()
     try:
         conn = sqlite3.connect('project_database')

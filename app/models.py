@@ -7,7 +7,8 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
-#from app.__init__ import db
+
+# from app.__init__ import db
 
 # with current_app.app_context():
 #     db = SQLAlchemy(current_app)
@@ -17,14 +18,13 @@ HOUSEKEEPER = 2
 COORDINATOR = 3
 MANAGER = 4
 
-
 # status for request
 PENDING = 0
 REJECTED = -1
 ACCEPTED = 1
-status_dict = {PENDING:'Pending',
-               REJECTED:'Rejected',
-               ACCEPTED:'Accepted'}
+status_dict = {PENDING: 'Pending',
+               REJECTED: 'Rejected',
+               ACCEPTED: 'Accepted'}
 
 
 class User(UserMixin, db.Model):
@@ -39,7 +39,8 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, uname, password, role, email, phone = None, img = None, title = None, confirmed=False, confirmed_on = None):
+    def __init__(self, uname, password, role, email, phone=None, img=None, title=None, confirmed=False,
+                 confirmed_on=None):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
         self.title = role
@@ -53,14 +54,14 @@ class User(UserMixin, db.Model):
     def serialize(self):
         return {"id": self.id,
                 "uname": self.uname,
-                "password": self. password_hash,
-                "role": self. title,
-                "email" : self.email,
+                "password": self.password_hash,
+                "role": self.title,
+                "email": self.email,
                 "phone": self.phone,
                 "img": self.img,
                 "title": self.title,
                 "confirmed": self.confirmed,
-                "confirmed_on" : self.confirmed_on}
+                "confirmed_on": self.confirmed_on}
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -87,7 +88,7 @@ class HouseKeeper(db.Model):
     module_id = db.Column(db.Integer)
     course_id = db.Column(db.Integer)
 
-    def __init__(self, user_id, module_id = None, course_id =None):
+    def __init__(self, user_id, module_id=None, course_id=None):
         self.user_id = user_id
         self.module_id = module_id
         self.course_id = course_id
@@ -103,13 +104,14 @@ class Student(db.Model):
     house_id = db.Column(db.Integer)
     module_id = db.Column(db.Integer)
 
-    def __init__(self, user_id, house_id=None, module_id=None,):
+    def __init__(self, user_id, house_id=None, module_id=None, ):
         self.user_id = user_id
         self.house_id = house_id
         self.module_id = module_id
 
     def get_full_info_by_id(id):
-        student = db.session.query(User.uname, User.img, House.house_id, House.house_name).filter(User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
+        student = db.session.query(User.uname, User.img, House.house_id, House.house_name).filter(
+            User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
         return student
 
     def get_student_by_id(user_id):
@@ -270,7 +272,7 @@ class Request(db.Model):
                 "confirmed": self.confirmed}
 
     def get_request_by_owner_id(owner_id):
-        request = Request.query.filter(Request.owner_id==owner_id).filter(Request.confirmed == 0).first()
+        request = Request.query.filter(Request.owner_id == owner_id).filter(Request.confirmed == 0).first()
         return request
 
     def add_request_by_entity(request):
@@ -296,6 +298,7 @@ class Request(db.Model):
         request = Request.query.filter_by(id=id).first()
         request.confirmed = 1
         db.session.commit()
+
 
 # database methods
 
@@ -337,7 +340,7 @@ def delete_a_user(uname):
     # Maybe try this
     user = User.query.filter_by(uname=uname).first()
     if user is not None:
-        #print(user.serialize())
+        # print(user.serialize())
         db.session.delete(user)
         db.session.commit()
 
@@ -367,10 +370,12 @@ def add_comment_by_entity(comment):
     db.session.commit()
     return comment.serialize()
 
+
 def add_house_keeper_by_entity(house_keeper):
     db.session.add(house_keeper)
     db.session.commit()
     return house_keeper.serialize()
+
 
 def update_by_entity(entity):
     db.session.merge(entity)
@@ -383,7 +388,7 @@ def get_request_owner_list_by_hid(house_id, limit, offset):
 
 
 def get_request_owner_list_by_hid_filter(house_id, filter_para, limit, offset):
-    return get_request_owner_list_base(house_id).\
+    return get_request_owner_list_base(house_id). \
         filter(Request.status == filter_para).limit(limit).offset(offset).all()
 
 
@@ -396,6 +401,7 @@ def get_request_owner_list_base(house_id):
     house_to_alias = aliased(House)
     result = db.session.query(User.img,
                               User.uname,
+                              User.email,
                               Request.id,
                               Request.house_from,
                               Request.house_to,
@@ -404,9 +410,30 @@ def get_request_owner_list_base(house_id):
                               Request.reason,
                               Request.status,
                               house_from_alias.house_name.label("house_from_name"),
-                              house_to_alias.house_name.label("house_to_name")).\
-        filter(Request.house_from == house_id).\
-        filter(Request.owner_id == User.id).\
-        filter(Request.house_from == house_from_alias.house_id).\
+                              house_to_alias.house_name.label("house_to_name")). \
+        filter(Request.house_from == house_id). \
+        filter(Request.owner_id == User.id). \
+        filter(Request.house_from == house_from_alias.house_id). \
         filter(Request.house_to == house_to_alias.house_id)
+    return result
+
+
+def get_namelist_by_hid(house_id, limit, offset):
+    return get_namelist(house_id).limit(limit).offset(offset).all()
+
+
+def get_namelist_count(house_id):
+    return get_namelist(house_id).count()
+
+
+def get_namelist(house_id):
+    result = db.session.query(User.uname,
+                              User.email,
+                              User.id). \
+        filter(Student.house_id == house_id). \
+        filter(Student.user_id == User.id)
+
+        # . \
+    # filter(User.title == 0)
+
     return result
