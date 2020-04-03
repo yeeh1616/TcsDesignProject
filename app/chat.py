@@ -1,9 +1,10 @@
-from flask import Flask, Blueprint, render_template
+from flask import Flask, Blueprint, render_template, request
 from flask_login import login_required
 from flask_socketio import SocketIO, send
 
 from app import app
 from app.decorators import check_confirmed
+from app.models import Config
 
 bp = Blueprint('chat', __name__, template_folder='templates/chat')
 app.config['SECRET_KEY'] = 'mysecret'
@@ -20,4 +21,6 @@ def handle_message(msg):
 @login_required
 @check_confirmed
 def chat_page():
-    return render_template('chat/chat.html')
+    config = Config.get_config_by_key('server')
+    config.ip = request.remote_addr
+    return render_template('chat/chat.html', config=config)
