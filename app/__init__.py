@@ -4,8 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask_migrate import Migrate
 
-from app import notification
-
 app = None
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -39,6 +37,8 @@ def create_app(test_config=None):
     app.register_blueprint(notification.bp, url_prefix='/notification')
     from . import housepage
     app.register_blueprint(housepage.bp, url_prefix='/house')
+    from . import chat
+    app.register_blueprint(chat.bp, url_prefix='/chat')
     from app.models import db
     migrate = Migrate(app, db, render_as_batch=True)
 
