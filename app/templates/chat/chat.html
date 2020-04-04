@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="../../static/home/css/main.css">
         <link rel="stylesheet" href="../../static/home/css/news.css">
         <link rel="stylesheet" href="../../static/css/chat.css">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+{#        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">#}
 
 
         <!-- script
@@ -119,36 +119,110 @@
             </header> <!-- header -->
 
         </div> <!-- end s-pageheader -->
+{#        <!-- s-content#}
+{#        ================================================== -->#}
+{#        <section class="s-content s-content--narrow s-content--no-padding-bottom">#}
+{#            <div id="demo-chat-body" class="collapse in">#}
+{#                <div class="nano has-scrollbar" style="height:380px">#}
+{#                    <div class="nano-content pad-all" tabindex="0" style="right: -17px;">#}
+{#                        <ul  id="messages" class="list-unstyled media-block"></ul>#}
+{#                    </div>#}
+{#                    <div class="nano-pane">#}
+{#                        <div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <!--Widget footer-->#}
+{#                <div class="panel-footer">#}
+{#                    <div class="row">#}
+{#                        <div class="col-xs-9">#}
+{#                            <input id="myMessage" type="text" placeholder="Enter your text" class="form-control chat-input">#}
+{#                        </div>#}
+{#                        <div class="col-xs-3">#}
+{#                            <button id="sendbutton" class="btn btn-primary btn-block">Send</button>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </section> <!-- s-content -->#}
+
         <!-- s-content
         ================================================== -->
         <section class="s-content s-content--narrow s-content--no-padding-bottom">
-            <div id="demo-chat-body" class="collapse in">
-                <div class="nano has-scrollbar" style="height:380px">
-                    <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
-                        <ul  id="messages" class="list-unstyled media-block">
-
-                        </ul>
-                    </div>
-                    <div class="nano-pane">
-                        <div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div>
-                    </div>
+            <article class="row format-gallery">
+                <div class="s-content__header col-full">
+                    <h1 class="s-content__header-title">
+                        GREEN HOUSE
+                    </h1>
                 </div>
-
-                <!--Widget footer-->
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <input id="myMessage" type="text" placeholder="Enter your text" class="form-control chat-input">
+                <div class="col-full s-content__main">
+                    <div style="height:380px; overflow:auto;">
+                        <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+                            <ul id="messages" class="list-unstyled media-block"></ul>
                         </div>
-                        <div class="col-xs-3">
-                            <button id="sendbutton" class="btn btn-primary btn-block">Send</button>
+                    </div>
+
+
+{#                    <div style="height:380px; overflow:auto;">#}
+{#                        <div class="nano-content pad-all" style="right: -17px;">#}
+{#                            <ol id="messages" class="list-unstyled media-block"></ol>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </article>
+            <div class="comments-wrap">
+                <div id="comments" class="row">
+                    <div class="respond">
+                        <script>
+							function expandComment() {
+								var content = document.getElementById("commentBlock");
+								document.getElementById("expandC").classList.toggle("active");
+								if (content.style.display === "block") {
+								  content.style.display = "none";
+								} else {
+								  content.style.display = "block";
+								}
+							}
+                        </script>
+                        <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Send messages</button>
+                        <div id="commentBlock" class="content">
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="message form-field">
+										<textarea id="myMessage" class="full-width" placeholder=" Enter your text"></textarea>
+									</div>
+                                    <button id="sendbutton" class="submit btn--primary btn--large full-width">Send</button>
+                                    <button id="sendbutton2" class="submit btn--primary btn--large full-width">Send 2</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+{#            <div id="demo-chat-body" class="collapse in">#}
+{#                <div class="nano has-scrollbar" style="height:380px">#}
+{#                    <div class="nano-content pad-all" tabindex="0" style="right: -17px;">#}
+{#                        <ol  id="messages" class="list-unstyled media-block"></ol>#}
+{#                    </div>#}
+{#                    <div class="nano-pane">#}
+{#                        <div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div>#}
+{#                    </div>#}
+{#                </div>#}
+
+                <!--Widget footer-->
+{#                <div class="panel-footer">#}
+{#                    <div class="row">#}
+{#                        <div class="col-xs-9">#}
+{#                            <input id="myMessage" type="text" placeholder="Enter your text" class="form-control chat-input">#}
+{#                        </div>#}
+{#                        <div class="col-xs-3">#}
+{#                            <button id="sendbutton" class="btn btn-primary btn-block">Send</button>#}
+{#                            <button id="sendbutton2" class="btn btn-primary btn-block">Send 2</button>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </section> <!-- s-content -->
-
-
 
         <!-- Java Script
         ================================================== -->
@@ -216,12 +290,31 @@
                     socket.send(msg);
                     $('#myMessage').val('');
                 })
+
+                $('#sendbutton2').on('click', function () {
+                    msg = msg_josn2($('#myMessage').val());
+                    socket.send(msg);
+                    $('#myMessage').val('');
+                })
             });
 
             function msg_josn(msg) {
                 var msg_obj = {
                     content:msg,
                     ip:'{{ config.ip }}',
+                    uname:'{{ user.uname }}',
+                    img:'{{ user.img }}',
+                    house_id:'{{ user.house_id }}',
+                    date:(new Date()).toLocaleDateString("en-GB")
+                };
+
+                return JSON.stringify(msg_obj);
+            }
+
+            function msg_josn2(msg) {
+                var msg_obj = {
+                    content:msg,
+                    ip:'0.0.0.0',
                     uname:'{{ user.uname }}',
                     img:'{{ user.img }}',
                     house_id:'{{ user.house_id }}',
