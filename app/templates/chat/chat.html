@@ -126,34 +126,7 @@
                 <div class="nano has-scrollbar" style="height:380px">
                     <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
                         <ul  id="messages" class="list-unstyled media-block">
-                            <li class="mar-btm">
-                                <div class="media-left">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
-                                </div>
-                                <div class="media-body pad-hor">
-                                    <div class="speech">
-                                        <a href="#" class="media-heading">John Doe</a>
-                                        <p>Hello Lucy, how can I help you today ?</p>
-                                        <p class="speech-time">
-                                        <i class="fa fa-clock-o fa-fw"></i>09:23AM
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="mar-btm">
-                                <div class="media-right">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
-                                </div>
-                                <div class="media-body pad-hor speech-right">
-                                    <div class="speech">
-                                        <a href="#" class="media-heading">Lucy Doe</a>
-                                        <p>Hi, I want to buy a new shoes.</p>
-                                        <p class="speech-time">
-                                            <i class="fa fa-clock-o fa-fw"></i> 09:23AM
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="nano-pane">
@@ -197,17 +170,21 @@
                     var content = msg_json.content;
                     var ip = msg_json.ip;
 
+                    if (msg_json.house_id != '{{ user.house_id }}'){
+                        return;
+                    }
+
                     if (ip == '{{ config.ip }}'){
                         var ele = ['<li class="mar-btm">',
                                 '<div class="media-right">',
-                                    '<img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">',
+                                    '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
                                 '</div>',
                                 '<div class="media-body pad-hor speech-right">',
                                     '<div class="speech">',
-                                        '<a href="#" class="media-heading">Lucy Doe</a>',
+                                        '<a href="#" class="media-heading">' + msg_json.uname + '</a>',
                                         '<p>' + content + '</p>',
                                         '<p class="speech-time">',
-                                            '<i class="fa fa-clock-o fa-fw"></i> 09:23AM',
+                                            '<i class="fa fa-clock-o fa-fw"></i> ' + msg_json.date,
                                         '</p>',
                                     '</div>',
                                 '</div>',
@@ -217,14 +194,14 @@
                     } else {
                         var ele = ['<li class="mar-btm">',
                             '<div class="media-left">',
-                                '<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">',
+                                '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
                             '</div>',
                             '<div class="media-body pad-hor">',
                                 '<div class="speech">',
-                                    '<a href="#" class="media-heading">John Doe</a>',
+                                    '<a href="#" class="media-heading">' + msg_json.uname + '</a>',
                                     '<p>' + content +'</p>',
                                     '<p class="speech-time">',
-                                    '<i class="fa fa-clock-o fa-fw"></i>09:23AM',
+                                    '<i class="fa fa-clock-o fa-fw"></i> ' + msg_json.date,
                                     '</p>',
                                 '</div>',
                             '</div>',
@@ -244,7 +221,11 @@
             function msg_josn(msg) {
                 var msg_obj = {
                     content:msg,
-                    ip:'{{ config.ip }}'
+                    ip:'{{ config.ip }}',
+                    uname:'{{ user.uname }}',
+                    img:'{{ user.img }}',
+                    house_id:'{{ user.house_id }}',
+                    date:(new Date()).toLocaleDateString("en-GB")
                 };
 
                 return JSON.stringify(msg_obj);
