@@ -132,7 +132,7 @@ def send_request():
 
     request = Request.get_request_by_owner_id(current_user.id)
     if request is None:
-        request = Request(current_user.id, my_house.house_id, target_house.house_id, form.reason.data, models.PENDING, date.today(), 0)
+        request = Request(current_user.id, my_house.house_id, target_house.house_id, form.reason.data, models.PENDING, date.today(), date.today(), 0)
         Request.add_request_by_entity(request)
         request.status_txt = models.status_dict.get(request.status)
 
