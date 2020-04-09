@@ -1721,7 +1721,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  *
  * ------------------------------------------------------------------- */
 .s-pageheader {
-   min-height: 174px;
+   min-height: 74px;
    background-image: url(../images/hero-bg.jpg);
    background-repeat: no-repeat;
    background-position: center center;
@@ -1741,7 +1741,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .s-pageheader--home {
-   min-height: 480px;
+   min-height: 80px;
    padding-top: 222px;
 }
 
@@ -1983,7 +1983,7 @@ body.search-is-visible {
    position: absolute;
    right: 20px;
    top: 15px;
-   background-image: url(../images/icons/icon-search.svg);
+   background-image: url(../images/icons/icon-mail.svg);
    background-repeat: no-repeat;
    background-position: right center;
    background-size: contain;
@@ -1995,7 +1995,7 @@ body.search-is-visible {
    text-transform: uppercase;
    letter-spacing: 2px;
    line-height: 21px;
-   content: "Search";
+   content: "notification";
    display: block;
    color: #FFFFFF;
    float: left;
