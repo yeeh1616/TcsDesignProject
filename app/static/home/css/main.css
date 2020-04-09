@@ -3975,8 +3975,8 @@ footer h4::after {
  * ------------------------------------------------------------------- */
 .comments-wrap {
    background-color: #e5e5e5;
-   padding: 8.4rem 0 9rem;
-   margin-top: 10.2rem;
+   padding: 0 0 9rem;
+
 }
 
 /* comments
@@ -4006,7 +4006,7 @@ footer h4::after {
    position: relative;
    list-style: none;
    margin: 0;
-   padding: 1.8rem 0;
+   padding: 0 0;
    padding-left: 14%;
 }
 

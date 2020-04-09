@@ -49,7 +49,7 @@
                 <!-- end header__social -->
 
 				{% if title == 2 %}
-                    <a href="notification/request_page" class="header__search-trigger">
+                    <a href="../notification/request_page" class="header__search-trigger">
 <!--                          <span class="badge">{{ notification_num }}</span>-->
                     </a>
                 {% endif %}
@@ -75,87 +75,88 @@
             </div> <!-- header-content -->
         </header> <!-- header -->
 	</section> <!-- end s-pageheader -->
+     
+    
+        <div class="comments-wrap">
+            <div id="comments" class="row">
+                <div class="col-full">
+                    <!-- commentlist -->
+                    <ol class="commentlist">
+                        <table style='white-space: nowrap'>
+                            <li class="depth-1 comment">
+                                <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Name</th>
+                                      <th>Email</th>
+    {#                                  <th>To</th>#}
+    {#                                  <th>Sent date</th>#}
+    {#                                  <th>Confirmed date</th>#}
+    {#                                  <th></th>#}
+                                    </tr>
+                                </thead>
+                            </li>
+                            {% for request in request_owner_list %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ loop.index + pagination.skip }}</td>
+                                        <td>{{ request.uname }}</td>
+    {#                                    <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>#}
+    {#                                    <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>#}
+                                        <td>{{ request.email }}</td>
+    {#                                    <td>{{ request.confirmed_date }}</td>#}
+    {#                                    <td>#}
+    {#                                        {% if request.status == 0 %}#}
+    {#                                            <div>#}
+    {#                                            <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>#}
+    {#                                            <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>#}
+    {#                                            </div>#}
+    {#                                        {% elif request.status == 1 %}#}
+    {#                                            <a class="solved_button" href="#" onclick="return false;">ACCEPTED</a>#}
+    {#                                        {% elif request.status == -1 %}#}
+    {#                                            <a class="solved_button" href="#" onclick="return false;">REJECTED</a>#}
+    {#                                        {% endif %}#}
+    {#                                    </td>#}
+                                    </tr>
+    {#                                {% if request.reason is not none %}#}
+    {#                                    <tr>#}
+    {#                                        <td></td>#}
+    {#                                        <td>#}
+    {#                                            <div class="comment__text">#}
+    {#                                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>#}
+    {#                                            </div>#}
+    {#                                        </td>#}
+    {#                                    </tr>#}
+    {#                                {% endif %}#}
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    </ol> <!-- end commentlist -->
+                </div>
+            </div>
 
-    <div class="comments-wrap">
-        <div id="comments" class="row">
-            <div class="col-full">
-                <!-- commentlist -->
-                <ol class="commentlist">
-                    <table style='white-space: nowrap'>
-                        <li class="depth-1 comment">
-                            <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>Name</th>
-                                  <th>Email</th>
-{#                                  <th>To</th>#}
-{#                                  <th>Sent date</th>#}
-{#                                  <th>Confirmed date</th>#}
-{#                                  <th></th>#}
-                                </tr>
-                            </thead>
-                        </li>
-                        {% for request in request_owner_list %}
-                            <tbody>
-                                <tr>
-                                    <td>{{ loop.index + pagination.skip }}</td>
-                                    <td>{{ request.uname }}</td>
-{#                                    <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>#}
-{#                                    <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>#}
-                                    <td>{{ request.email }}</td>
-{#                                    <td>{{ request.confirmed_date }}</td>#}
-{#                                    <td>#}
-{#                                        {% if request.status == 0 %}#}
-{#                                            <div>#}
-{#                                            <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>#}
-{#                                            <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>#}
-{#                                            </div>#}
-{#                                        {% elif request.status == 1 %}#}
-{#                                            <a class="solved_button" href="#" onclick="return false;">ACCEPTED</a>#}
-{#                                        {% elif request.status == -1 %}#}
-{#                                            <a class="solved_button" href="#" onclick="return false;">REJECTED</a>#}
-{#                                        {% endif %}#}
-{#                                    </td>#}
-                                </tr>
-{#                                {% if request.reason is not none %}#}
-{#                                    <tr>#}
-{#                                        <td></td>#}
-{#                                        <td>#}
-{#                                            <div class="comment__text">#}
-{#                                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>#}
-{#                                            </div>#}
-{#                                        </td>#}
-{#                                    </tr>#}
-{#                                {% endif %}#}
-                            </tbody>
-                        {% endfor %}
-                    </table>
-                </ol> <!-- end commentlist -->
+            <div class="row">
+                <div class="col-full">
+                    <nav class="pgn">
+                            {{ pagination.links }}
+    {#                    <div>#}
+    {#                        <ul>#}
+    {#                            <li><a class="pgn__prev" href="#0">Prev</a></li>#}
+    {#                            <li><a class="pgn__num" href="#0">1</a></li>#}
+    {#                            <li><span class="pgn__num current">2</span></li>#}
+    {#                            <li><a class="pgn__num" href="#0">3</a></li>#}
+    {#                            <li><a class="pgn__num" href="#0">4</a></li>#}
+    {#                            <li><a class="pgn__num" href="#0">5</a></li>#}
+    {#                            <li><span class="pgn__num dots">…</span></li>#}
+    {#                            <li><a class="pgn__num" href="#0">8</a></li>#}
+    {#                            <li><a class="pgn__next" href="#0">Next</a></li>#}
+    {#                         </ul>#}
+    {#                    </div>#}
+                    </nav>
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-full">
-                <nav class="pgn">
-                        {{ pagination.links }}
-{#                    <div>#}
-{#                        <ul>#}
-{#                            <li><a class="pgn__prev" href="#0">Prev</a></li>#}
-{#                            <li><a class="pgn__num" href="#0">1</a></li>#}
-{#                            <li><span class="pgn__num current">2</span></li>#}
-{#                            <li><a class="pgn__num" href="#0">3</a></li>#}
-{#                            <li><a class="pgn__num" href="#0">4</a></li>#}
-{#                            <li><a class="pgn__num" href="#0">5</a></li>#}
-{#                            <li><span class="pgn__num dots">…</span></li>#}
-{#                            <li><a class="pgn__num" href="#0">8</a></li>#}
-{#                            <li><a class="pgn__next" href="#0">Next</a></li>#}
-{#                         </ul>#}
-{#                    </div>#}
-                </nav>
-            </div>
-        </div>
-    </div>
-
+    
 
 
     <!-- preloader

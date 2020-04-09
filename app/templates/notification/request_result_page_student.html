@@ -5,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Philosophy</title>
+    <title>Gallery Post Format - Philosophy</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../../static/home/css/base.css">
     <link rel="stylesheet" href="../../static/home/css/vendor.css">
     <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
 
     <!-- script
     ================================================== -->
@@ -26,14 +27,14 @@
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="../../static/home/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../../static/home/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
 
 </head>
 
 <body id="top">
 
-    <!-- pageheader
+     <!-- pageheader
     ================================================== -->
     <section class="s-pageheader s-pageheader--home">
 
@@ -41,41 +42,18 @@
             <div class="header__content row">
 
                 <div class="header__logo">
-                    <a class="logo" href="index.html">
-                        <img src="../../static/home/images/logo.svg" alt="Homepage">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
                     </a>
                 </div> <!-- end header__logo -->
+                <!-- end header__social -->
 
-                <ul class="header__social">
-                    <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
-                </ul> <!-- end header__social -->
+				{% if title == 2 %}
+                    <a href="../notification/request_page" class="header__search-trigger">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
 
-                <a class="header__search-trigger" href="#0"></a>
-
-                <div class="header__search">
-
-                    <form role="search" method="get" class="header__search-form" action="#">
-                        <label>
-                            <span class="hide-content">Search for:</span>
-                            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
-                        </label>
-                        <input type="submit" class="search-submit" value="Search">
-                    </form>
-        
-                    <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
-
-                </div>  <!-- end header__search -->
 
 
                 <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
@@ -85,30 +63,9 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
-                        <li class="current"><a href="index.html" title="">Home</a></li>
-                        <li class="has-children">
-                            <a href="#0" title="">Categories</a>
-                            <ul class="sub-menu">
-                            <li><a href="category.html">Lifestyle</a></li>
-                            <li><a href="category.html">Health</a></li>
-                            <li><a href="category.html">Family</a></li>
-                            <li><a href="category.html">Management</a></li>
-                            <li><a href="category.html">Travel</a></li>
-                            <li><a href="category.html">Work</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-children">
-                            <a href="#0" title="">Blog</a>
-                            <ul class="sub-menu">
-                            <li><a href="single-video.html">Video Post</a></li>
-                            <li><a href="single-audio.html">Audio Post</a></li>
-                            <li><a href="single-gallery.html">Gallery Post</a></li>
-                            <li><a href="single-standard.html">Standard Post</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="style-guide.html" title="">Styles</a></li>
-                        <li><a href="about.html" title="">About</a></li>
-                        <li><a href="contact.html" title="">Contact</a></li>
+                        <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 
                     <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
@@ -117,7 +74,7 @@
 
             </div> <!-- header-content -->
         </header> <!-- header -->
-    </section> <!-- end s-pageheader -->
+	</section> <!-- end s-pageheader -->
 
 
     <!-- s-content
@@ -163,97 +120,7 @@
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
 
-    <!-- s-footer
-    ================================================== -->
-    <footer class="s-footer">
 
-        <div class="s-footer__main">
-            <div class="row">
-                
-                <div class="col-two md-four mob-full s-footer__sitelinks">
-                        
-                    <h4>Quick Links</h4>
-
-                    <ul class="s-footer__linklist">
-                        <li><a href="#0">Home</a></li>
-                        <li><a href="#0">Blog</a></li>
-                        <li><a href="#0">Styles</a></li>
-                        <li><a href="#0">About</a></li>
-                        <li><a href="#0">Contact</a></li>
-                        <li><a href="#0">Privacy Policy</a></li>
-                    </ul>
-
-                </div> <!-- end s-footer__sitelinks -->
-
-                <div class="col-two md-four mob-full s-footer__archives">
-                        
-                    <h4>Archives</h4>
-
-                    <ul class="s-footer__linklist">
-                        <li><a href="#0">January 2018</a></li>
-                        <li><a href="#0">December 2017</a></li>
-                        <li><a href="#0">November 2017</a></li>
-                        <li><a href="#0">October 2017</a></li>
-                        <li><a href="#0">September 2017</a></li>
-                        <li><a href="#0">August 2017</a></li>
-                    </ul>
-
-                </div> <!-- end s-footer__archives -->
-
-                <div class="col-two md-four mob-full s-footer__social">
-                        
-                    <h4>Social</h4>
-
-                    <ul class="s-footer__linklist">
-                        <li><a href="#0">Facebook</a></li>
-                        <li><a href="#0">Instagram</a></li>
-                        <li><a href="#0">Twitter</a></li>
-                        <li><a href="#0">Pinterest</a></li>
-                        <li><a href="#0">Google+</a></li>
-                        <li><a href="#0">LinkedIn</a></li>
-                    </ul>
-
-                </div> <!-- end s-footer__social -->
-
-                <div class="col-five md-full end s-footer__subscribe">
-                        
-                    <h4>Our Newsletter</h4>
-
-                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
-
-                    <div class="subscribe-form">
-                        <form id="mc-form" class="group" novalidate="true">
-
-                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
-
-                            <input type="submit" name="subscribe" value="Send">
-
-                            <label for="mc-email" class="subscribe-message"></label>
-
-                        </form>
-                    </div>
-
-                </div> <!-- end s-footer__subscribe -->
-
-            </div>
-        </div> <!-- end s-footer__main -->
-
-        <div class="s-footer__bottom">
-            <div class="row">
-                <div class="col-full">
-                    <div class="s-footer__copyright">
-                        <span>© Copyright Philosophy 2018</span> 
-                        <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
-                    </div>
-
-                    <div class="go-top">
-                        <a class="smoothscroll" title="Back to Top" href="#top"></a>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- end s-footer__bottom -->
-
-    </footer> <!-- end s-footer -->
 
 
     <!-- preloader

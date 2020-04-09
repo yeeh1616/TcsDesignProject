@@ -45,6 +45,7 @@ def test3():
 @login_required
 @check_confirmed
 def info():
+    title = User.get_user_by_id(current_user.id).title
     module_id = request.args.get("id")
     session['moduleId'] = module_id
     user_id = current_user.id
@@ -69,7 +70,8 @@ def info():
                                totalComments=len(comment_list),
                                avgStar=avg_star,
                                questionnaire=questionnaire,
-                               star_dict=json.dumps(star_dict))
+                               star_dict=json.dumps(star_dict),
+                               title=title)
     else:
         house = House.get_house_by_housekeeper(current_user.id)
         notification_num = models.get_request_owner_list_count(house.house_id)
@@ -91,8 +93,10 @@ def info():
 @login_required
 @check_confirmed
 def edit():
+    title = User.get_user_by_id(current_user.id).title
     module = Module.query.filter_by(id=session.get('moduleId')).first()
-    return render_template('edit_info.html', module=module)
+    return render_template('edit_info.html', module=module,
+                           title=title)
 
 
 @bp.route('/save', methods=['GET', 'POST'])
@@ -157,7 +161,7 @@ def download():
         with open(path_, 'w+', newline='') as write_file:
             cursor = conn.cursor()
             cursor.execute('SELECT uname,email FROM user, student WHERE student.user_id ='
-                           ' user.id AND student.house_id = '+str(houseid))
+                           ' user.id AND student.house_id = ' + str(houseid))
             csv_writer = csv.writer(write_file)
             csv_writer.writerow([i[0] for i in cursor.description])
             csv_writer.writerows(cursor)
