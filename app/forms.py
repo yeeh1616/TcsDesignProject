@@ -40,9 +40,6 @@ class ModuleInfoForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     star = StringField('Star', validators=[DataRequired()])
-    star2 = StringField('Star', validators=[DataRequired()])
-    star3 = StringField('Star', validators=[DataRequired()])
-    star4 = StringField('Star', validators=[DataRequired()])
     comment = StringField('Comment', validators=[DataRequired()])
 
 

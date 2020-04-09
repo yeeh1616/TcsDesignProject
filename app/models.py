@@ -317,6 +317,63 @@ class Config(db.Model):
         return {"key": self.key,
                 "value": self.value}
 
+
+class Questionnaire(db.Model):
+    __tablename__ = 'questionnaire'
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    abbr = db.Column(db.String, nullable=False)
+    question = db.Column(db.String, nullable=False)
+    module_id = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, id, abbr, question, module_id, ):
+        self.id = id
+        self.abbr = abbr
+        self.question = question
+        self.module_id = module_id
+
+    def get_questionnaire_by_mid(mid):
+        uestionnaire = Questionnaire.query.filter(Questionnaire.module_id == mid).all()
+        return uestionnaire
+
+    def serialize(self):
+        return {"id": self.id,
+                "abbr": self.abbr,
+                "question": self.question,
+                "module_id": self.module_id}
+
+
+class Question_rate(db.Model):
+    __tablename__ = 'question_rate'
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    question_id = db.Column(db.Integer, nullable=False)
+    module_id = db.Column(db.Integer, nullable=False)
+    rate = db.Column(db.Integer, nullable=False)
+    comment_id = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, question_id, module_id, rate, comment_id):
+        self.question_id = question_id
+        self.module_id = module_id
+        self.rate = rate
+        self.comment_id = comment_id
+
+    def add_question_rate_list(question_rate_list):
+        try:
+            for q in question_rate_list:
+                db.session.add(q)
+            db.session.commit()
+        except:
+            return False
+        return True
+
+    def serialize(self):
+        return {"id": self.id,
+                "question": self.question,
+                "owner_id": self.owner_id,
+                "module_id": self.module_id,
+                "rate": self.rate,
+                "comment_id": self.comment_id}
+
+
 # database methods
 
 
@@ -379,13 +436,13 @@ def get_avg_stars(module_id):
     db.session.commit()
     if avg_star.avg_star is None:
         return 0
-    return round(avg_star.avg_star)
+    return round(avg_star.avg_star, 1)
 
 
 def add_comment_by_entity(comment):
     db.session.add(comment)
     db.session.commit()
-    return comment.serialize()
+    return comment
 
 
 def add_house_keeper_by_entity(house_keeper):
@@ -450,7 +507,15 @@ def get_namelist(house_id):
         filter(Student.house_id == house_id). \
         filter(Student.user_id == User.id)
 
-        # . \
+    # . \
     # filter(User.title == 0)
+
+    return result
+
+
+def get_question_avg_stars(qid, mid):
+    result = db.session.query(func.avg(Question_rate.rate).label('average')). \
+        filter(Question_rate.module_id == mid). \
+        filter(Question_rate.question_id == qid).first()
 
     return result

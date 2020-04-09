@@ -1,4 +1,5 @@
 import csv
+import math
 import os
 from datetime import date
 from sqlite3 import IntegrityError
@@ -15,8 +16,10 @@ from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
-from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Student
+from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Student, Questionnaire, \
+    Question_rate, get_question_avg_stars
 import sqlite3
+import json
 
 bp = Blueprint('module_info', __name__, template_folder='templates/module')
 
@@ -51,20 +54,37 @@ def info():
                                     Comment.date).filter(Comment.owner_id == User.id).filter(
         Comment.module_id == module_id).all()
     avg_star = get_avg_stars(module_id)
+
+    star_dict = {}
+    questionnaire = Questionnaire.get_questionnaire_by_mid(module_id)
+    for q in questionnaire:
+        star_dict[q.id] = 0
+        q.avg_star = round(get_question_avg_stars(q.id, module_id).average, 1)
+
     if user.title == models.HOUSEKEEPER:
-        return render_template('module_info_teacher.html', module=module, user=user, commentList=comment_list,
-                               totalComments=len(comment_list), avgStar=avg_star)
+        return render_template('module_info_teacher.html',
+                               module=module,
+                               user=user,
+                               commentList=comment_list,
+                               totalComments=len(comment_list),
+                               avgStar=avg_star,
+                               questionnaire=questionnaire,
+                               star_dict=json.dumps(star_dict))
     else:
         house = House.get_house_by_housekeeper(current_user.id)
         notification_num = models.get_request_owner_list_count(house.house_id)
         title = User.get_user_by_id(current_user.id).title
+
         return render_template('module_info_student.html',
-                               module=module, user=user,
+                               module=module,
+                               user=user,
                                commentList=comment_list,
                                totalComments=len(comment_list),
                                avgStar=avg_star,
                                notification_num=notification_num,
-                               title=title)
+                               title=title,
+                               questionnaire=questionnaire,
+                               star_dict=json.dumps(star_dict))
 
 
 @bp.route('/edit', methods=['GET', 'POST'])
@@ -100,10 +120,24 @@ def comment():
     owner_id = current_user.id
     module_id = session.get('moduleId')
     form = CommentForm()
-    star = form.star.data
+    star_dict = json.loads(form.star.data)
+    avg_star = 0
+
+    for k in star_dict:
+        avg_star += star_dict[k]
+
+    avg_star = math.ceil(avg_star / len(star_dict))
+
     content = form.comment.data
-    comment = Comment(owner_id, module_id, content, star, 0, today)
+    comment = Comment(owner_id, module_id, content, avg_star, 0, today)
     add_comment_by_entity(comment)
+
+    question_rate_list = []
+    for k in star_dict:
+        q = Question_rate(k, module_id, star_dict[k], comment.id)
+        question_rate_list.append(q)
+
+    Question_rate.add_question_rate_list(question_rate_list)
     return redirect(url_for('module_info.info', id=module_id))
 
 
