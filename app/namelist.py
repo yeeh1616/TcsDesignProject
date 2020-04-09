@@ -58,10 +58,9 @@ def namelist_teacher(search):
                            request_owner_list=namelist,
                            pagination=pagination)
 
+
 def namelist_student(search):
     student = Student.get_full_info_by_id(current_user.id)
-    hous = student.house_id
-    # house = House.get_house_by_housekeeper(current_user.id)
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 10
     offset = (page - 1) * per_page

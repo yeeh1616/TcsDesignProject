@@ -24,4 +24,4 @@ def chat_page():
     config = Config.get_config_by_key('server')
     config.ip = request.remote_addr
     user = Student.get_full_info_by_id(current_user.id)
-    return render_template('chat/chat.html', config=config, user=user)
+    return render_template('chat/chat.html', config=config, user=user, title=user.title)

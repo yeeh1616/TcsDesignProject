@@ -48,11 +48,9 @@
                 </div> <!-- end header__logo -->
                 <!-- end header__social -->
 
-				{% if title == 2 %}
-                    <a href="../notification/request_page" class="header__search-trigger">
+                <a href="../notification/request_page" class="header__search-trigger">
 <!--                          <span class="badge">{{ notification_num }}</span>-->
-                    </a>
-                {% endif %}
+                </a>
 
 
 
@@ -65,6 +63,11 @@
                     <ul class="header__nav">
                         <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
                         <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li class="has-children"><a href="#0" title="">Tools</a>
+                            <ul class="sub-menu">
+                                <li><a href="../chat/chat_page">Chat</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 
@@ -94,10 +97,10 @@
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->
-			
+
             <div class="col-full s-content__main">
 				<p class="lead">{{ module.description }}</p>
-                
+
                 <div class="s-content__author">
                     <img src="../../static/home/images/avatars/{{user.img}}.jpg" alt="">
 
@@ -105,7 +108,7 @@
                         <h4 class="s-content__author-name">
                             <a href="#0">Module coordinator</a>
                         </h4>
-                    
+
                         <p> {{ user.uname }} </p>
 
                         <ul class="s-content__author-social">
@@ -115,7 +118,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
         </article>
 
@@ -361,7 +364,7 @@
                                         document.getElementById(qid+"_star5").className = "fa fa-star";
                                 }
                             }
-							
+
 							function expandComment() {
 								var content = document.getElementById("commentBlock");
 								document.getElementById("expandC").classList.toggle("active");
@@ -372,9 +375,9 @@
 								}
 							}
                         </script>
-						
+
 						<button id="expandC" type="button" class="collapsible" onClick="expandComment()">Add Comment</button>
-                        
+
 						<div id="commentBlock" class="content">
 							<form action="comment" method="post">
 								<fieldset>
