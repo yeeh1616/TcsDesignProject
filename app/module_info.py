@@ -177,9 +177,9 @@ def download():
 @login_required
 @check_confirmed
 def upload():
-    root = Tk()
+    #root = Tk()
     path_ = askopenfilename(title='Please select csv file')
-    root.destroy()
+    #root.destroy()
     house = House.get_house_by_housekeeper(current_user.id)
     csvFile = codecs.open(path_, 'r', 'utf-8-sig')
     dict_reader = csv.DictReader(csvFile)

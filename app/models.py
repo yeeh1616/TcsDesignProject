@@ -39,11 +39,10 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, uname, password, role, email, phone=None, img=None, title=None, confirmed=False,
+    def __init__(self, uname, password, email, phone=None, img=None, title=None, confirmed=False,
                  confirmed_on=None):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
-        self.title = role
         self.email = email
         self.phone = phone
         self.img = img

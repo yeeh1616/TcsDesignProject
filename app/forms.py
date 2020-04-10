@@ -23,14 +23,16 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(uname=username.data).first()
         if user is not None:
             print(user.serialize())
-            delete_a_user(username.data)
-            #raise ValidationError('Please use a different username.')
+            #delete_a_user(username.data)
+            username.data = ""
+            raise ValidationError('Duplicate username.')
 
     def validate_email(self, email):
 
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Please use a different email address.')
+            email.data = ""
+            raise ValidationError('Duplicate email address.')
 
 
 class ModuleInfoForm(FlaskForm):
