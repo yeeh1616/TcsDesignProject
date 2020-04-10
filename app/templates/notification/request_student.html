@@ -62,12 +62,7 @@
 
                     <ul class="header__nav">
                         <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
-                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
-                        <li class="has-children"><a href="#0" title="">Tools</a>
-                            <ul class="sub-menu">
-                                <li><a href="../chat/chat_page">Chat</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>s
                         <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 
@@ -127,10 +122,10 @@
                 <img src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
                 <img src="../../static/home/images/thumbs/masonry/arrow.png">
                 <img id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
-                <div id="commentBlock" class="content">
+                <div id="commentBlock">
                     <form action="send_request" method="post" id="request-form">
                         <fieldset>
-                            <p class="h4">Put you reason here</p>
+                            <p class="h4">Put your reason here</p>
                             <div class="message form-field">
                                 <textarea name="reason" id="reason" class="full-width" placeholder="Your reason for switching your house ..."></textarea>
                             </div>
