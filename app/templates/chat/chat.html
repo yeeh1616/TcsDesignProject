@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-    <head>
+<head>
 
-        <!--- basic page needs
-        ================================================== -->
-        <meta charset="utf-8">
-        <title>Gallery Post Format - Philosophy</title>
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <!-- mobile specific metas
-        ================================================== -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <!-- CSS
-        ================================================== -->
-        <link rel="stylesheet" href="../../static/home/css/base.css">
-        <link rel="stylesheet" href="../../static/home/css/vendor.css">
-        <link rel="stylesheet" href="../../static/home/css/main.css">
-        <link rel="stylesheet" href="../../static/home/css/news.css">
-        <link rel="stylesheet" href="../../static/css/chat.css">
-{#        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">#}
+    <!-- CSS
+    ================================================== -->
+	<link rel="stylesheet" href="../../static/css/chat.css">
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
 
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-        <!-- script
-        ================================================== -->
-        <script src="../../static/home/js/modernizr.js"></script>
-        <script src="../../static/home/js/pace.min.js"></script>
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
 
-        <!-- favicons
-        ================================================== -->
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
 
-    </head>
+<body id="top">
 
-    <body id="top">
-
-             <!-- pageheader
+     <!-- pageheader
     ================================================== -->
     <section class="s-pageheader s-pageheader--home">
 
@@ -56,8 +54,6 @@
 <!--                          <span class="badge">{{ notification_num }}</span>-->
                 </a>
 
-
-
                 <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
 
                 <nav class="header__nav-wrap">
@@ -65,16 +61,17 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
-                        <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
-                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
-                        {% if title == 2 %}
-                            <li class="has-children"><a href="#0" title="">Tools</a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{url_for('module_info.download')}}">Download</a></li>
-                                    <li><a href="{{url_for('module_info.upload')}}">Upload</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li  class="current"><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        {% if title == 2 %}}
+							<li class="has-children"><a href="#0" title="">Tools</a>
+								<ul class="sub-menu">
+									<li><a href="{{url_for('module_info.download')}}" target="_blank">Download</a></li>
+									<li><a href="{{url_for('module_info.upload')}}" target="_blank">Upload</a></li>
+									<li><a href="../chat/chat_page">Chat</a></li>
+								</ul>
+							</li>
+						{% endif %}
                         <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 
@@ -96,9 +93,9 @@
                     {{ user.house_name }} HOUSE
                     </h1>
                 </div>
-                <div class="col-full s-content__main">
-                    <div style="height:380px; overflow:auto;">
-                        <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+                <div id="demo-chat-body" class="collapse in">
+    				<div class="nano has-scrollbar" style="height:380px">
+    					<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
                             <ul id="messages" class="list-unstyled media-block"></ul>
                         </div>
                     </div>

@@ -34,259 +34,190 @@
 
 <body id="top">
 
-     <!-- pageheader
-    ================================================== -->
-    <section class="s-pageheader s-pageheader--home">
+<!-- pageheader
+================================================== -->
+<section class="s-pageheader s-pageheader--home">
 
-        <header class="header">
-            <div class="header__content row">
+    <header class="header">
+        <div class="header__content row">
 
-                <div class="header__logo">
-                    <a class="logo" href="{{url_for('main.home')}}">
-                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
-                    </a>
-                </div> <!-- end header__logo -->
-                <!-- end header__social -->
+            <div class="header__logo">
+                <a class="logo" href="{{ url_for('main.home') }}">
+                    <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                </a>
+            </div> <!-- end header__logo -->
+            <!-- end header__social -->
 
-				{% if title == 2 %}
-                    <a href="../notification/request_page" class="header__search-trigger">
-<!--                          <span class="badge">{{ notification_num }}</span>-->
-                    </a>
-                {% endif %}
-
-
-
-                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
-
-                <nav class="header__nav-wrap">
-
-                    <h2 class="header__nav-heading h6">Site Navigation</h2>
-
-                    <ul class="header__nav">
-                        <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
-                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
-                        <li class="has-children"><a href="#0" title="">Tools</a>
-                            <ul class="sub-menu">
-                                <li><a href="{{url_for('module_info.download')}}">Download</a></li>
-                                <li><a href="{{url_for('module_info.upload')}}">Upload</a></li>
-                                <li><a href="../chat/chat_page">Chat</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
-                    </ul> <!-- end header__nav -->
-
-                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
-
-                </nav> <!-- end header__nav-wrap -->
-
-            </div> <!-- header-content -->
-        </header> <!-- header -->
-	</section> <!-- end s-pageheader -->
+            {% if title == 2 %}
+                <a href="../notification/request_page" class="header__search-trigger">
+                    <!--                          <span class="badge">{{ notification_num }}</span>-->
+                </a>
+            {% endif %}
 
 
-    <!-- s-content
-    ================================================== -->
-    <section class="s-content s-content--narrow s-content--no-padding-bottom">
-        <article class="row format-gallery">
-            <div style="text-align:center; padding-bottom: 40px">
-                <form action="edit" method="post" novalidate>
-                    <input type="hidden" id="id" name="id" value="{{ module.id }}">
-                    <button type="submit" class="submit btn--primary btn--large medium-width">Edit</button>
-                </form>
-            </div>
-			<div class="s-content__header col-full">
-                <h1 class="s-content__header-title">
-                    {{ module.name }}
-                </h1>
-                <ul class="s-content__header-meta">
-                    <li class="date">December 16, 2017</li>
-                    <li class="cat">
-                        In
-                        <a href="#0">Lifestyle</a>
-                        <a href="#0">Travel</a>
-                    </li>
-                </ul>
-            </div> <!-- end s-content__header -->
-			
-            <div class="col-full s-content__main">
-				<p class="lead">{{ module.description }}</p>
-                
-                <div class="s-content__author">
-                    <img src="../../static/home/images/avatars/{{user.img}}.jpg" alt="">
 
-                    <div class="s-content__author-about">
-                        <h4 class="s-content__author-name">
-                            <a href="#0">Module coordinator</a>
-                        </h4>
-                    
-                        <p> {{ user.uname }} </p>
+            <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
 
-                        <ul class="s-content__author-social">
-                           <li><a href="#0">{{ user.email }}</a></li>
-                           <li><a href="#0">{{ user.phone }}</a></li>
+            <nav class="header__nav-wrap">
+
+                <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                <ul class="header__nav">
+                    <li class="current"><a href="{{ url_for('main.home') }}" title="">Home</a></li>
+                    <li><a href="{{ url_for('namelist.nameli') }}" title="">House</a></li>
+                    <li class="has-children"><a href="#0" title="">Tools</a>
+                        <ul class="sub-menu">
+                            <li><a href="{{ url_for('module_info.download') }}" target="_blank">Download</a></li>
+                            <li><a href="{{ url_for('module_info.upload') }}" target="_blank">Upload</a></li>
+                            <li><a href="../chat/chat_page">Chat</a></li>
                         </ul>
-                    </div>
+                    </li>
+                    <li><a href="{{ url_for('auth.logout') }}" title="">Logout</a></li>
+                </ul> <!-- end header__nav -->
+
+                <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+            </nav> <!-- end header__nav-wrap -->
+
+        </div> <!-- header-content -->
+    </header> <!-- header -->
+</section> <!-- end s-pageheader -->
+
+
+<!-- s-content
+================================================== -->
+<section class="s-content s-content--narrow s-content--no-padding-bottom">
+    <article class="row format-gallery">
+        <div style="text-align:center; padding-bottom: 40px">
+            <form action="edit" method="post" novalidate>
+                <input type="hidden" id="id" name="id" value="{{ module.id }}">
+                <button type="submit" class="submit btn--primary btn--large medium-width">Edit</button>
+            </form>
+        </div>
+        <div class="s-content__header col-full">
+            <h1 class="s-content__header-title">
+                {{ module.name }}
+            </h1>
+            <ul class="s-content__header-meta">
+                <li class="date">December 16, 2017</li>
+                <li class="cat">
+                    In
+                    <a href="#0">Lifestyle</a>
+                    <a href="#0">Travel</a>
+                </li>
+            </ul>
+        </div> <!-- end s-content__header -->
+
+        <div class="col-full s-content__main">
+            <p class="lead">{{ module.description }}</p>
+
+            <div class="s-content__author">
+                <img src="../../static/home/images/avatars/{{ user.img }}.jpg" alt="">
+
+                <div class="s-content__author-about">
+                    <h4 class="s-content__author-name">
+                        <a href="#0">Module coordinator</a>
+                    </h4>
+
+                    <p> {{ user.uname }} </p>
+
+                    <ul class="s-content__author-social">
+                        <li><a href="#0">{{ user.email }}</a></li>
+                        <li><a href="#0">{{ user.phone }}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </article>
+
+
+    <!-- comments
+    ================================================== -->
+    <div class="comments-wrap">
+
+        <div id="comments" class="row">
+            <div class="col-full">
+
+                <h3 class="h2" style="padding:10px 0 0 0">{{ totalComments }} Comments</h3>
+                <div style="font-size:24px" class="rating">
+                    {% if avgStar > 0 and avgStar <= 1 %}
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    {% elif avgStar > 1 and avgStar <= 2 %}
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    {% elif avgStar > 2 and avgStar <= 3 %}
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    {% elif avgStar > 3 and avgStar <= 4 %}
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                    {% elif avgStar > 4 and avgStar <= 5 %}
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                    {% else %}
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    {% endif %}
+                    &nbsp
+                    <span>{{ avgStar }}</span>
                 </div>
 
-                
-            </div>
-        </article>
-
-
-        <!-- comments
-        ================================================== -->
-        <div class="comments-wrap">
-
-            <div id="comments" class="row">
-                <div class="col-full">
-
-                    <h3 class="h2">{{totalComments}} Comments</h3>
-					<div style="font-size:24px" class="rating">
-                        {% if avgStar > 0 and avgStar <= 1 %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        {% elif avgStar > 1 and avgStar <= 2 %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        {% elif avgStar > 2 and avgStar <= 3 %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        {% elif avgStar > 3 and avgStar <= 4 %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                        {% elif avgStar > 4 and avgStar <= 5 %}
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        {% else %}
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                        {% endif %}
-                        &nbsp
-                        <span>{{ avgStar }}</span>
-                    </div>
-
-                    <ol class="commentlist">
-                        <table style='white-space: nowrap'>
-                            <tbody>
-                                {% for q in questionnaire %}
-                                <tr>
-                                    <td>
-                                        <span style="text-transform: capitalize">{{ q.abbr }}</span>
-                                    </td>
-                                    <td>
-                                        <div style="font-size:24px" class="rating">
-                                            {% if q.avg_star > 0 and q.avg_star <= 1 %}
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            {% elif q.avg_star > 1 and q.avg_star <= 2 %}
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            {% elif q.avg_star > 2and q.avg_star <= 3 %}
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            {% elif q.avg_star > 3 and q.avg_star <= 4 %}
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                            {% elif q.avg_star > 4 and q.avg_star <= 5 %}
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            {% else %}
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            {% endif %}
-                                        </div>
-                                    </td>
-                                    <td><span>{{ q.avg_star }}</span></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                     </ol>
-
-                    <!-- commentlist -->
-                    <ol class="commentlist">
-                        {% for comment in commentList %}
-                            <li class="depth-1 comment">
-
-                                <div class="comment__avatar">
-                                    <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{ comment.img }}.jpg" alt="">
-                                </div>
-
-                                <div class="comment__content">
-
-                                    <div class="comment__info">
-                                    <cite>{{ comment.uname }}</cite>
-
-                                    <div class="comment__meta">
-                                        <time class="comment-time">{{ comment.date }}</time>
-                                    </div>
-                                    </div>
-                                    <div class="rating">
-                                        {% if comment.star > 0 and comment.star <= 1 %}
+                <ol class="commentlist">
+                    <table style='white-space: nowrap'>
+                        <tbody>
+                        {% for q in questionnaire %}
+                            <tr>
+                                <td>
+                                    <span style="text-transform: capitalize">{{ q.abbr }}</span>
+                                </td>
+                                <td>
+                                    <div style="font-size:24px" class="rating">
+                                        {% if q.avg_star > 0 and q.avg_star <= 1 %}
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
-                                        {% elif comment.star > 1 and comment.star <= 2 %}
+                                        {% elif q.avg_star > 1 and q.avg_star <= 2 %}
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
-                                        {% elif comment.star > 2 and comment.star <= 3 %}
+                                        {% elif q.avg_star > 2and q.avg_star <= 3 %}
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
-                                        {% elif comment.star > 3 and comment.star <= 4 %}
+                                        {% elif q.avg_star > 3 and q.avg_star <= 4 %}
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star"></span>
-                                        {% elif comment.star > 4 and comment.star <= 5 %}
+                                        {% elif q.avg_star > 4 and q.avg_star <= 5 %}
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
                                             <span class="fa fa-star checked"></span>
@@ -299,112 +230,179 @@
                                             <span class="fa fa-star"></span>
                                             <span class="fa fa-star"></span>
                                         {% endif %}
-                                        &nbsp
-                                        <span>{{ comment.star }}</span>
                                     </div>
+                                </td>
+                                <td><span>{{ q.avg_star }}</span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </ol>
 
-                                    <div class="comment__text">
+                <!-- commentlist -->
+                <ol class="commentlist">
+                    {% for comment in commentList %}
+                        <li class="depth-1 comment">
+
+                            <div class="comment__avatar">
+                                <img width="50" height="50" class="avatar"
+                                     src="../../static/home/images/avatars/{{ comment.img }}.jpg" alt="">
+                            </div>
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <cite>{{ comment.uname }}</cite>
+
+                                    <div class="comment__meta">
+                                        <time class="comment-time">{{ comment.date }}</time>
+                                    </div>
+                                </div>
+                                <div class="rating">
+                                    {% if comment.star > 0 and comment.star <= 1 %}
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    {% elif comment.star > 1 and comment.star <= 2 %}
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    {% elif comment.star > 2 and comment.star <= 3 %}
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    {% elif comment.star > 3 and comment.star <= 4 %}
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    {% elif comment.star > 4 and comment.star <= 5 %}
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    {% else %}
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    {% endif %}
+                                    &nbsp
+                                    <span>{{ comment.star }}</span>
+                                </div>
+
+                                <div class="comment__text">
                                     <p>{{ comment.content }}</p>
                                     <i style="font-size:24px" class="fa">&#xf087;</i>
                                     10
                                     <i style="font-size:24px" class="fa">&#xf0e5;</i>
 
-                                    </div>
-
                                 </div>
 
-
-                            </li>  <!-- end comment level 1 -->
-                        {% endfor %}
-                    </ol> <!-- end commentlist -->
+                            </div>
 
 
-                    <!-- respond
-                    ================================================== -->
-                    <div class="respond">
-                        <script>
-                            function star(grade)
-                            {
-                                var ss = document.getElementById("star")
-                                ss.value = grade
+                        </li>  <!-- end comment level 1 -->
+                    {% endfor %}
+                </ol> <!-- end commentlist -->
 
-                                switch (grade) {
-                                    case 1:
-                                        document.getElementById("star1").className = "fa fa-star checked";
-                                        document.getElementById("star2").className = "fa fa-star";
-                                        document.getElementById("star3").className = "fa fa-star";
-                                        document.getElementById("star4").className = "fa fa-star";
-                                        document.getElementById("star5").className = "fa fa-star";
-                                        break;
-                                    case 2:
-                                        document.getElementById("star1").className = "fa fa-star checked";
-                                        document.getElementById("star2").className = "fa fa-star checked";
-                                        document.getElementById("star3").className = "fa fa-star";
-                                        document.getElementById("star4").className = "fa fa-star";
-                                        document.getElementById("star5").className = "fa fa-star";
-                                        break;
-                                    case 3:
-                                        document.getElementById("star1").className = "fa fa-star checked";
-                                        document.getElementById("star2").className = "fa fa-star checked";
-                                        document.getElementById("star3").className = "fa fa-star checked";
-                                        document.getElementById("star4").className = "fa fa-star";
-                                        document.getElementById("star5").className = "fa fa-star";
-                                        break;
-                                    case 4:
-                                        document.getElementById("star1").className = "fa fa-star checked";
-                                        document.getElementById("star2").className = "fa fa-star checked";
-                                        document.getElementById("star3").className = "fa fa-star checked";
-                                        document.getElementById("star4").className = "fa fa-star checked";
-                                        document.getElementById("star5").className = "fa fa-star";
-                                        break;
-                                    case 5:
-                                        document.getElementById("star1").className = "fa fa-star checked";
-                                        document.getElementById("star2").className = "fa fa-star checked";
-                                        document.getElementById("star3").className = "fa fa-star checked";
-                                        document.getElementById("star4").className = "fa fa-star checked";
-                                        document.getElementById("star5").className = "fa fa-star checked";
-                                        break;
-                                    default:
-                                        document.getElementById("star1").className = "fa fa-star";
-                                        document.getElementById("star2").className = "fa fa-star";
-                                        document.getElementById("star3").className = "fa fa-star";
-                                        document.getElementById("star4").className = "fa fa-star";
-                                        document.getElementById("star5").className = "fa fa-star";
-                                }
+
+                <!-- respond
+                ================================================== -->
+                <div class="respond">
+                    <script>
+                        function star(grade) {
+                            var ss = document.getElementById("star")
+                            ss.value = grade
+
+                            switch (grade) {
+                                case 1:
+                                    document.getElementById("star1").className = "fa fa-star checked";
+                                    document.getElementById("star2").className = "fa fa-star";
+                                    document.getElementById("star3").className = "fa fa-star";
+                                    document.getElementById("star4").className = "fa fa-star";
+                                    document.getElementById("star5").className = "fa fa-star";
+                                    break;
+                                case 2:
+                                    document.getElementById("star1").className = "fa fa-star checked";
+                                    document.getElementById("star2").className = "fa fa-star checked";
+                                    document.getElementById("star3").className = "fa fa-star";
+                                    document.getElementById("star4").className = "fa fa-star";
+                                    document.getElementById("star5").className = "fa fa-star";
+                                    break;
+                                case 3:
+                                    document.getElementById("star1").className = "fa fa-star checked";
+                                    document.getElementById("star2").className = "fa fa-star checked";
+                                    document.getElementById("star3").className = "fa fa-star checked";
+                                    document.getElementById("star4").className = "fa fa-star";
+                                    document.getElementById("star5").className = "fa fa-star";
+                                    break;
+                                case 4:
+                                    document.getElementById("star1").className = "fa fa-star checked";
+                                    document.getElementById("star2").className = "fa fa-star checked";
+                                    document.getElementById("star3").className = "fa fa-star checked";
+                                    document.getElementById("star4").className = "fa fa-star checked";
+                                    document.getElementById("star5").className = "fa fa-star";
+                                    break;
+                                case 5:
+                                    document.getElementById("star1").className = "fa fa-star checked";
+                                    document.getElementById("star2").className = "fa fa-star checked";
+                                    document.getElementById("star3").className = "fa fa-star checked";
+                                    document.getElementById("star4").className = "fa fa-star checked";
+                                    document.getElementById("star5").className = "fa fa-star checked";
+                                    break;
+                                default:
+                                    document.getElementById("star1").className = "fa fa-star";
+                                    document.getElementById("star2").className = "fa fa-star";
+                                    document.getElementById("star3").className = "fa fa-star";
+                                    document.getElementById("star4").className = "fa fa-star";
+                                    document.getElementById("star5").className = "fa fa-star";
                             }
-                        </script>
-                    </div> <!-- end respond -->
+                        }
+                    </script>
+                </div> <!-- end respond -->
 
-                </div> <!-- end col-full -->
+            </div> <!-- end col-full -->
 
-            </div> <!-- end row comments -->
-        </div> <!-- end comments-wrap -->
+        </div> <!-- end row comments -->
+    </div> <!-- end comments-wrap -->
 
-    </section> <!-- s-content -->
-
-
+</section> <!-- s-content -->
 
 
-    <!-- preloader
-    ================================================== -->
-    <div id="preloader">
-        <div id="loader">
-            <div class="line-scale">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+<!-- preloader
+================================================== -->
+<div id="preloader">
+    <div id="loader">
+        <div class="line-scale">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
+</div>
 
 
-    <!-- Java Script
-    ================================================== -->
-    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
-    <script src="../../static/home/js/plugins.js"></script>
-    <script src="../../static/home/js/main.js"></script>
+<!-- Java Script
+================================================== -->
+<script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+<script src="../../static/home/js/plugins.js"></script>
+<script src="../../static/home/js/main.js"></script>
 
 </body>
 
