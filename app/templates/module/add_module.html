@@ -89,11 +89,11 @@
                 </div>
 
                 <div class="form-field">
-				    <input name="name" type="text" id="name" class="full-width" placeholder="Module Name" value="">
+				    <input name="name" type="text" id="name" class="full-width" placeholder="Module Name" value="" required oninvalid="setCustomValidity('Write something here plz!');" oninput="setCustomValidity('');"/>
                 </div>
 
                 <div class="message form-field">
-                    <textarea name="description" id="description" class="full-width" placeholder="Module Information" value=""></textarea>
+                    <textarea name="description" id="description" class="full-width" placeholder="Module Information" value="" required oninvalid="setCustomValidity('Write something here plz!');" oninput="setCustomValidity('');"/></textarea>
                 </div>
             </form>
             <!-- end s-content__main -->
