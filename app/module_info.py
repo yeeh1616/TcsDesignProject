@@ -1,5 +1,6 @@
 import csv
 import math
+import codecs
 import os
 from datetime import date
 from sqlite3 import IntegrityError
@@ -17,7 +18,7 @@ from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
 from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Student, Questionnaire, \
-    Question_rate, get_question_avg_stars
+    Question_rate, get_question_avg_stars, Student, add_by_entity, update_by_entity, UserModule
 import sqlite3
 import json
 
@@ -179,18 +180,81 @@ def upload():
     root = Tk()
     path_ = askopenfilename(title='Please select csv file')
     root.destroy()
-    try:
-        conn = db.engine.raw_connection()
-        # conn = sqlite3.connect('project_database')
-        df = pandas.read_csv(path_)
-        # df.to_sql('student', conn, if_exists='append', index_label='user_id')
-        for i in range(len(df)):
-            try:
-                df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
-            except IntegrityError:
-                pass
-    except sqlite3.Error as e:
-        print(e)
-    finally:
-        conn.close()
+    house = House.get_house_by_housekeeper(current_user.id)
+    csvFile = codecs.open(path_, 'r', 'utf-8-sig')
+    dict_reader = csv.DictReader(csvFile)
+    # print (dict_reader)
+    result = []
+    for item in dict_reader:
+        student = Student.query.filter_by(student_email=item["student_email"]).first()
+        if student is None:
+            student = Student(house_id=house.house_id, module_id=None, student_email=item["student_email"])
+            add_by_entity(student)
+        else:
+            student.house_id = house.house_id
+            update_by_entity(student)
+        result.append(item["student_email"])
+    print(result)
+    # for row in dict_reader:
+    #     print(row)
+
+    # try:
+    #     conn = db.engine.raw_connection()
+    #     # conn = sqlite3.connect('project_database')
+    #     df = pandas.read_csv(path_)
+    #     # df.to_sql('student', conn, if_exists='append', index_label='user_id')
+    #     for i in range(len(df)):
+    #         try:
+    #             df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
+    #         except IntegrityError:
+    #             pass
+    # except sqlite3.Error as e:
+    #     print(e)
+    # finally:
+    #     conn.close()
     return 'Upload Success'
+
+
+
+@bp.route('/upload_module', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+def upload_module():
+    root = Tk()
+    path_ = askopenfilename(title='Please select csv file')
+    root.destroy()
+    module_id = int(session['moduleId'])
+    csvFile = codecs.open(path_, 'r', 'utf-8-sig')
+    dict_reader = csv.DictReader(csvFile)
+    # print (dict_reader)
+    result = []
+    for item in dict_reader:
+        user_module = UserModule.query.filter_by(email=item["student_email"], module_id=module_id).first()
+        if user_module is None:
+            user_module = UserModule(email=item["student_email"], module_id=module_id, status=1)
+            add_by_entity(user_module)
+        else:
+            user_module.status = 1
+            update_by_entity(user_module)
+        result.append(item["student_email"])
+    print(result)
+
+    # for row in dict_reader:
+    #     print(row)
+
+    # try:
+    #     conn = db.engine.raw_connection()
+    #     # conn = sqlite3.connect('project_database')
+    #     df = pandas.read_csv(path_)
+    #     # df.to_sql('student', conn, if_exists='append', index_label='user_id')
+    #     for i in range(len(df)):
+    #         try:
+    #             df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
+    #         except IntegrityError:
+    #             pass
+    # except sqlite3.Error as e:
+    #     print(e)
+    # finally:
+    #     conn.close()
+    return 'Upload Success'
+
