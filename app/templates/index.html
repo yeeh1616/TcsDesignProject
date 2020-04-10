@@ -122,9 +122,11 @@
                         </article> <!-- end article -->
                     {% endfor %}
             </div> <!-- end masonry -->
-            <form action="add_module_page">
-                <button type="submit" class="submit btn--primary btn--large full-width">Add a new module</button>
-            </form>
+            {% if title == 2 %}
+                <form action="add_module_page">
+                    <button type="submit" class="submit btn--primary btn--large full-width">Add a new module</button>
+                </form>
+            {% endif %}
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
 
