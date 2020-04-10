@@ -178,6 +178,10 @@ def download():
 def upload():
     root = Tk()
     path_ = askopenfilename(title='Please select csv file')
+
+    if path_ is '':
+        return 'Upload canceled'
+
     root.destroy()
     try:
         conn = db.engine.raw_connection()
