@@ -93,35 +93,31 @@
     <section class="s-content">
         <div class="row masonry-wrap">
             <div class="masonry">
-                <div class="grid-sizer"></div>
                 {% for house in house_list %}
-                    <article class="masonry__brick entry format-standard" data-aos="fade-up">
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up" style="max-width: 25%; padding: 1%">
                         <div class="entry__thumb">
                             <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">
-                                <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg"
-                                        srcset="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg 1x, ../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-800.jpg 2x" alt="">
+                                <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg">
                             </a>
                         </div>
 
+<!--
                         <div class="entry__text">
                             <div  align="center" class="entry__header">
-                                <h1 style="text-transform:uppercase;color:{{ house.color_name }}" class="entry__title">{{ house.color_name }} house</h1>
+                                <h1 style="text-transform:uppercase;color:{{ house.color_name }}">{{ house.house_name }} house</h1>
                             </div>
-                            <div class="entry__excerpt">
-                                <p>
-                                    100 memebers
-                                </p>
-                            </div>
+                            
                         </div>
+-->
                     </article> <!-- end article -->
                 {% endfor %}
             </div> <!-- end masonry -->
 
             <!-- reason -->
             <div class="respond"  align="center">
-                <img src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
-                <img src="../../static/home/images/thumbs/masonry/arrow.png">
-                <img id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/arrow.png">
+                <img style="max-width: 30%; padding: 1%" id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
                 <div id="commentBlock">
                     <form action="send_request" method="post" id="request-form">
                         <fieldset>
