@@ -193,6 +193,17 @@ class Module(db.Model):
             return False
 
 
+class UserModule(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    module_id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.Integer)
+
+    def __init__(self, user_id, module_id, status):
+        self.user_id = user_id
+        self.module_id = module_id
+        self.status = status
+
+
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)

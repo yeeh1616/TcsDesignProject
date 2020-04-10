@@ -49,6 +49,23 @@ class RequestForm(FlaskForm):
     reason = StringField('HouseTo', validators=[DataRequired()])
 
 
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    #submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Email address does not exists')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField(
+        'confirm_password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
+
 class AssignHouseForm(FlaskForm):
 
     teacher_email = StringField('Email', validators=[DataRequired()])
