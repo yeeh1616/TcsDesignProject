@@ -153,6 +153,10 @@ def download():
     houseid = student.house_id
     root = Tk()
     path_ = askdirectory(initialdir=os.getcwd(), title='Please select a directory')
+
+    if path_ is '':
+        return 'Download canceled'
+
     path_ = path_ + '/student.csv'
     root.destroy()
     try:
