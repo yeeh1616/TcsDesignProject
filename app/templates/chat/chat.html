@@ -96,7 +96,7 @@
                 <div id="demo-chat-body" class="collapse in">
     				<div class="nano has-scrollbar" style="height:380px">
     					<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
-                            <ul id="messages" class="list-unstyled media-block"></ul>
+                            <ul id="messages" class="list-unstyled media-block" style="list-style: none"></ul>
                         </div>
                     </div>
                 </div>
@@ -104,6 +104,7 @@
             <div class="comments-wrap">
                 <div id="comments" class="row">
                     <div class="respond">
+<!--
                         <script>
 							function expandComment() {
 								var content = document.getElementById("commentBlock");
@@ -116,7 +117,8 @@
 							}
                         </script>
                         <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Send messages</button>
-                        <div id="commentBlock" class="content">
+-->
+                        <div id="commentBlock" class="content" style="display: block">
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="message form-field">
