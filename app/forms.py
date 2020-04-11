@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, InputRequired
 from app.models import User, delete_a_user, House
 
 
@@ -68,21 +68,33 @@ class ResetPasswordForm(FlaskForm):
         'confirm_password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
 
-class AssignHouseForm(FlaskForm):
 
-    teacher_email = StringField('Email', validators=[DataRequired()])
+class AssignHouseForm(FlaskForm):
+    teachers = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
+    houses = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
+    # teacher_email = StringField('Email', validators=[DataRequired()])
+    # study_year = StringField('StudyYear', validators=[DataRequired()])
+    # house_name = StringField('HouseName', validators=[DataRequired()])
+
+    # def validate_teacher_email(self, teacher_email):
+    #     user = User.query.filter_by(email=teacher_email.data).first()
+    #     if user is None:
+    #         raise ValidationError('Wrong email or this teacher have not registered yet')
+    #
+    # def validate_house_name(self, house_name):
+    #     house = House.query.filter_by(year=self.study_year.data, house_name=house_name.data).first()
+    #
+    #     if house is None:
+    #         housen = house_name.data
+    #         house_name.data = ''
+    #         raise ValidationError("{0} is not existed in year {1}".format(housen, self.study_year.data))
+
+
+class DeleteHouseForm(FlaskForm):
+
+    houses = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
+
+class AddHouseForm(FlaskForm):
+    # teacher_email = StringField('Email', validators=[DataRequired()])
     study_year = StringField('StudyYear', validators=[DataRequired()])
     house_name = StringField('HouseName', validators=[DataRequired()])
-
-    def validate_teacher_email(self, teacher_email):
-        user = User.query.filter_by(email=teacher_email.data).first()
-        if user is None:
-            raise ValidationError('Wrong email or this teacher have not registered yet')
-
-    def validate_house_name(self, house_name):
-        house = House.query.filter_by(year=self.study_year.data, house_name=house_name.data).first()
-
-        if house is None:
-            housen = house_name.data
-            house_name.data = ''
-            raise ValidationError("{0} is not existed in year {1}".format(housen, self.study_year.data))
