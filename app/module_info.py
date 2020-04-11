@@ -2,7 +2,7 @@ import csv
 import math
 import codecs
 import os
-from datetime import date
+from datetime import date, time
 from sqlite3 import IntegrityError
 
 import pandas as pandas
@@ -181,58 +181,73 @@ def download():
 @login_required
 @check_confirmed
 def upload():
-    #root = Tk()
-    path_ = askopenfilename(title='Please select csv file')
-    #root.destroy()
+    if request.method == "POST":
+        if request.files:
+            csvFile = request.files["csv"]
+
+            if csvFile.content_length == 0:
+                return redirect(url_for('namelist.nameli'))
+            temp_file = os.path.join(get_temp_folder(), csvFile.filename)
+            csvFile.save(temp_file)
+            process_csv(temp_file)
+            os.remove(temp_file)
+            return redirect(url_for('namelist.nameli', upload_status=True))
+    return "Upload failed."
+
+
+def get_temp_folder():
+    path = os.getcwd() + '//app//static//temp//' + str(current_user.id) + '//'
+    folder = os.path.exists(path)
+
+    if not folder:
+        os.makedirs(path)
+
+    return path
+
+
+def process_csv(path):
     house = House.get_house_by_housekeeper(current_user.id)
-    csvFile = codecs.open(path_, 'r', 'utf-8-sig')
-    dict_reader = csv.DictReader(csvFile)
-    # print (dict_reader)
+    csv_file = codecs.open(path, 'r', 'utf-8-sig')
+    dict_reader = csv.DictReader(csv_file)
     result = []
+
     for item in dict_reader:
-        student = Student.query.filter_by(student_email=item["student_email"]).first()
+        student = Student.query.filter_by(student_email=item["email"]).first()
         if student is None:
-            student = Student(house_id=house.house_id, module_id=None, student_email=item["student_email"])
+            student = Student(house_id=house.house_id, module_id=None, student_email=item["email"])
             add_by_entity(student)
         else:
             student.house_id = house.house_id
             update_by_entity(student)
-        result.append(item["student_email"])
+        result.append(item["email"])
     print(result)
-    # for row in dict_reader:
-    #     print(row)
-
-    # try:
-    #     conn = db.engine.raw_connection()
-    #     # conn = sqlite3.connect('project_database')
-    #     df = pandas.read_csv(path_)
-    #     # df.to_sql('student', conn, if_exists='append', index_label='user_id')
-    #     for i in range(len(df)):
-    #         try:
-    #             df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
-    #         except IntegrityError:
-    #             pass
-    # except sqlite3.Error as e:
-    #     print(e)
-    # finally:
-    #     conn.close()
-    return 'Upload Success'
-
+    return True
 
 
 @bp.route('/upload_module', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def upload_module():
-    root = Tk()
-    path_ = askopenfilename(title='Please select csv file')
+    if request.method == "POST":
+        if request.files:
+            csvFile = request.files["csv"]
+            process_csv_module(csvFile)
 
-    if path_ is '':
-        return 'Upload canceled'
+    return "Upload failed."
 
-    root.destroy()
+
+
+
+def process_csv_module(csvFile):
+    # root = Tk()
+    # path_ = askopenfilename(title='Please select csv file')
+    #
+    # if path_ is '':
+    #     return 'Upload canceled'
+
+    # root.destroy()
     module_id = int(session['moduleId'])
-    csvFile = codecs.open(path_, 'r', 'utf-8-sig')
+    # csvFile = codecs.open(path_, 'r', 'utf-8-sig')
     dict_reader = csv.DictReader(csvFile)
     # print (dict_reader)
     result = []
@@ -246,23 +261,5 @@ def upload_module():
             update_by_entity(user_module)
         result.append(item["student_email"])
     print(result)
-
-    # for row in dict_reader:
-    #     print(row)
-
-    # try:
-    #     conn = db.engine.raw_connection()
-    #     # conn = sqlite3.connect('project_database')
-    #     df = pandas.read_csv(path_)
-    #     # df.to_sql('student', conn, if_exists='append', index_label='user_id')
-    #     for i in range(len(df)):
-    #         try:
-    #             df.iloc[i:i + 1].to_sql('student', conn, if_exists='append', index=False)
-    #         except IntegrityError:
-    #             pass
-    # except sqlite3.Error as e:
-    #     print(e)
-    # finally:
-    #     conn.close()
     return 'Upload Success'
 
