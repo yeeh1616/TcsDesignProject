@@ -27,6 +27,8 @@ def create_app(test_config=None):
     login_manager.init_app(app)
     mail.init_app(app)
 
+    from . import test
+    app.register_blueprint(test.bp)
     from . import auth
     app.register_blueprint(auth.bp, url_prefix='/auth')
     from . import homepage
@@ -47,5 +49,5 @@ def create_app(test_config=None):
     return app
 
 
-if __name__ == '__main__':
-    create_app()
+# if __name__ == '__main__':
+#     create_app()
