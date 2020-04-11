@@ -139,8 +139,8 @@ class House(db.Model):
         self.color = color
         self.house_name = house_name
 
-    def get_houselist_by_year(mid):
-        houseList = House.query.filter_by(year=mid).all()
+    def get_houselist_by_year(year):
+        houseList = House.query.filter_by(year=year).all()
         return houseList
 
     def get_house_by_id(house_id):
