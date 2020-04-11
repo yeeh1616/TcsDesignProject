@@ -3,7 +3,7 @@ import datetime
 from flask import current_app, jsonify
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, or_
+from sqlalchemy import func, or_, PrimaryKeyConstraint
 from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
@@ -39,11 +39,10 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, uname, password, role, email, phone=None, img=None, title=None, confirmed=False,
+    def __init__(self, uname, password, email, phone=None, img=None, title=None, confirmed=False,
                  confirmed_on=None):
         self.uname = uname
         self.password_hash = generate_password_hash(password)
-        self.title = role
         self.email = email
         self.phone = phone
         self.img = img
@@ -103,11 +102,13 @@ class Student(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     house_id = db.Column(db.Integer)
     module_id = db.Column(db.Integer)
+    student_email = db.Column(db.String)
 
-    def __init__(self, user_id, house_id=None, module_id=None, ):
-        self.user_id = user_id
+    def __init__(self, house_id=None, module_id=None, student_email=None):
+        # self.user_id = user_id
         self.house_id = house_id
         self.module_id = module_id
+        self.student_email = student_email
 
     def get_full_info_by_id(id):
         student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name).filter(
@@ -194,14 +195,20 @@ class Module(db.Model):
 
 
 class UserModule(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
-    module_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String)
+    module_id = db.Column(db.Integer)
     status = db.Column(db.Integer)
 
-    def __init__(self, user_id, module_id, status):
-        self.user_id = user_id
+    def __init__(self, email, module_id, status):
+        self.email = email
         self.module_id = module_id
         self.status = status
+
+    def serialize(self):
+        return {"email": self.email,
+                "module_id": self.module_id,
+                "status": self.status}
 
 
 class Course(db.Model):
@@ -464,6 +471,12 @@ def add_house_keeper_by_entity(house_keeper):
 
 def update_by_entity(entity):
     db.session.merge(entity)
+    db.session.commit()
+    return entity.serialize
+
+
+def add_by_entity(entity):
+    db.session.add(entity)
     db.session.commit()
     return entity.serialize
 

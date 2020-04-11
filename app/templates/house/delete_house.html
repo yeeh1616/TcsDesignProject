@@ -83,12 +83,8 @@
         <article class="row format-gallery">
              <form action="" method="post" novalidate>
                  {{ form.hidden_tag() }}
-
-                <div class="form-field">
-				   {{ form.teachers(class="full-width", placeholder="teachers")}}
-                </div>
-				<div class="form-field">
-				    {{ form.houses(class="full-width", placeholder="Year")}}
+                 <div class="form-field">
+                     {{ form.houses(class="full-width", placeholder="Year")}}
                 </div>
                     {% with messages = get_flashed_messages() %}
                         {% if messages %}
@@ -100,7 +96,7 @@
                         {% endif %}
                     {% endwith %}
                 <div style="text-align:center; padding-bottom: 40px">
-                    <button type="submit" class="submit btn--primary btn--large medium-width">Assign</button>
+                    <button type="submit" class="submit btn--primary btn--large medium-width">Delete</button>
                 </div>
 			
 			</form>

@@ -59,7 +59,7 @@ def register():
             print("student")
         else:
             user = User(form.username.data, form.password.data, email, None, None,
-                        title=TEACHER_WITH_NO_HOUSE, confirmed=False, confirmed_on=None)
+                        title=HOUSEKEEPER, confirmed=False, confirmed_on=None)
             print("teacher")
         add_a_user_by_enity(user)
         # db.session.add(user)
