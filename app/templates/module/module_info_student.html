@@ -48,7 +48,7 @@
                 </div> <!-- end header__logo -->
                 <!-- end header__social -->
 
-                <a href="../notification/request_page" class="header__search-trigger">
+                <a href="../notification/request_page" class="student_request">
 <!--                          <span class="badge">{{ notification_num }}</span>-->
                 </a>
 
@@ -63,11 +63,7 @@
                     <ul class="header__nav">
                         <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
                         <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
-                        <li class="has-children"><a href="#0" title="">Tools</a>
-                            <ul class="sub-menu">
-                                <li><a href="../chat/chat_page">Chat</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="../chat/chat_page">Chat</a></li>
                         <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 

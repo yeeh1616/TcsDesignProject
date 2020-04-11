@@ -65,13 +65,7 @@
                 <ul class="header__nav">
                     <li class="current"><a href="{{ url_for('main.home') }}" title="">Home</a></li>
                     <li><a href="{{ url_for('namelist.nameli') }}" title="">House</a></li>
-                    <li class="has-children"><a href="#0" title="">Tools</a>
-                        <ul class="sub-menu">
-                            <li><a href="{{ url_for('module_info.download') }}" target="_blank">Download</a></li>
-                            <li><a href="{{ url_for('module_info.upload') }}" target="_blank">Upload</a></li>
-                            <li><a href="../chat/chat_page">Chat</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="../chat/chat_page">Chat</a></li>
                     <li><a href="{{ url_for('auth.logout') }}" title="">Logout</a></li>
                 </ul> <!-- end header__nav -->
 

@@ -65,6 +65,15 @@
  * =================================================================== */
 
 
+.s-styles {
+   background: #f2f2f2;
+   padding-top: 12rem;
+   padding-bottom: 12rem;
+}
+
+.s-styles .section-intro h1 {
+   margin-top: 0;
+}
 /* ===================================================================
  * # base style overrides
  *
@@ -2002,6 +2011,30 @@ body.search-is-visible {
    padding-right: 33px;
 }
 
+.student_request {
+   height: 21px;
+   min-width: 21px;
+   position: absolute;
+   right: 20px;
+   top: 15px;
+   background-image: url(../images/icons/request.svg);
+   background-repeat: no-repeat;
+   background-position: right center;
+   background-size: contain;
+}
+
+.student_request::before {
+   font-family: "metropolis-semibold", sans-serif;
+   font-size: 12px;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   line-height: 21px;
+   content: "request";
+   display: block;
+   color: #FFFFFF;
+   float: left;
+   padding-right: 33px;
+}
 /* ------------------------------------------------------------------- 
  * responsive:
  * header components
@@ -2052,8 +2085,15 @@ body.search-is-visible {
       top: 9px;
       right: 28px;
    }
+   .student_request {
+      top: 9px;
+      right: 28px;
+   }
 
    .header__search-trigger::before {
+      display: none;
+   }
+   .student_request::before {
       display: none;
    }
 
@@ -2086,6 +2126,9 @@ body.search-is-visible {
    .header__search-trigger {
       top: 6px;
    }
+   .student_request {
+      top: 6px;
+   }
 
    .header__search-form input[type="search"] {
       font-size: 3.4rem;
@@ -2112,6 +2155,9 @@ body.search-is-visible {
    }
 
    .header__search-trigger {
+      top: 3px;
+   }
+   .student_request {
       top: 3px;
    }
 

@@ -50,9 +50,16 @@
                 </div> <!-- end header__logo -->
                 <!-- end header__social -->
 
-                <a href="../notification/request_page" class="header__search-trigger">
+                {% if title == 2 %}
+                    <a href="notification/request_page" class="header__search-trigger">
 <!--                          <span class="badge">{{ notification_num }}</span>-->
-                </a>
+                    </a>
+                {% endif %}
+                {% if title == 0 %}
+                    <a href="notification/request_page" class="student_request">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
 
                 <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
 
@@ -62,16 +69,8 @@
 
                     <ul class="header__nav">
                         <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
-                        <li  class="current"><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
-                        {% if title == 2 %}}
-							<li class="has-children"><a href="#0" title="">Tools</a>
-								<ul class="sub-menu">
-									<li><a href="{{url_for('module_info.download')}}" target="_blank">Download</a></li>
-									<li><a href="{{url_for('module_info.upload')}}" target="_blank">Upload</a></li>
-									<li><a href="../chat/chat_page">Chat</a></li>
-								</ul>
-							</li>
-						{% endif %}
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li  class="current"><a href="../chat/chat_page">Chat</a></li>
                         <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
                     </ul> <!-- end header__nav -->
 
@@ -133,10 +132,23 @@
                 </div>
             </div>
         </section> <!-- s-content -->
+         <!-- preloader
+        ================================================== -->
+        <div id="preloader">
+            <div id="loader">
+                <div class="line-scale">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Java Script
         ================================================== -->
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{#        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>#}
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
         <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
         <script src="../../static/home/js/plugins.js"></script>
