@@ -100,18 +100,19 @@ class HouseKeeper(db.Model):
 
 class Student(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
     house_id = db.Column(db.Integer)
     module_id = db.Column(db.Integer)
     student_email = db.Column(db.String)
 
-    def __init__(self, house_id=None, module_id=None, student_email=None):
-        # self.user_id = user_id
+    def __init__(self, year, house_id=None, module_id=None, student_email=None):
+        self.year = year
         self.house_id = house_id
         self.module_id = module_id
         self.student_email = student_email
 
     def get_full_info_by_id(id):
-        student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name).filter(
+        student = db.session.query(User.uname, User.img, User.title, Student.year, House.house_id, House.house_name).filter(
             User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
         return student
 
@@ -138,7 +139,7 @@ class House(db.Model):
         self.color = color
         self.house_name = house_name
 
-    def get_houselist_by_mid(mid):
+    def get_houselist_by_year(mid):
         houseList = House.query.filter_by(year=mid).all()
         return houseList
 

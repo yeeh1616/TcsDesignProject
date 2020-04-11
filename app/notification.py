@@ -32,7 +32,7 @@ def request_page():
 
 
 def request_page_student():
-    module_id = session.get('moduleId')
+    # module_id = session.get('moduleId')
     student = Student.get_full_info_by_id(current_user.id)
     switching_request = Request.get_request_by_owner_id(current_user.id)
 
@@ -55,7 +55,7 @@ def request_page_student():
                                target_house=target_house,
                                request=switching_request)
 
-    house_list = House.get_houselist_by_mid(module_id)
+    house_list = House.get_houselist_by_year(student.year)
     return render_template('notification/request_student.html',
                            house_list=house_list,
                            student=student)
