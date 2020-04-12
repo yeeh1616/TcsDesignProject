@@ -177,7 +177,7 @@ def upload():
         if request.files:
             csvFile = request.files["csv"]
 
-            if csvFile.content_length == 0:
+            if csvFile.filename == '':
                 return redirect(url_for('namelist.nameli'))
             temp_file = os.path.join(get_temp_folder(), csvFile.filename)
             csvFile.save(temp_file)
