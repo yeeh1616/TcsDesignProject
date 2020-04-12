@@ -319,22 +319,22 @@ class Request(db.Model):
         db.session.commit()
 
 
-class Config(db.Model):
-    __tablename__ = 'config'
-    key = db.Column(db.String, nullable=False, primary_key=True)
-    value = db.Column(db.String, nullable=False)
-
-    def __init__(self, key, value):
-        self.key = key
-        self.value = value
-
-    def get_config_by_key(key):
-        config = Config.query.filter(Config.key == key).first()
-        return config
-
-    def serialize(self):
-        return {"key": self.key,
-                "value": self.value}
+# class Config(db.Model):
+#     __tablename__ = 'config'
+#     key = db.Column(db.String, nullable=False, primary_key=True)
+#     value = db.Column(db.String, nullable=False)
+#
+#     def __init__(self, key, value):
+#         self.key = key
+#         self.value = value
+#
+#     def get_config_by_key(key):
+#         config = Config.query.filter(Config.key == key).first()
+#         return config
+#
+#     def serialize(self):
+#         return {"key": self.key,
+#                 "value": self.value}
 
 
 class Questionnaire(db.Model):
