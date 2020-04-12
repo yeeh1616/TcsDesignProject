@@ -4,7 +4,8 @@ from flask_socketio import SocketIO, send
 
 from app import app
 from app.decorators import check_confirmed
-from app.models import Config, Student
+from app.models import Student
+import socket
 
 bp = Blueprint('chat', __name__, template_folder='templates/chat')
 app.config['SECRET_KEY'] = 'mysecret'
@@ -21,7 +22,13 @@ def handle_message(msg):
 @login_required
 @check_confirmed
 def chat_page():
-    config = Config.get_config_by_key('server')
-    config.ip = request.remote_addr
+    hostname = socket.gethostname()
+    server = socket.gethostbyname(hostname)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(('0.0.0.0', 0))
+    port = sock.getsockname()[1]
+    server = server + ':' + str(port)
+    # server = '127.0.0.1:5000'
+    remote_addr = request.remote_addr
     user = Student.get_full_info_by_id(current_user.id)
-    return render_template('chat/chat.html', config=config, user=user, title=user.title)
+    return render_template('chat/chat.html', server=server, remote_addr=remote_addr, user=user, title=user.title)
