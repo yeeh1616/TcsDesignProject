@@ -155,7 +155,7 @@ def download():
     root = Tk()
     path_ = askdirectory(initialdir=os.getcwd(), title='Please select a directory')
 
-    if path_ is '':
+    if path_ == '':
         return 'Download canceled'
 
     path_ = path_ + '/student.csv'
