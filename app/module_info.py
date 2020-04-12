@@ -1,26 +1,20 @@
 import csv
 import math
 import codecs
-import os
-from datetime import date, time
-from sqlite3 import IntegrityError
-
-import pandas as pandas
+from datetime import date
 from flask import (
-    Blueprint, flash, redirect, render_template, url_for,
+    Blueprint, redirect, render_template, url_for,
     session, request)
 from flask_login import login_required, current_user
-import tkinter.filedialog
-from tkinter import *
-import tkinter
 from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
-from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Student, Questionnaire, \
+from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Questionnaire, \
     Question_rate, get_question_avg_stars, Student, add_by_entity, update_by_entity, UserModule
 import sqlite3
 import json
+from flask import send_from_directory, abort
 
 bp = Blueprint('module_info', __name__, template_folder='templates/module')
 
@@ -152,17 +146,9 @@ def comment():
 def download():
     student = Student.get_full_info_by_id(current_user.id)
     houseid = student.house_id
-    root = Tk()
-    path_ = askdirectory(initialdir=os.getcwd(), title='Please select a directory')
-
-    if path_ is '':
-        return 'Download canceled'
-
-    path_ = path_ + '/student.csv'
-    root.destroy()
     try:
         conn = db.engine.raw_connection()
-        # conn = sqlite3.connect('project_database')
+        path_ = get_temp_folder() + 'student.csv'
         with open(path_, 'w+', newline='') as write_file:
             cursor = conn.cursor()
             cursor.execute('SELECT uname,email FROM user, student WHERE student.user_id ='
@@ -170,11 +156,17 @@ def download():
             csv_writer = csv.writer(write_file)
             csv_writer.writerow([i[0] for i in cursor.description])
             csv_writer.writerows(cursor)
+
+        try:
+            return send_from_directory(get_temp_folder(), filename='student.csv', as_attachment=True)
+        except FileNotFoundError:
+            abort(404)
+
     except sqlite3.Error as e:
         print(e)
     finally:
         conn.close()
-    return 'Download Success'
+    abort(404)
 
 
 @bp.route('/upload', methods=['GET', 'POST'])
@@ -236,16 +228,7 @@ def upload_module():
     return "Upload failed."
 
 
-
-
 def process_csv_module(csvFile):
-    # root = Tk()
-    # path_ = askopenfilename(title='Please select csv file')
-    #
-    # if path_ is '':
-    #     return 'Upload canceled'
-
-    # root.destroy()
     module_id = int(session['moduleId'])
     # csvFile = codecs.open(path_, 'r', 'utf-8-sig')
     dict_reader = csv.DictReader(csvFile)
