@@ -3,7 +3,7 @@ import math
 import codecs
 from datetime import date
 from flask import (
-    Blueprint, redirect, render_template, url_for,
+    Blueprint, redirect, render_template, url_for,flash,
     session, request)
 from flask_login import login_required, current_user
 from tkinter.filedialog import *
@@ -177,7 +177,7 @@ def upload():
         if request.files:
             csvFile = request.files["csv"]
 
-            if csvFile.content_length == 0:
+            if csvFile.filename == '':
                 return redirect(url_for('namelist.nameli'))
             temp_file = os.path.join(get_temp_folder(), csvFile.filename)
             csvFile.save(temp_file)
@@ -212,6 +212,7 @@ def process_csv(path):
             student.house_id = house.house_id
             update_by_entity(student)
         result.append(item["email"])
+    flash("upload successfully")
     print(result)
     return True
 

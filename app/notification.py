@@ -33,7 +33,10 @@ def request_page():
 
 def request_page_student():
     # module_id = session.get('moduleId')
-    student = Student.get_full_info_by_id(current_user.id)
+    student = Student.get_full_info_by_email(current_user.email)
+    if student is None:
+        flash("You do not have a house yet")
+        redirect(url_for('main.home'))
     switching_request = Request.get_request_by_owner_id(current_user.id)
 
     if switching_request is not None:
@@ -54,8 +57,9 @@ def request_page_student():
                                my_house=my_house,
                                target_house=target_house,
                                request=switching_request)
+    current_house = House.query.filter_by(house_id=student.house_id).first()
+    house_list = House.query.filter_by(year=current_house.year)
 
-    house_list = House.get_houselist_by_year(student.year)
     return render_template('notification/request_student.html',
                            house_list=house_list,
                            student=student)
