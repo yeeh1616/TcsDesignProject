@@ -359,10 +359,6 @@ class Questionnaire(db.Model):
         self.abbr = abbr
         self.question = question
 
-    def get_questionnaire():
-        uestionnaire = Questionnaire.query.all()
-        return uestionnaire
-
     def serialize(self):
         return {"id": self.id,
                 "abbr": self.abbr,
@@ -557,3 +553,8 @@ def get_question_avg_stars(qid, mid):
         filter(Question_rate.question_id == qid).first()
 
     return result
+
+
+def get_questionnaire():
+    uestionnaire = Questionnaire.query.all()
+    return uestionnaire

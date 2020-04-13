@@ -11,7 +11,7 @@ from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
 from app.models import Module, User, Comment, get_avg_stars, add_comment_by_entity, House, Questionnaire, \
-    Question_rate, get_question_avg_stars, Student, add_by_entity, update_by_entity, UserModule
+    Question_rate, get_question_avg_stars, Student, add_by_entity, update_by_entity, UserModule, get_questionnaire
 import sqlite3
 import json
 from flask import send_from_directory, abort
@@ -52,7 +52,7 @@ def info():
     avg_star = get_avg_stars(module_id)
 
     star_dict = {}
-    questionnaire = Questionnaire.get_questionnaire()
+    questionnaire = get_questionnaire()
     for q in questionnaire:
         star_dict[q.id] = 0
         q.avg_star = round(get_question_avg_stars(q.id, module_id).average, 1)
