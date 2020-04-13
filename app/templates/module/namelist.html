@@ -111,25 +111,54 @@
 				</div>
 				<div class="col-six tab-full">
 
-                    <form action="{{url_for('module_info.upload')}}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>Select file</label>
+{#                    <form action="{{url_for('module_info.upload')}}" method="post" enctype="multipart/form-data">#}
+{#                        <div class="form-group">#}
+{#                            <label>Select file</label>#}
 {#                            {% if upload_status == True %}#}
 {#                            <label>Upload success!</label>#}
 {#                            {% endif %}#}
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="csv" id="csv">
-                                <label class="custom-file-label" for="csv">Select csv...</label>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn--primary">Upload</button>
+{#                            <div class="custom-file">#}
+{#                                <input type="file" class="custom-file-input" name="csv" id="csv">#}
+{#                                <label class="custom-file-label" for="csv">Select csv...</label>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn--primary">Upload</button>#}
+{#                    </form>#}
+
+
+
+
+                    <form id="csvform" style="display:none" action="{{url_for('module_info.upload')}}" method="post" enctype="multipart/form-data">
+                    　　<input type="file" name="csv" value="" id = "csv">
+                        <input type="reset" name="reset" style="display: none;" >
                     </form>
+                    <a href="javascript:;" class="import btn btn--primary full-width" >upload</a>
+
+
+
+
+
+
+
+
+
+
+                    <form id="signupListImportForm" class="import-file-form" enctype="multipart/form-data">
+                        <input type="file" name="excelFile" id="excelFile" style="display:none" multiple="multiple" οnchange="fileUpload()">
+
+                        <input class="btn-dr" type="button" value="导入" οnclick="selectFile()">
+                    </form>
+
+
+
+
+
 
 					<a class="btn btn--primary full-width" href="{{url_for('module_info.upload')}}" target="_blank">Upload</a>
 				</div>
 			</div>
 	</section>
-    
+
 
 
     <!-- preloader
@@ -152,6 +181,26 @@
     <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
     <script src="../../static/home/js/plugins.js"></script>
     <script src="../../static/home/js/main.js"></script>
+    <script>
+    $('.import').click(function(){
+
+    　　$(this).prev('form').find('[name="csv"]').trigger('click');
+    });
+
+    // 当表单文件有变化时执行提交动作
+
+    $('[name="csv"]').change(function(){
+    　　if($(this).val()){
+    　　　　$('.import').addClass('disabled');
+    　　　　$(this).parent().submit();
+            $("input[id=csv]").trigger("click");
+
+    　　}
+    });
+
+    </script>
+
+
 
 </body>
 

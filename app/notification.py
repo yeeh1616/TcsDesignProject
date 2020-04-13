@@ -68,13 +68,15 @@ def request_page_teacher(search):
     per_page = 10
     offset = (page - 1) * per_page
 
-    if f is None:
-        request_owner_list = models.get_request_owner_list_by_hid(house.house_id, per_page, offset)
+    if f is None or 0:
+        request_owner_list = models.get_request_owner_list_by_hid_filter(house.house_id, 0, per_page, offset)
+        total = models.get_request_owner_list_count_by_status(house.house_id, 0)
     else:
         request_owner_list = models.get_request_owner_list_by_hid_filter(house.house_id, f, per_page, offset)
+        total = models.get_request_owner_list_count_by_status(house.house_id, f)
 
     pagination = Pagination(page=page,
-                            total=models.get_request_owner_list_count(house.house_id),
+                            total=total,
                             search=search,
                             record_name='request_owner_list',
                             per_page=per_page,
@@ -92,7 +94,8 @@ def request_page_teacher(search):
 
     return render_template('notification/request_teacher.html',
                            request_owner_list=request_owner_list,
-                           pagination=pagination)
+                           pagination=pagination,
+                           filter=f)
 
 
 @bp.route('/accept_request', methods=['GET', 'POST'])

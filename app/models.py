@@ -496,6 +496,10 @@ def get_request_owner_list_count(house_id):
     return get_request_owner_list_base(house_id).count()
 
 
+def get_request_owner_list_count_by_status(house_id, filter_para):
+    return get_request_owner_list_base(house_id).filter(Request.status == filter_para).count()
+
+
 def get_request_owner_list_base(house_id):
     house_from_alias = aliased(House)
     house_to_alias = aliased(House)
