@@ -353,16 +353,14 @@ class Questionnaire(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     abbr = db.Column(db.String, nullable=False)
     question = db.Column(db.String, nullable=False)
-    module_id = db.Column(db.Integer, nullable=False)
 
     def __init__(self, id, abbr, question, module_id, ):
         self.id = id
         self.abbr = abbr
         self.question = question
-        self.module_id = module_id
 
-    def get_questionnaire_by_mid(mid):
-        uestionnaire = Questionnaire.query.filter(Questionnaire.module_id == mid).all()
+    def get_questionnaire():
+        uestionnaire = Questionnaire.query.all()
         return uestionnaire
 
     def serialize(self):

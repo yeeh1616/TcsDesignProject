@@ -52,7 +52,7 @@ def info():
     avg_star = get_avg_stars(module_id)
 
     star_dict = {}
-    questionnaire = Questionnaire.get_questionnaire_by_mid(module_id)
+    questionnaire = Questionnaire.get_questionnaire()
     for q in questionnaire:
         star_dict[q.id] = 0
         q.avg_star = round(get_question_avg_stars(q.id, module_id).average, 1)
