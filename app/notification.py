@@ -13,7 +13,7 @@ from app.decorators import check_confirmed, check_assigned_house
 from app.forms import ModuleInfoForm, RequestForm
 from app.models import Module, House, User, Student, Request
 
-bp = Blueprint('notification', __name__, template_folder='templates/notification')
+bp = Blueprint('notification', __name__, template_folder='templates')
 
 
 @bp.route('/request_page', methods=['GET', 'POST'])
