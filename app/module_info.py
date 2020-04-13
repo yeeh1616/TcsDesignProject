@@ -80,6 +80,7 @@ def info():
                                avgStar=avg_star,
                                notification_num=notification_num,
                                title=title,
+                               is_tourist=is_tourist,
                                questionnaire=questionnaire,
                                star_dict=json.dumps(star_dict))
 

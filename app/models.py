@@ -71,6 +71,11 @@ class User(UserMixin, db.Model):
     def get_user_by_id(id):
         return User.query.filter_by(id=id).first()
 
+    def is_tourist(email):
+        if UserModule.query.filter(email=email).count() > 0:
+            return False
+        return True
+
 
 class Manager(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
