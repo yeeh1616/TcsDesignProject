@@ -133,7 +133,7 @@
 										</td>
 									{% endif %}
                                 </tr>
-                                {% if request.reason is not none and not ' '%}
+                                {% if request.reason is not none and (request.reason != '') %}
                                     <tr>
                                         <td></td>
                                         <td>
