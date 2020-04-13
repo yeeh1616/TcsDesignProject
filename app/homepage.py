@@ -44,7 +44,7 @@ def home():
 @login_required
 @check_confirmed
 def add_module_page():
-    return render_template('add_module.html')
+    return render_template('module/add_module.html')
 
 
 @bp.route('/add_module', methods=['GET', 'POST'])

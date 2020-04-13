@@ -3,4 +3,3 @@ __pycache__/
 TEMP/
 Scripts/
 migrations/
-pyvenv.cfg

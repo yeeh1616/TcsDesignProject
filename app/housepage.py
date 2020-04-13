@@ -95,4 +95,4 @@ def addhouse():
 
             flash("add house successfully, you can assign house keeper now.")
             return redirect(url_for('house.assignhouse'))
-    return render_template('add_house.html', form=form)
+    return render_template('house/add_house.html', form=form)
