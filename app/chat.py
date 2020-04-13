@@ -7,7 +7,7 @@ from app.decorators import check_confirmed
 from app.models import Student
 import socket
 
-bp = Blueprint('chat', __name__, template_folder='templates/chat')
+bp = Blueprint('chat', __name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
 

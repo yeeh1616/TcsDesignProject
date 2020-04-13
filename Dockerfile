@@ -1,27 +1,24 @@
-FROM python:3.6-alpine
+FROM python:3.8.2-alpine3.11
 
-RUN adduser -D module_plus
+ENV FLASK_APP=app
+ENV FLASK_ENV=development
 
-WORKDIR /home/module_plus
+COPY . /module_plus
 
-#ADD . /app
+WORKDIR /module_plus
 
-COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install --upgrade pip
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn
+COPY requirements.txt .
+RUN pip install --editable .
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-COPY app app
-COPY instance instance
-COPY run.py boot.sh ./
-RUN chmod +x boot.sh
-
-ENV FLASK_APP run.py
-
-RUN chown -R module_plus:module_plus ./
-USER module_plus
+COPY app ./app
+COPY instance ./instance
+COPY project_database .
 
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
-CMD ["run.py"]
+
+CMD [ "flask", "run", "--host=0.0.0.0" ]
+
+
+
