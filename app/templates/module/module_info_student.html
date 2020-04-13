@@ -118,6 +118,9 @@
 
 
             </div>
+            {% if not_add %}
+                    <a class="btn btn--stroke full-width" style="margin-bottom: 0rem" href="{{url_for('main.add_module_student', moduleId=module.id)}}">ADD THIS MODULE</a>
+            {% endif %}
         </article>
 
 
@@ -373,8 +376,9 @@
 								}
 							}
                         </script>
-
-						<button id="expandC" type="button" class="collapsible" onClick="expandComment()">Add Comment</button>
+                    {% if not not_add %}
+                    {% if can_comment %}
+                        <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Add Comment</button>
 
 						<div id="commentBlock" class="content">
 							<form action="comment" method="post">
@@ -406,6 +410,8 @@
 								</fieldset>
 							</form> <!-- end form -->
 						</div>
+                    {% endif %}
+                    {% endif %}
                     </div> <!-- end respond -->
                 </div> <!-- end col-full -->
             </div> <!-- end row comments -->

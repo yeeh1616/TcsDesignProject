@@ -52,10 +52,7 @@
 {#                    <a href="../notification/request_page" class="header__search-trigger">#}
 {#<!--                          <span class="badge">{{ notification_num }}</span>-->#}
 {#                    </a>#}
-{#               {% endif %}#}
-                <a href="../notification/request_page" class="header__search-trigger">
-<!--                          <span class="badge">{{ notification_num }}</span>-->
-                </a>
+{#                {% endif %}#}
 
 
 
@@ -81,55 +78,52 @@
 	</section> <!-- end s-pageheader -->
 
 	<section id="styles" class="s-styles">
-		<div class="row half-bottom">
-				
-			
-				{% if filter == '0' or filter is none %}
-					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=1">accepted</a></div>
-					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=-1">rejected</a></div>
-				  {% elif filter == '-1' %}
-					  <div class="col-six tab-full"><a class="btn btn--stroke full-width"   href="../notification/request_page?filter=1">accepted</a></div>
-					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=0">pending</a></div>
-				  {% elif filter == '1' %}
-					 <div class="col-six tab-full"><a class="btn btn--stroke full-width"   href="../notification/request_page?filter=0">pending</a></div>
-					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=-1">rejected</a></div>
-				  {% endif %}
-		</div>
 		<div class="row add-bottom">
 			<div class="col-twelve">
 				<div class="table-responsive">
 					<table>
 						<thead>
-							<tr>
-							  <th>#</th>
+{#							<tr>#}
+{#							  <th>#</th>#}
 							  <th>Name</th>
-							  <th>From</th>
-							  <th>To</th>
-							  <th>Sent date</th>
-							  <th>Confirmed date</th>
-                            {% if filter == '0' or filter is none %}
-							  <th colspan="2">Decision </th>
-                            {% else %}
-                              <th colspan="2">status </th>
-                            {% endif %}
+							  <th>Owner</th>
+{#							  <th>To</th>#}
+{#							  <th>Sent date</th>#}
+{#							  <th>Confirmed date</th>#}
 
-                          
-							</tr>
+{#                          {% if filter == '0' or filter is none %}#}
+{#                              <th> <a class="btn  full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=1">accepted</a></th>#}
+{#                              <th > <a class="btn  full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=-1">rejected</a></th>#}
+{#                          {% elif filter == '-1' %}#}
+{#                              <th> <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=1">accepted</a></th>#}
+{#                              <th > <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=0">pending</a></th>#}
+{#                          {% elif filter == '1' %}#}
+{#                              <th> <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=0">pending</a></th>#}
+{#                              <th > <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=-1">rejected</a></th>#}
+{#                          {% endif %}#}
+{#							</tr>#}
 						</thead>
-						{% for request in request_owner_list %}
+						{% for module in all_modules %}
                             <tbody>
                                 <tr>
                                     <td>{{ loop.index + pagination.skip }}</td>
-                                    <td>{{ request.uname }}</td>
-                                    <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>
-                                    <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>
-                                    <td>{{ request.send_date }}</td>
+                                    <td>{{ module.name }}</td>
+                                    <td>{{ module.uname }}</td>
                                     <td>
-                                        {% if request.confirmed_date == None %}
-                                            Pending
-                                        {% else %}
-                                            {{ request.confirmed_date }}
-                                        {% endif %}
+                                        <a class="btn btn--stroke full-width" style="margin-bottom: 0rem" href="{{url_for('main.add_module_student', moduleId=module.id)}}">ADD</a>
+                                    </td>
+                                    <td>
+                                         <a class="btn btn--stroke full-width" style="margin-bottom: 0rem" href="{{url_for('module_info.info', id=module.id)}}">VIEW</a>
+                                    </td>
+{#                                    <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>#}
+{#                                    <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>#}
+{#                                    <td>{{ request.send_date }}</td>#}
+{#                                    <td>#}
+{#                                        {% if request.confirmed_date == None %}#}
+{#                                            Pending#}
+{#                                        {% else %}#}
+{#                                            {{ request.confirmed_date }}#}
+{#                                        {% endif %}#}
                                     </td>
 <!--
                                     <td>
@@ -145,33 +139,33 @@
                                         {% endif %}
                                     </td>
 -->
-                                    {% if request.status == 0 %}
-                                        <td>
-                                        <a class="btn btn--stroke full-width" style="margin-bottom: 0rem" href="reject_request?request_id={{ request.id }}">ACCEPT</a>
-                                        </td>
-                                        <td>
-                                        <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="reject_request?request_id={{ request.id }}">Reject</a>
-                                        </td>
-                                    {% elif request.status == 1 %}
-										<td colspan="2">
-										<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">ACCEPTED</a>
-										</td>
-									{% elif request.status == -1 %}
-										<td colspan="2">
-											<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">REJECTED</a>
-										</td>
-									{% endif %}
+{#                                    {% if request.status == 0 %}#}
+{#                                        <td>#}
+{#                                        <a class="btn btn--stroke full-width" style="margin-bottom: 0rem" href="reject_request?request_id={{ request.id }}">ACCEPT</a>#}
+{#                                        </td>#}
+{#                                        <td>#}
+{#                                        <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="reject_request?request_id={{ request.id }}">Reject</a>#}
+{#                                        </td>#}
+{#                                    {% elif request.status == 1 %}#}
+{#										<td colspan="2">#}
+{#										<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">ACCEPTED</a>#}
+{#										</td>#}
+{#									{% elif request.status == -1 %}#}
+{#										<td colspan="2">#}
+{#											<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">REJECTED</a>#}
+{#										</td>#}
+{#									{% endif %}#}
                                 </tr>
-                                {% if request.reason is not none and (request.reason != '') %}
-                                    <tr>
-                                        <td></td>
-                                        <td colspan="7">
-                                            <div class="comment__text">
-                                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endif %}
+{#                                {% if request.reason is not none and (request.reason != '') %}#}
+{#                                    <tr>#}
+{#                                        <td></td>#}
+{#                                        <td>#}
+{#                                            <div class="comment__text">#}
+{#                                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>#}
+{#                                            </div>#}
+{#                                        </td>#}
+{#                                    </tr>#}
+{#                                {% endif %}#}
                             </tbody>
                         {% endfor %}
 

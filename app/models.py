@@ -71,6 +71,11 @@ class User(UserMixin, db.Model):
     def get_user_by_id(id):
         return User.query.filter_by(id=id).first()
 
+    def is_tourist(email):
+        if UserModule.query.filter(email=email).count() > 0:
+            return False
+        return True
+
 
 class Manager(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -100,20 +105,25 @@ class HouseKeeper(db.Model):
 
 class Student(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
-    year = db.Column(db.Integer, nullable=False)
+    #year = db.Column(db.Integer, nullable=False)
     house_id = db.Column(db.Integer)
     module_id = db.Column(db.Integer)
     student_email = db.Column(db.String)
 
-    def __init__(self, year, house_id=None, module_id=None, student_email=None):
-        self.year = year
+    def __init__(self, house_id=None, module_id=None, student_email=None):
+        #self.year = year
         self.house_id = house_id
         self.module_id = module_id
         self.student_email = student_email
 
     def get_full_info_by_id(id):
-        student = db.session.query(User.uname, User.img, User.title, Student.year, House.house_id, House.house_name).filter(
+        student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name).filter(
             User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
+        return student
+
+    def get_full_info_by_email(email):
+        student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name).filter(
+            User.email == Student.student_email).filter(Student.house_id == House.house_id).filter(User.email == email).first()
         return student
 
     def get_student_by_id(user_id):
@@ -343,17 +353,11 @@ class Questionnaire(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     abbr = db.Column(db.String, nullable=False)
     question = db.Column(db.String, nullable=False)
-    module_id = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, id, abbr, question, module_id, ):
+    def __init__(self, id, abbr, question):
         self.id = id
         self.abbr = abbr
         self.question = question
-        self.module_id = module_id
-
-    def get_questionnaire_by_mid(mid):
-        uestionnaire = Questionnaire.query.filter(Questionnaire.module_id == mid).all()
-        return uestionnaire
 
     def serialize(self):
         return {"id": self.id,
@@ -549,3 +553,8 @@ def get_question_avg_stars(qid, mid):
         filter(Question_rate.question_id == qid).first()
 
     return result
+
+
+def get_questionnaire():
+    uestionnaire = Questionnaire.query.all()
+    return uestionnaire
