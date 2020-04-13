@@ -4,7 +4,7 @@ import codecs
 from datetime import date
 from flask import (
     Blueprint, redirect, render_template, url_for,
-    session, request)
+    session, request, flash)
 from flask_login import login_required, current_user
 from tkinter.filedialog import *
 from app import db, models
@@ -177,12 +177,13 @@ def upload():
         if request.files:
             csvFile = request.files["csv"]
 
-            if csvFile.content_length == 0:
+            if csvFile.filename == '':
                 return redirect(url_for('namelist.nameli'))
             temp_file = os.path.join(get_temp_folder(), csvFile.filename)
             csvFile.save(temp_file)
             process_csv(temp_file)
             os.remove(temp_file)
+            flash("assigned house successfully")
             return redirect(url_for('namelist.nameli', upload_status=True))
     return "Upload failed."
 

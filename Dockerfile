@@ -24,3 +24,4 @@ USER module_plus
 
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
+CMD ["run.py"]
