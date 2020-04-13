@@ -70,8 +70,8 @@ class ResetPasswordForm(FlaskForm):
 
 
 class AssignHouseForm(FlaskForm):
-    teachers = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
-    houses = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
+    teachers = SelectField('Teacher Email', coerce=int, validators=[InputRequired()])
+    houses = SelectField('Houses', coerce=int, validators=[InputRequired()])
     # teacher_email = StringField('Email', validators=[DataRequired()])
     # study_year = StringField('StudyYear', validators=[DataRequired()])
     # house_name = StringField('HouseName', validators=[DataRequired()])
@@ -92,7 +92,7 @@ class AssignHouseForm(FlaskForm):
 
 class DeleteHouseForm(FlaskForm):
 
-    houses = SelectField('Payload Type', coerce=int, validators=[InputRequired()])
+    houses = SelectField('Houses', coerce=int, validators=[InputRequired()])
 
 class AddHouseForm(FlaskForm):
     # teacher_email = StringField('Email', validators=[DataRequired()])

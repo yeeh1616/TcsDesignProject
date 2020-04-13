@@ -73,7 +73,17 @@
         </header> <!-- header -->
 	</section> <!-- end s-pageheader -->
     <section id="styles" class="s-styles">
+
 		<div class="row add-bottom">
+         {% with messages = get_flashed_messages() %}
+             {% if messages %}
+                 <ul>
+                     {% for message in messages %}
+                         <li>{{ message }}</li>
+                     {% endfor %}
+                 </ul>
+             {% endif %}
+         {% endwith %}
 			<div class="col-twelve">
 				<div class="table-responsive">
 					<table>

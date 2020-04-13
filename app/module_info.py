@@ -213,6 +213,7 @@ def process_csv(path):
             student.house_id = house.house_id
             update_by_entity(student)
         result.append(item["email"])
+    flash("upload successfully")
     print(result)
     return True
 
@@ -224,26 +225,32 @@ def upload_module():
     if request.method == "POST":
         if request.files:
             csvFile = request.files["csv"]
-            process_csv_module(csvFile)
+            if csvFile.filename == '':
+                return redirect(url_for('module_info.info'))
+            temp_file = os.path.join(get_temp_folder(), csvFile.filename)
+            csvFile.save(temp_file)
+            process_csv_module(temp_file)
+            os.remove(temp_file)
+            return redirect(url_for('module_info.info', upload_status=True))
 
     return "Upload failed."
 
 
-def process_csv_module(csvFile):
+def process_csv_module(path):
     module_id = int(session['moduleId'])
-    # csvFile = codecs.open(path_, 'r', 'utf-8-sig')
+    csvFile = codecs.open(path, 'r', 'utf-8-sig')
     dict_reader = csv.DictReader(csvFile)
     # print (dict_reader)
     result = []
     for item in dict_reader:
-        user_module = UserModule.query.filter_by(email=item["student_email"], module_id=module_id).first()
+        user_module = UserModule.query.filter_by(email=item["email"], module_id=module_id).first()
         if user_module is None:
-            user_module = UserModule(email=item["student_email"], module_id=module_id, status=1)
+            user_module = UserModule(email=item["email"], module_id=module_id, status=1)
             add_by_entity(user_module)
         else:
             user_module.status = 1
             update_by_entity(user_module)
-        result.append(item["student_email"])
+        result.append(item["email"])
     print(result)
     return 'Upload Success'
 

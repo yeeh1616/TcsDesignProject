@@ -5,7 +5,7 @@ from flask_login import login_required,current_user
 from app.decorators import check_confirmed, check_assigned_house
 from app import models
 from app.forms import ModuleInfoForm
-from app.models import Module, db, House, get_all_user, add_house_keeper_by_entity, Request, User
+from app.models import Module, db, House, get_all_user, add_house_keeper_by_entity, Request, User, MANAGER, HOUSEKEEPER
 
 bp = Blueprint('main', __name__,template_folder = 'templates')
 
@@ -31,13 +31,18 @@ def test2():
 @bp.route('/home')
 @login_required
 @check_confirmed
-@check_assigned_house
+#@check_assigned_house
 def home():
     moduleList = Module.query.filter_by(owner_id=current_user.id).all()
-    house = House.get_house_by_housekeeper(current_user.id)
-    notification_num = models.get_request_owner_list_count(house.house_id)
+    notification_num = 0
+    if current_user.title == HOUSEKEEPER:
+        house = House.get_house_by_housekeeper(current_user.id)
+        notification_num = models.get_request_owner_list_count(house.house_id)
     title = User.get_user_by_id(current_user.id).title
-    return render_template('index.html', moduleList=moduleList, notification_num=notification_num, title=title)
+    if title == MANAGER:
+        return redirect(url_for('house.addhouse'))
+    else:
+        return render_template('index.html', moduleList=moduleList, notification_num=notification_num, title=title)
 
 
 @bp.route('/add_module_page', methods=['GET', 'POST'])
