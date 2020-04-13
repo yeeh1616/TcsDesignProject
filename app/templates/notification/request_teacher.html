@@ -101,7 +101,13 @@
                                     <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>
                                     <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>
                                     <td>{{ request.send_date }}</td>
-                                    <td>{{ request.confirmed_date }}</td>
+                                    <td>
+                                        {% if request.confirmed_date == None %}
+                                            Pending
+                                        {% else %}
+                                            {{ request.confirmed_date }}
+                                        {% endif %}
+                                    </td>
 <!--
                                     <td>
                                         {% if request.status == 0 %}
@@ -159,12 +165,6 @@
             </div>
 			
 	</section>
-	
-	
-	
-   
-
-
 
     <!-- preloader
     ================================================== -->

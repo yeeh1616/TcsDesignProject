@@ -315,6 +315,7 @@ class Request(db.Model):
 
     def confirm_request_by_id(id):
         request = Request.query.filter_by(id=id).first()
+        request.confirmed_date = datetime.date.today()
         request.confirmed = 1
         db.session.commit()
 
