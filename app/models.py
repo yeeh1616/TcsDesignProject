@@ -354,7 +354,7 @@ class Questionnaire(db.Model):
     abbr = db.Column(db.String, nullable=False)
     question = db.Column(db.String, nullable=False)
 
-    def __init__(self, id, abbr, question, module_id, ):
+    def __init__(self, id, abbr, question):
         self.id = id
         self.abbr = abbr
         self.question = question
