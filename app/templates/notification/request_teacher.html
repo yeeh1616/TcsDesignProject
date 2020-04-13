@@ -90,7 +90,17 @@
 							  <th>To</th>
 							  <th>Sent date</th>
 							  <th>Confirmed date</th>
-							  <th></th>
+
+                          {% if filter == '0' or filter is none %}
+                              <th> <a class="btn  full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=1">accepted</a></th>
+                              <th > <a class="btn  full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=-1">rejected</a></th>
+                          {% elif filter == '-1' %}
+                              <th> <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=1">accepted</a></th>
+                              <th > <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=0">pending</a></th>
+                          {% elif filter == '1' %}
+                              <th> <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=0">pending</a></th>
+                              <th > <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="../notification/request_page?filter=-1">rejected</a></th>
+                          {% endif %}
 							</tr>
 						</thead>
 						{% for request in request_owner_list %}
@@ -124,11 +134,11 @@
                                         <a class="btn btn--primary full-width"  style="margin-bottom: 0rem" href="reject_request?request_id={{ request.id }}">Reject</a>
                                         </td>
                                     {% elif request.status == 1 %}
-										<td>
+										<td colspan="2">
 										<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">ACCEPTED</a>
 										</td>
 									{% elif request.status == -1 %}
-										<td>
+										<td colspan="2">
 											<a class="btn full-width" style="pointer-events: none; margin-bottom: 0rem" href="#" onclick="return false;">REJECTED</a>
 										</td>
 									{% endif %}
