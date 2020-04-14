@@ -1,51 +1,32 @@
 from flask import Flask
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
 from flask_migrate import Migrate
+from app import models
 
-app = None
-db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.session_protection = 'basic'
-login_manager.login_view = 'auth.login'
-mail = Mail()
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_pyfile('config.py', silent=True)
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+from . import auth
 
-def create_app(test_config=None):
-    global db
-    global login_manager
-    global app
+app.register_blueprint(auth.bp)
+from . import homepage
 
-    app = Flask(__name__, instance_relative_config=True)
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_pyfile('config_test.py', silent=True)
-
-    db.init_app(app)
-    login_manager.init_app(app)
-    mail.init_app(app)
-
-    from . import auth
-    app.register_blueprint(auth.bp, url_prefix='/auth')
-    from . import homepage
-    app.register_blueprint(homepage.bp)
-    from . import notification
-    app.register_blueprint(notification.bp, url_prefix='/notification')
-    from . import namelist
-    app.register_blueprint(namelist.bp, url_prefix='/namelist')
-    from . import housepage
-    app.register_blueprint(housepage.bp, url_prefix='/house')
-    from . import chat
-    app.register_blueprint(chat.bp, url_prefix='/chat')
-    from . import module_info
-    app.register_blueprint(module_info.bp, url_prefix='/module')
-    from app.models import db
-    migrate = Migrate(app, db, render_as_batch=True)
-
-    return app
+app.register_blueprint(homepage.bp)
 
 
-if __name__ == '__main__':
-    create_app()
+# def create_app(test_config = None):
+#     app = Flask(__name__, instance_relative_config=True)
+#     if test_config is None:
+#         app.config.from_pyfile('config.py',silent = True)
+#     else:
+#         app.config.from_pyfile('config_test.py',silent = True)
+#
+#     db = SQLAlchemy(app)
+#     migrate = Migrate(app, db)
+#     from . import auth
+#     app.register_blueprint(auth.bp)
+#     from . import main_page
+#     app.register_blueprint(main_page.bp)
+#     return app
