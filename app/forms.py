@@ -96,5 +96,6 @@ class DeleteHouseForm(FlaskForm):
 
 class AddHouseForm(FlaskForm):
     # teacher_email = StringField('Email', validators=[DataRequired()])
-    study_year = StringField('StudyYear', validators=[DataRequired()])
+    study_year = SelectField('StudyYear', validators=[DataRequired()], choices=[(1, 1), (2, 2), (3, 3)], default=3,
+                             coerce=int)
     house_name = StringField('HouseName', validators=[DataRequired()])
