@@ -183,7 +183,7 @@ def upload():
             csvFile.save(temp_file)
             process_csv(temp_file)
             os.remove(temp_file)
-            flash("assigned house successfully")
+            # flash("assigned house successfully")
             return redirect(url_for('namelist.nameli', upload_status=True))
     return "Upload failed."
 
