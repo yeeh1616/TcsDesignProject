@@ -90,7 +90,7 @@ def all_module():
         # all_modules = Module.query.all()
     else:
         all_modules = db.session.query(Module.id, Module.name, User.uname).filter(
-            Module.owner_id == User.id).filter(Module.name == search_term).all()
+            Module.owner_id == User.id).filter(Module.name.like("%" + search_term + "%")).all()
         # all_modules = Module.query.filter_by(name=search_term)
     all_modules_c = []
     had_modules = UserModule.query.filter_by(email=current_user.email)
