@@ -27,14 +27,10 @@ def create_app(test_config=None):
     login_manager.init_app(app)
     mail.init_app(app)
 
-    from . import test
-    app.register_blueprint(test.bp)
     from . import auth
     app.register_blueprint(auth.bp, url_prefix='/auth')
     from . import homepage
     app.register_blueprint(homepage.bp)
-    from . import module_info
-    app.register_blueprint(module_info.bp, url_prefix='/module')
     from . import notification
     app.register_blueprint(notification.bp, url_prefix='/notification')
     from . import namelist
@@ -43,6 +39,8 @@ def create_app(test_config=None):
     app.register_blueprint(housepage.bp, url_prefix='/house')
     from . import chat
     app.register_blueprint(chat.bp, url_prefix='/chat')
+    from . import module_info
+    app.register_blueprint(module_info.bp, url_prefix='/module')
     from app.models import db
     migrate = Migrate(app, db, render_as_batch=True)
 

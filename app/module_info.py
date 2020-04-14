@@ -1,12 +1,13 @@
 import csv
 import math
 import codecs
+import os
 from datetime import date
 from flask import (
     Blueprint, redirect, render_template, url_for,
     session, request, flash)
 from flask_login import login_required, current_user
-from tkinter.filedialog import *
+# from tkinter.filedialog import *
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm

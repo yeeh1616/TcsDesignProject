@@ -15,6 +15,11 @@ from app.models import Module, House, User, Student, Request
 bp = Blueprint('namelist', __name__, template_folder='templates/module')
 
 
+@bp.route('/test')
+def test():
+    return 'Namelist test.'
+
+
 @bp.route('/namelist', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
