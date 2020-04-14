@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+				{% if title == 2 %}
+                    <a href="../notification/request_page" class="header__search-trigger">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
+
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li class="current"><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--narrow s-content--no-padding-bottom">
+        <article class="row format-gallery">
+            <div style="text-align:center; padding-bottom: 40px">
+                <form action="edit" method="post" novalidate>
+                    <input type="hidden" id="id" name="id" value="{{ module.id }}">
+                    <button type="submit" class="submit btn--primary btn--large medium-width">Edit</button>
+                </form>
+            </div>
+			<div class="s-content__header col-full">
+                <h1 class="s-content__header-title">
+                    {{ module.name }}
+                </h1>
+                <ul class="s-content__header-meta">
+                    <li class="date">December 16, 2017</li>
+                    <li class="cat">
+                        In
+                        <a href="#0">Lifestyle</a>
+                        <a href="#0">Travel</a>
+                    </li>
+                </ul>
+            </div> <!-- end s-content__header -->
+			
+            <div class="col-full s-content__main">
+				<p class="lead">{{ module.description }}</p>
+                
+                <div class="s-content__author">
+                    <img src="../../static/home/images/avatars/{{user.img}}.jpg" alt="">
+
+                    <div class="s-content__author-about">
+                        <h4 class="s-content__author-name">
+                            <a href="#0">Module coordinator</a>
+                        </h4>
+                    
+                        <p> {{ user.uname }} </p>
+
+                        <ul class="s-content__author-social">
+                           <li><a href="#0">{{ user.email }}</a></li>
+                           <li><a href="#0">{{ user.phone }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+            </div>
+        </article>
+
+
+        <!-- comments
+        ================================================== -->
+        <div class="comments-wrap">
+
+            <div id="comments" class="row">
+                <div class="col-full">
+
+                    <h3 class="h2">{{totalComments}} Comments</h3>
+					<div style="font-size:24px" class="rating">
+                        {% if avgStar == 1 %}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        {% elif avgStar == 2 %}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        {% elif avgStar == 3 %}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        {% elif avgStar == 4 %}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                        {% elif avgStar == 5 %}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        {% else %}
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        {% endif %}
+						{{ avgStar }}
+					</div>
+
+                    <!-- commentlist -->
+                    <ol class="commentlist">
+                        {% for comment in commentList %}
+                            <li class="depth-1 comment">
+
+                                <div class="comment__avatar">
+                                    <img width="50" height="50" class="avatar" src="../../static/home/images/avatars/{{ comment.img }}.jpg" alt="">
+                                </div>
+
+                                <div class="comment__content">
+
+                                    <div class="comment__info">
+                                    <cite>{{ comment.uname }}</cite>
+
+                                    <div class="comment__meta">
+                                        <time class="comment-time">{{ comment.date }}</time>
+                                    </div>
+                                    </div>
+                                    {% if comment.star == 1 %}
+                                        <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    {% elif comment.star == 2 %}
+                                        <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    {% elif comment.star == 3 %}
+                                        <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    {% elif comment.star == 4 %}
+                                        <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    {% elif comment.star == 5 %}
+                                        <div class="rating">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                        </div>
+                                    {% else %}
+                                        <div class="rating">
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="comment__text">
+                                    <p>{{ comment.content }}</p>
+                                    <i style="font-size:24px" class="fa">&#xf087;</i>
+                                    10
+                                    <i style="font-size:24px" class="fa">&#xf0e5;</i>
+
+                                    </div>
+
+                                </div>
+
+
+                            </li>  <!-- end comment level 1 -->
+                        {% endfor %}
+                    </ol> <!-- end commentlist -->
+
+
+                    <!-- respond
+                    ================================================== -->
+                    <div class="respond">
+                        <script>
+                            function star(grade)
+                            {
+                                var ss = document.getElementById("star")
+                                ss.value = grade
+
+                                switch (grade) {
+                                    case 1:
+                                        document.getElementById("star1").className = "fa fa-star checked";
+                                        document.getElementById("star2").className = "fa fa-star";
+                                        document.getElementById("star3").className = "fa fa-star";
+                                        document.getElementById("star4").className = "fa fa-star";
+                                        document.getElementById("star5").className = "fa fa-star";
+                                        break;
+                                    case 2:
+                                        document.getElementById("star1").className = "fa fa-star checked";
+                                        document.getElementById("star2").className = "fa fa-star checked";
+                                        document.getElementById("star3").className = "fa fa-star";
+                                        document.getElementById("star4").className = "fa fa-star";
+                                        document.getElementById("star5").className = "fa fa-star";
+                                        break;
+                                    case 3:
+                                        document.getElementById("star1").className = "fa fa-star checked";
+                                        document.getElementById("star2").className = "fa fa-star checked";
+                                        document.getElementById("star3").className = "fa fa-star checked";
+                                        document.getElementById("star4").className = "fa fa-star";
+                                        document.getElementById("star5").className = "fa fa-star";
+                                        break;
+                                    case 4:
+                                        document.getElementById("star1").className = "fa fa-star checked";
+                                        document.getElementById("star2").className = "fa fa-star checked";
+                                        document.getElementById("star3").className = "fa fa-star checked";
+                                        document.getElementById("star4").className = "fa fa-star checked";
+                                        document.getElementById("star5").className = "fa fa-star";
+                                        break;
+                                    case 5:
+                                        document.getElementById("star1").className = "fa fa-star checked";
+                                        document.getElementById("star2").className = "fa fa-star checked";
+                                        document.getElementById("star3").className = "fa fa-star checked";
+                                        document.getElementById("star4").className = "fa fa-star checked";
+                                        document.getElementById("star5").className = "fa fa-star checked";
+                                        break;
+                                    default:
+                                        document.getElementById("star1").className = "fa fa-star";
+                                        document.getElementById("star2").className = "fa fa-star";
+                                        document.getElementById("star3").className = "fa fa-star";
+                                        document.getElementById("star4").className = "fa fa-star";
+                                        document.getElementById("star5").className = "fa fa-star";
+                                }
+                            }
+                        </script>
+                        <h3 class="h2">Add Comment</h3>
+
+                        <form action="comment" method="post">
+                            <fieldset>
+								<div style="font-size:24px" class="rating">
+									<span id="star1" class="fa fa-star" onClick="star(1)"></span>
+									<span id="star2" class="fa fa-star" onClick="star(2)"></span>
+									<span id="star3" class="fa fa-star" onClick="star(3)"></span>
+									<span id="star4" class="fa fa-star" onClick="star(4)"></span>
+									<span id="star5" class="fa fa-star" onClick="star(5)"></span>
+								</div>
+
+                                <div class="message form-field">
+                                    <textarea name="comment" id="comment" class="full-width" placeholder="Your Message"></textarea>
+                                    <input type="hidden" id="star" name="star" value="0">
+                                </div>
+
+                                <button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
+
+                            </fieldset>
+                        </form> <!-- end form -->
+
+                    </div> <!-- end respond -->
+
+                </div> <!-- end col-full -->
+
+            </div> <!-- end row comments -->
+        </div> <!-- end comments-wrap -->
+
+    </section> <!-- s-content -->
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+
+</body>
+
+</html>

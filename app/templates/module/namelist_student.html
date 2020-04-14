@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+                <a href="../notification/request_page" class="student_request">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                </a>
+
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li class="current"><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="../chat/chat_page">Chat</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+	<section id="styles" class="s-content s-content--narrow s-content--no-padding-bottom">
+		<div class="row add-bottom">
+			<div class="col-twelve">
+				<div class="table-responsive">
+					<table>
+						<thead>
+						<tr>
+							<th>#</th>
+{#							<th>Name</th>#}
+							<th>Email</th>
+						  </tr>
+						</thead>
+						{% for request in request_owner_list %}
+							<tbody>
+							<tr>
+								<td>{{ loop.index + pagination.skip }}</td>
+{#								<td>{{ request.uname }}</td>#}
+								<td>{{ request.student_email }}</td>
+							</tr>
+							</tbody>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+                <div class="col-full">
+                    <nav class="pgn">
+                            {{ pagination.links }}
+                    </nav>
+                </div>
+            </div>
+			
+	</section>
+
+
+    <!--<div class="comments-wrap">
+        <div id="comments" class="row">
+            <div class="col-full">
+                 commentlist 
+                <ol class="commentlist">
+                    <table style='white-space: nowrap'>
+                        <li class="depth-1 comment">
+                            <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Name</th>
+                                  <th>Email</th>
+{#                                  <th>To</th>#}
+{#                                  <th>Sent date</th>#}
+{#                                  <th>Confirmed date</th>#}
+{#                                  <th></th>#}
+                                </tr>
+                            </thead>
+                        </li>
+{#                        {% for request in request_owner_list %}#}
+{#                            <tbody>#}
+{#                                <tr>#}
+{#                                    <td>{{ loop.index + pagination.skip }}</td>#}
+{#                                    <td>{{ request.uname }}</td>#}
+{#                                    <td><span style="color:{{request.house_from_name}};text-transform:capitalize;">{{ request.house_from_name }} House</span></td>#}
+{#                                    <td><span id="targetHouse" style="color:{{request.house_to_name}};text-transform:capitalize;">{{request.house_to_name}} House</span></td>#}
+{#                                    <td>{{ request.email }}</td>#}
+{#                                    <td>{{ request.confirmed_date }}</td>#}
+{#                                    <td>#}
+{#                                        {% if request.status == 0 %}#}
+{#                                            <div>#}
+{#                                            <a class="accept_button" href="accept_request?request_id={{ request.id }}">Accept</a>#}
+{#                                            <a class="reject_button" href="reject_request?request_id={{ request.id }}">Reject</a>#}
+{#                                            </div>#}
+{#                                        {% elif request.status == 1 %}#}
+{#                                            <a class="solved_button" href="#" onclick="return false;">ACCEPTED</a>#}
+{#                                        {% elif request.status == -1 %}#}
+{#                                            <a class="solved_button" href="#" onclick="return false;">REJECTED</a>#}
+{#                                        {% endif %}#}
+{#                                    </td>#}
+{#                                </tr>#}
+{#                                {% if request.reason is not none %}#}
+{#                                    <tr>#}
+{#                                        <td></td>#}
+{#                                        <td>#}
+{#                                            <div class="comment__text">#}
+{#                                                <p><span style="font-weight: bold">REASON: </span> {{ request.reason }}</p>#}
+{#                                            </div>#}
+{#                                        </td>#}
+{#                                    </tr>#}
+{#                                {% endif %}#}
+{#                            </tbody>#}
+{#                        {% endfor %}#}
+{#                    </table>#}
+{#                </ol>  end commentlist #}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="row">#}
+{#            <div class="col-full">#}
+{#                <nav class="pgn">#}
+{#                        {{ pagination.links }}#}
+{#                    <div>#}
+{#                        <ul>#}
+{#                            <li><a class="pgn__prev" href="#0">Prev</a></li>#}
+{#                            <li><a class="pgn__num" href="#0">1</a></li>#}
+{#                            <li><span class="pgn__num current">2</span></li>#}
+{#                            <li><a class="pgn__num" href="#0">3</a></li>#}
+{#                            <li><a class="pgn__num" href="#0">4</a></li>#}
+{#                            <li><a class="pgn__num" href="#0">5</a></li>#}
+{#                            <li><span class="pgn__num dots">…</span></li>#}
+{#                            <li><a class="pgn__num" href="#0">8</a></li>#}
+{#                            <li><a class="pgn__next" href="#0">Next</a></li>#}
+{#                         </ul>#}
+{#                    </div>#}
+                </nav>
+            </div>
+        </div>
+    </div>-->
+
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+
+</body>
+
+</html>

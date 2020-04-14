@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+{#                <a href="../notification/request_page" class="header__search-trigger">#}
+{#<!--                          <span class="badge">{{ notification_num }}</span>-->#}
+{#                </a>#}
+                <a href="../notification/request_page" class="student_request">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                </a>
+
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="../chat/chat_page">Chat</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <script>
+        function selectHouse(color, my_house_id, house_id)
+        {
+            if(my_house_id != house_id)
+            {
+                document.getElementById("sendBtn").style.visibility="visible";
+                document.getElementById("houseTo").value = house_id;
+                targetHouse = document.getElementById("target_house_img");
+                targetHouse.setAttribute("src", "../../static/home/images/thumbs/masonry/"+color+"_house-400.jpg");
+                document.getElementById("target_house_txt").textContent= color +" House";
+            }
+        }
+    </script>
+    <section class="s-content">
+        <div class="row masonry-wrap">
+            <div class="masonry">
+                {% for house in house_list %}
+                    <article class="masonry__brick entry format-standard" data-aos="fade-up" style="max-width: 25%; padding: 1%">
+                        <div class="entry__thumb">
+                            <a href="javascript:" onclick="selectHouse('{{house.house_name}}', '{{ student.house_id }}', '{{house.house_id}}')" class="entry__thumb-link">
+                                <img src="../../static/home/images/thumbs/masonry/{{ house.house_name }}_house-400.jpg">
+                            </a>
+                        </div>
+
+{#                        <div class="entry__text">#}
+{#                            <div  align="center" class="entry__header">#}
+{#                                <h1 style="text-transform:uppercase;color:{{ house.color_name }}" class="entry__title">{{ house.color_name }} house</h1>#}
+{#                            </div>#}
+{#                            <div class="entry__excerpt">#}
+{#                                <p>#}
+{#                                    100 memebers#}
+{#                                </p>#}
+{#                            </div>#}
+{#                        </div>#}
+                    </article> <!-- end article -->
+                {% endfor %}
+            </div> <!-- end masonry -->
+
+            <!-- reason -->
+            <div class="respond"  align="center">
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/{{ student.house_name }}_house-400.jpg">
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/arrow.png">
+                <img style="max-width: 30%; padding: 1%" id="target_house_img" src="../../static/home/images/thumbs/masonry/target_house.png">
+                <div id="commentBlock">
+                    <form action="send_request" method="post" id="request-form">
+                        <fieldset>
+                            <p class="h4">Put your reason here</p>
+                            <div class="message form-field">
+                                <textarea name="reason" id="reason" class="full-width" placeholder="Your reason for switching your house ..."></textarea>
+                            </div>
+
+                            <input type="hidden" id="houseFrom" name="houseFrom" value="{{ student.house_id }}">
+                            <input type="hidden" id="houseTo" name="houseTo" value="x">
+
+                            <button type="button" id="sendBtn" class="trigger_popup_fricc submit btn--primary btn--large full-width" style="visibility:hidden;">Send</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div> <!-- end reason -->
+        </div> <!-- end masonry-wrap -->
+    </section> <!-- s-content -->
+
+    <!-- popup window -->
+    <div class="hover_bkgr_fricc">
+        <div>
+            <span>From
+                <span style="text-transform:capitalize;font-size:120%;font-weight:bold">{{ student.house_name }} House</span> to
+                <span id="target_house_txt" style="text-transform:capitalize;font-size:120%;font-weight:bold"></span>
+            </span>
+            <p></p>
+            <p>You want to send the request?</p>
+            <button type="submit" form="request-form" class="submit btn--primary btn--large full-width">OK</button>
+        </div>
+    </div>
+    <!-- popup window -->
+
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+    <script src="../../static/home/js/newfunc.js"></script>
+</body>
+
+</html>

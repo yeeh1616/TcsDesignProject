@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+	<link rel="stylesheet" href="../../static/css/chat.css">
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+                {% if title == 2 %}
+                    <a href="../notification/request_page" class="header__search-trigger">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
+                {% if title == 0 %}
+                    <a href="../notification/request_page" class="student_request">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li  class="current"><a href="../chat/chat_page">Chat</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+
+        <!-- s-content
+        ================================================== -->
+        <section class="s-content s-content--narrow s-content--no-padding-bottom">
+            <article class="row format-gallery">
+                <div class="s-content__header col-full">
+                    <img src="../../static/home/images/thumbs/masonry/{{ user.house_name }}_house-120.jpg">
+                    <h1 class="s-content__header-title"  style="text-transform: uppercase;">
+                    {{ user.house_name }} HOUSE
+                    </h1>
+                </div>
+                <div id="demo-chat-body" class="collapse in">
+    				<div class="nano has-scrollbar" style="height:380px">
+    					<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+                            <ul id="messages" class="list-unstyled media-block" style="list-style: none"></ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="comments-wrap">
+                <div id="comments" class="row">
+                    <div class="respond">
+<!--
+                        <script>
+							function expandComment() {
+								var content = document.getElementById("commentBlock");
+								document.getElementById("expandC").classList.toggle("active");
+								if (content.style.display === "block") {
+								  content.style.display = "none";
+								} else {
+								  content.style.display = "block";
+								}
+							}
+                        </script>
+                        <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Send messages</button>
+-->
+                        <div id="commentBlock" class="content" style="display: block">
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="message form-field">
+										<textarea id="myMessage" class="full-width" placeholder=" Enter your text"></textarea>
+									</div>
+                                    <button id="sendbutton" class="submit btn--primary btn--large full-width">Send</button>
+                                    <button id="sendbutton2" class="submit btn--primary btn--large full-width">Send 2</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- s-content -->
+         <!-- preloader
+        ================================================== -->
+        <div id="preloader">
+            <div id="loader">
+                <div class="line-scale">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Java Script
+        ================================================== -->
+{#        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>#}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+        <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+        <script src="../../static/home/js/plugins.js"></script>
+        <script src="../../static/home/js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var socket = io.connect('{{ server }}');
+
+                socket.on('connect', function () {
+                    socket.send(msg_josn('Connected successed!'));
+                });
+
+                socket.on('message', function (msg) {
+                    var msg_json = JSON.parse(msg);
+                    var content = msg_json.content;
+                    var ip = msg_json.ip;
+
+                    if (msg_json.house_id != '{{ user.house_id }}'){
+                        return;
+                    }
+
+                    if (ip == '{{ remote_addr }}'){
+                        var ele = ['<li class="mar-btm">',
+                            '<div class="media-right">',
+                                '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
+                            '</div>',
+                            '<div class="media-body pad-hor speech-right">',
+                                '<div class="speech" style = "max-width:100%">',
+                                    '<a href="#" class="media-heading">' + msg_json.uname + '</a>',
+                                    '<p style="text-align:left;">' + content + '</p>',
+                                    '<p class="speech-time">',
+                                        '<i class="fa fa-clock-o fa-fw"></i> ' + msg_json.date,
+                                    '</p>',
+                                '</div>',
+                            '</div>',
+                            '</li>'].join('');
+
+                        $("#messages").append(ele);
+                    } else {
+                        var ele = ['<li class="mar-btm">',
+                            '<div class="media-left">',
+                                '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
+                            '</div>',
+                            '<div class="media-body pad-hor">',
+                                '<div class="speech" style = "max-width:100%">',
+                                    '<a href="#" class="media-heading">' + msg_json.uname + '</a>',
+                                    '<p style="text-align:left;">' + content +'</p>',
+                                    '<p class="speech-time">',
+                                    '<i class="fa fa-clock-o fa-fw"></i> ' + msg_json.date,
+                                    '</p>',
+                                '</div>',
+                            '</div>',
+                        '</li>'].join('');
+
+                        $("#messages").append(ele);
+                    }
+                });
+
+                $('#sendbutton').on('click', function () {
+                    msg = msg_josn($('#myMessage').val());
+                    socket.send(msg);
+                    $('#myMessage').val('');
+                })
+
+                $('#sendbutton2').on('click', function () {
+                    msg = msg_josn2($('#myMessage').val());
+                    socket.send(msg);
+                    $('#myMessage').val('');
+                })
+            });
+
+            function msg_josn(msg) {
+                var msg_obj = {
+                    content:msg,
+                    ip:'{{ remote_addr }}',
+                    uname:'{{ user.uname }}',
+                    img:'{{ user.img }}',
+                    house_id:'{{ user.house_id }}',
+                    date:(new Date()).toLocaleDateString("en-GB")
+                };
+
+                return JSON.stringify(msg_obj);
+            }
+
+            function msg_josn2(msg) {
+                var msg_obj = {
+                    content:msg,
+                    ip:'0.0.0.0',
+                    uname:'{{ user.uname }}',
+                    img:'{{ user.img }}',
+                    house_id:'{{ user.house_id }}',
+                    date:(new Date()).toLocaleDateString("en-GB")
+                };
+
+                return JSON.stringify(msg_obj);
+            }
+        </script>
+    </body>
+</html>

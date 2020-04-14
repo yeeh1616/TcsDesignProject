@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+				{% if title == 2 %}
+                    <a href="../notification/request_page" class="header__search-trigger">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                    </a>
+                {% endif %}
+
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('house.addhouse')}}" title="">Add House</a></li>
+                        <li ><a href="{{url_for('house.assignhouse')}}" title="">Assign House</a></li>
+                        <li class="current"><a href="{{url_for('house.deletehouse')}}">Delete House</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--narrow s-content--no-padding-bottom">
+        <article class="row format-gallery">
+             <form action="" method="post" novalidate>
+                 {{ form.hidden_tag() }}
+                 <div class="cl-custom-select">
+                     {{ form.houses.label}}
+                     {{ form.houses(class="full-width", placeholder="Year")}}
+                </div>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    {% endwith %}
+                <div style="text-align:center; padding-bottom: 40px">
+                    <button type="submit" class="submit btn--primary btn--large medium-width">Delete</button>
+                </div>
+			
+			</form>
+            <!-- end s-content__main -->
+
+        </article>
+    </section> <!-- s-content -->
+
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+{#				{% if title == 2 %}#}
+{#                    <a href="../notification/request_page" class="header__search-trigger">#}
+{#<!--                          <span class="badge">{{ notification_num }}</span>-->#}
+{#                    </a>#}
+{#                {% endif %}#}
+                <a href="../notification/request_page" class="student_request">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                </a>
+
+
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="../chat/chat_page">Chat</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+
+
+    <!-- s-content
+    ================================================== -->
+    <section class="s-content">
+        
+        <div class="row masonry-wrap">
+            <div align="center">
+                <span>From
+                    <span style="font-size:200%;text-transform:capitalize;">{{ my_house.house_name }} House</span> to
+                    <span id="targetHouse" style="font-size:200%;text-transform:capitalize;">{{target_house.house_name}} House</span>
+                </span>
+                <p id="request_status"> Status: <span style="font-size:200%;text-transform:capitalize;">{{ request.status_txt }}</span></p>
+
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/{{ my_house.house_name }}_house-400.jpg">
+                <img style="max-width: 30%; padding: 1%" src="../../static/home/images/thumbs/masonry/arrow.png">
+                <img style="max-width: 30%; padding: 1%" id="target_house_img" src="../../static/home/images/thumbs/masonry/{{ target_house.house_name }}_house-400.jpg">
+
+                {% if request.status == 1 or request.status == -1 %}
+                    {% if request.is_frozen %}
+                        <br/>
+                        <p style="font-size:200%;">Your request has been <span style="text-transform:lowercase;">{{ request.status_txt }}.</span></p>
+                        <p style="font-size:200%;">You are allowed to send another request after (7 days after sent date):</p>
+                        <p style="font-size:200%;font-weight:bold;">{{ request.unfrozen_date }}</p>
+                    {% else %}
+                        <br/>
+                        <br/>
+                        <span style="font-size:150%;">Your request has been <span style="text-transform:lowercase;">{{ request.status_txt }}.</span></span>
+                        <span style="font-size:150%;">Now you can send a new request.</span>
+                        <br/>
+                        <br/>
+                        <form action="confirm_request" method="get">
+                            <input type="hidden" id="request_id" name="request_id" value="{{ request.id }}">
+                            <button type="submit" class="submit btn--primary btn--large full-width">Send a new request</button>
+                        </form>
+                    {% endif %}
+                {% elif request.status == 0 %}
+                    <br/>
+                    <p style="font-size:200%;">Your request unhandled yet.</p>
+                    <p style="font-size:200%;font-weight:bold;">Sent date: <span style="font-weight:lighter;"> {{ request.send_date }} </span></p>
+                {% endif %}
+            </div>
+        </div> <!-- end masonry-wrap -->
+    </section> <!-- s-content -->
+
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+
+</body>
+
+</html>

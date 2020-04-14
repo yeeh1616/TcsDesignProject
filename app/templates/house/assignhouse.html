@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>assign_house</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.teacher_email.label }}<br>
+            {{ form.teacher_email(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.house_name.label }}<br>
+            {{ form.house_name(size=32) }}<br>
+        </p>
+       <button type="submit">Confirm</button>
+    </form>
+{% endblock %}

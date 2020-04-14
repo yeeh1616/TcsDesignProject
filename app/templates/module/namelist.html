@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Gallery Post Format - Philosophy</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../../static/home/css/base.css">
+    <link rel="stylesheet" href="../../static/home/css/vendor.css">
+    <link rel="stylesheet" href="../../static/home/css/main.css">
+    <link rel="stylesheet" href="../../static/home/css/news.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="../../static/home/js/modernizr.js"></script>
+    <script src="../../static/home/js/pace.min.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="../static/home/ut.png" type="image/png">
+    <link rel="icon" href="../static/home/ut.png" type="image/png">
+
+</head>
+
+<body id="top">
+
+     <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        <header class="header">
+            <div class="header__content row">
+
+                <div class="header__logo">
+                    <a class="logo" href="{{url_for('main.home')}}">
+                        <img src="../static/home/images/modulelogo.svg" alt="Homepage">
+                    </a>
+                </div> <!-- end header__logo -->
+                <!-- end header__social -->
+
+                <a href="../notification/request_page" class="header__search-trigger">
+<!--                          <span class="badge">{{ notification_num }}</span>-->
+                </a>
+
+                <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li><a href="{{url_for('main.home')}}" title="">Home</a></li>
+                        <li  class="current"><a href="{{url_for('namelist.nameli')}}" title="">House</a></li>
+                        <li><a href="../chat/chat_page">Chat</a></li>
+                        <li><a href="{{url_for('auth.logout')}}" title="">Logout</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+        </header> <!-- header -->
+	</section> <!-- end s-pageheader -->
+    <section id="styles" class="s-content s-content--narrow s-content--no-padding-bottom">
+		<div class="row half-bottom">
+				<div class="col-six tab-full">
+					<a class="btn btn--primary full-width" href="{{url_for('module_info.download')}}" target="_blank" >Download</a>
+				</div>
+				<div class="col-six tab-full">
+
+{#                    <form action="{{url_for('module_info.upload')}}" method="post" enctype="multipart/form-data">#}
+{#                        <div class="form-group">#}
+{#                            <label>Select file</label>#}
+{#                            {% if upload_status == True %}#}
+{#                            <label>Upload success!</label>#}
+{#                            {% endif %}#}
+{#                            <div class="custom-file">#}
+{#                                <input type="file" class="custom-file-input" name="csv" id="csv">#}
+{#                                <label class="custom-file-label" for="csv">Select csv...</label>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn--primary">Upload</button>#}
+{#                    </form>#}
+
+
+
+
+                    <form id="csvform" style="display:none" action="{{url_for('module_info.upload')}}" method="post" enctype="multipart/form-data">
+                    　　<input type="file" name="csv" value="" id = "csv">
+                        <input type="reset" name="reset" style="display: none;" >
+                    </form>
+                    <a href="javascript:;" class="import btn btn--primary full-width" >upload</a>
+
+
+
+
+
+
+
+
+
+
+{#                    <form id="signupListImportForm" class="import-file-form" enctype="multipart/form-data">#}
+{#                        <input type="file" name="excelFile" id="excelFile" style="display:none" multiple="multiple" οnchange="fileUpload()">#}
+{##}
+{#                        <input class="btn-dr" type="button" value="导入" οnclick="selectFile()">#}
+{#                    </form>#}
+
+
+
+
+
+
+{#					<a class="btn btn--primary full-width" href="{{url_for('module_info.upload')}}" target="_blank">Upload</a>#}
+				</div>
+			</div>
+
+		<div class="row add-bottom">
+         {% with messages = get_flashed_messages() %}
+             {% if messages %}
+                 <ul>
+                     {% for message in messages %}
+                         <li>{{ message }}</li>
+                     {% endfor %}
+                 </ul>
+             {% endif %}
+         {% endwith %}
+			<div class="col-twelve">
+				<div class="table-responsive">
+					<table>
+						<thead>
+						<tr>
+							<th>#</th>
+{#							<th>Name</th>#}
+							<th>Email</th>
+						  </tr>
+						</thead>
+						{% for request in request_owner_list %}
+							<tbody>
+							<tr>
+								<td>{{ loop.index + pagination.skip }}</td>
+{#								<td>{{ request.uname }}</td>#}
+								<td>{{ request.student_email }}</td>
+							</tr>
+							</tbody>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+                <div class="col-full">
+                    <nav class="pgn">
+                            {{ pagination.links }}
+                    </nav>
+                </div>
+            </div>
+			
+	</section>
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/home/js/plugins.js"></script>
+    <script src="../../static/home/js/main.js"></script>
+    <script>
+    $('.import').click(function(){
+
+    　　$(this).prev('form').find('[name="csv"]').trigger('click');
+    });
+
+    // 当表单文件有变化时执行提交动作
+
+    $('[name="csv"]').change(function(){
+    　　if($(this).val()){
+    　　　　$('.import').addClass('disabled');
+    　　　　$(this).parent().submit();
+            $("input[id=csv]").trigger("click");
+
+    　　}
+    });
+
+    </script>
+
+
+
+</body>
+
+</html>
