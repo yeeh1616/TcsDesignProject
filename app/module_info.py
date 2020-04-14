@@ -1,13 +1,12 @@
 import csv
 import math
 import codecs
-import os
 from datetime import date
 from flask import (
     Blueprint, redirect, render_template, url_for,
     session, request, flash)
 from flask_login import login_required, current_user
-# from tkinter.filedialog import *
+import os
 from app import db, models
 from app.decorators import check_confirmed
 from app.forms import ModuleInfoForm, CommentForm
@@ -56,7 +55,12 @@ def info():
     questionnaire = get_questionnaire()
     for q in questionnaire:
         star_dict[q.id] = 0
-        q.avg_star = round(get_question_avg_stars(q.id, module_id).average, 1)
+        avg = get_question_avg_stars(q.id, module_id).average
+        if avg is None:
+            q.avg_star = 0
+        else:
+            print(avg)
+            q.avg_star = round(avg, 1)
 
     if user.title == models.HOUSEKEEPER:
         return render_template('module_info_teacher.html',
@@ -69,9 +73,21 @@ def info():
                                star_dict=json.dumps(star_dict),
                                title=title)
     else:
-        house = House.get_house_by_housekeeper(current_user.id)
-        notification_num = models.get_request_owner_list_count(house.house_id)
-        title = User.get_user_by_id(current_user.id).title
+        # house = House.get_house_by_housekeeper(current_user.id)
+        # notification_num = models.get_request_owner_list_count(house.house_id)
+        title = current_user.title
+        user_module = UserModule.query.filter_by(email=current_user.email, module_id=int(module_id)).first()
+        not_add = False
+        can_comment = False
+        if user_module is None:
+            not_add = True
+        elif user_module.status == 0:
+            not_add = False
+        elif user_module.status == 1:
+            not_add = False
+            can_comment = True
+
+
 
         return render_template('module_info_student.html',
                                module=module,
@@ -79,7 +95,9 @@ def info():
                                commentList=comment_list,
                                totalComments=len(comment_list),
                                avgStar=avg_star,
-                               notification_num=notification_num,
+                               not_add=not_add,
+                               can_comment=can_comment,
+                               # notification_num=notification_num,
                                title=title,
                                questionnaire=questionnaire,
                                star_dict=json.dumps(star_dict))
@@ -184,7 +202,7 @@ def upload():
             csvFile.save(temp_file)
             process_csv(temp_file)
             os.remove(temp_file)
-            # flash("assigned house successfully")
+            flash("assigned house successfully")
             return redirect(url_for('namelist.nameli', upload_status=True))
     return "Upload failed."
 

@@ -92,7 +92,7 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="project_database [3]" uuid="d24e8bbf-96cd-4548-ad19-41d070195a99">
+    <data-source source="LOCAL" name="project_database [3]" uuid="320b2b3c-6403-49a3-b768-d31ec36d1d85">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

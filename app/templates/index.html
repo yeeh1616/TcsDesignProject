@@ -142,6 +142,11 @@
                     <button type="submit" class="submit btn--primary btn--large full-width">Add a new module</button>
                 </form>
             {% endif %}
+            {% if title == 0 %}
+                <form action="all_module">
+                    <button type="submit" class="submit btn--primary btn--large full-width">All modules</button>
+                </form>
+            {% endif %}
         </div> <!-- end masonry-wrap -->
     </section> <!-- s-content -->
 
