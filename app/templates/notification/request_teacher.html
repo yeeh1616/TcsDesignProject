@@ -80,10 +80,10 @@
         </header> <!-- header -->
 	</section> <!-- end s-pageheader -->
 
-	<section id="styles" class="s-styles">
+	<section id="styles" class="s-content s-content--narrow s-content--no-padding-bottom">
 		<div class="row half-bottom">
-				
-			
+
+
 				{% if filter == '0' or filter is none %}
 					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=1">accepted</a></div>
 					  <div class="col-six tab-full"> <a class="btn btn--stroke full-width"   href="../notification/request_page?filter=-1">rejected</a></div>
@@ -113,7 +113,7 @@
                               <th colspan="2">status </th>
                             {% endif %}
 
-                          
+
 							</tr>
 						</thead>
 						{% for request in request_owner_list %}

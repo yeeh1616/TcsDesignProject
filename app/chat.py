@@ -12,6 +12,11 @@ app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
 
 
+@bp.route('/test')
+def test():
+    return 'Chat test.'
+
+
 @socketio.on('message')
 def handle_message(msg):
     # print('Message: ' + msg)

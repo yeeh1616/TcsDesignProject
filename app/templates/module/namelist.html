@@ -72,50 +72,8 @@
             </div> <!-- header-content -->
         </header> <!-- header -->
 	</section> <!-- end s-pageheader -->
-    <section id="styles" class="s-styles">
-
-		<div class="row add-bottom">
-         {% with messages = get_flashed_messages() %}
-             {% if messages %}
-                 <ul>
-                     {% for message in messages %}
-                         <li>{{ message }}</li>
-                     {% endfor %}
-                 </ul>
-             {% endif %}
-         {% endwith %}
-			<div class="col-twelve">
-				<div class="table-responsive">
-					<table>
-						<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Email</th>
-						  </tr>
-						</thead>
-						{% for request in request_owner_list %}
-							<tbody>
-							<tr>
-								<td>{{ loop.index + pagination.skip }}</td>
-								<td>{{ request.uname }}</td>
-								<td>{{ request.email }}</td>
-							</tr>
-							</tbody>
-						{% endfor %}
-
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-                <div class="col-full">
-                    <nav class="pgn">
-                            {{ pagination.links }}
-                    </nav>
-                </div>
-            </div>
-			<div class="row half-bottom">
+    <section id="styles" class="s-content s-content--narrow s-content--no-padding-bottom">
+		<div class="row half-bottom">
 				<div class="col-six tab-full">
 					<a class="btn btn--primary full-width" href="{{url_for('module_info.download')}}" target="_blank" >Download</a>
 				</div>
@@ -153,20 +111,54 @@
 
 
 
-                    <form id="signupListImportForm" class="import-file-form" enctype="multipart/form-data">
-                        <input type="file" name="excelFile" id="excelFile" style="display:none" multiple="multiple" οnchange="fileUpload()">
-
-                        <input class="btn-dr" type="button" value="导入" οnclick="selectFile()">
-                    </form>
-
-
+{#                    <form id="signupListImportForm" class="import-file-form" enctype="multipart/form-data">#}
+{#                        <input type="file" name="excelFile" id="excelFile" style="display:none" multiple="multiple" οnchange="fileUpload()">#}
+{##}
+{#                        <input class="btn-dr" type="button" value="导入" οnclick="selectFile()">#}
+{#                    </form>#}
 
 
 
 
-					<a class="btn btn--primary full-width" href="{{url_for('module_info.upload')}}" target="_blank">Upload</a>
+
+
+{#					<a class="btn btn--primary full-width" href="{{url_for('module_info.upload')}}" target="_blank">Upload</a>#}
 				</div>
 			</div>
+
+		<div class="row add-bottom">
+			<div class="col-twelve">
+				<div class="table-responsive">
+					<table>
+						<thead>
+						<tr>
+							<th>#</th>
+{#							<th>Name</th>#}
+							<th>Email</th>
+						  </tr>
+						</thead>
+						{% for request in request_owner_list %}
+							<tbody>
+							<tr>
+								<td>{{ loop.index + pagination.skip }}</td>
+{#								<td>{{ request.uname }}</td>#}
+								<td>{{ request.student_email }}</td>
+							</tr>
+							</tbody>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+                <div class="col-full">
+                    <nav class="pgn">
+                            {{ pagination.links }}
+                    </nav>
+                </div>
+            </div>
+
 	</section>
 
 
