@@ -21,7 +21,7 @@ def assignhouse():
     teachers = User.query.filter_by(title=HOUSEKEEPER).order_by(User.email)
     teachers_list = [(i.id, i.email) for i in teachers]
     houses = House.query.order_by(House.year)
-    houses_list = [(i.house_id, "House %s in Year %d" % (i.house_name, i.year)) for i in houses]
+    houses_list = [(i.house_id, "House %s in Year %d" % (i.house_name, int(i.year))) for i in houses]
     form = AssignHouseForm()
     form.houses.choices = houses_list
     form.teachers.choices = teachers_list
