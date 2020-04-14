@@ -86,11 +86,11 @@ def all_module():
     offset = (page - 1) * per_page
     if search_term is None or 0:
         all_modules = db.session.query(Module.id, Module.name, User.uname).filter(
-            Module.owner_id == User.id).all()
+            Module.owner_id == User.id).limit(per_page).offset(offset).all()
         # all_modules = Module.query.all()
     else:
         all_modules = db.session.query(Module.id, Module.name, User.uname).filter(
-            Module.owner_id == User.id).filter(Module.name.like("%" + search_term + "%")).all()
+            Module.owner_id == User.id).filter(Module.name.like("%" + search_term + "%")).limit(per_page).offset(offset).all()
         # all_modules = Module.query.filter_by(name=search_term)
     all_modules_c = []
     had_modules = UserModule.query.filter_by(email=current_user.email)
