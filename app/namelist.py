@@ -15,6 +15,11 @@ from app.models import Module, House, User, Student, Request
 bp = Blueprint('namelist', __name__, template_folder='templates/module')
 
 
+@bp.route('/test')
+def test():
+    return 'Namelist test.'
+
+
 @bp.route('/namelist', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
@@ -69,7 +74,7 @@ def namelist_student(search):
     pagination = Pagination(page=page,
                             total=models.get_namelist_count(student.house_id),
                             search=search,
-                            record_name='request_owner_list',
+                            record_name='namelist',
                             per_page=per_page,
                             show_single_page=True,
                             link='<li><a class="pgn__num" href="{0}">{1}</a></li>')

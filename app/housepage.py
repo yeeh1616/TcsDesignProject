@@ -10,6 +10,11 @@ from app.forms import AssignHouseForm, DeleteHouseForm, AddHouseForm
 bp = Blueprint('house', __name__, template_folder='templates/house')
 
 
+@bp.route('/test')
+def test():
+    return 'Housepage test.'
+
+
 @bp.route('/assignhouse', methods=['GET', 'POST'])
 #@check_manager
 def assignhouse():

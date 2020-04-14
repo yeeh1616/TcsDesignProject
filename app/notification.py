@@ -16,6 +16,11 @@ from app.models import Module, House, User, Student, Request
 bp = Blueprint('notification', __name__, template_folder='templates')
 
 
+@bp.route('/test')
+def test():
+    return 'Notification test.'
+
+
 @bp.route('/request_page', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
