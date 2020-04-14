@@ -69,7 +69,7 @@ def namelist_student(search):
     pagination = Pagination(page=page,
                             total=models.get_namelist_count(student.house_id),
                             search=search,
-                            record_name='request_owner_list',
+                            record_name='namelist',
                             per_page=per_page,
                             show_single_page=True,
                             link='<li><a class="pgn__num" href="{0}">{1}</a></li>')

@@ -82,24 +82,35 @@
 ================================================== -->
 <section class="s-content s-content--narrow s-content--no-padding-bottom">
     <article class="row format-gallery">
+		<div class="row half-bottom">
+				<div class="col-six tab-full">
+					<form action="edit" method="post" novalidate>
+						<input type="hidden" id="id" name="id" value="{{ module.id }}">
+						<button type="submit" class="btn btn--primary full-width">Edit</button>
+            		</form>
+				</div>
+				<div class="col-six tab-full">
+
+                    <form id="csvform" style="display:none" action="{{url_for('module_info.upload_module')}}" method="post" enctype="multipart/form-data">
+                    　　<input type="file" name="csv" value="" id = "csv">
+                        <input type="reset" name="reset" style="display: none;" >
+                    </form>
+                    <a href="javascript:;" class="import btn btn--primary full-width" >upload</a>
+				</div>
+			</div>
+<!--
         <div style="text-align:center; padding-bottom: 40px">
             <form action="edit" method="post" novalidate>
                 <input type="hidden" id="id" name="id" value="{{ module.id }}">
                 <button type="submit" class="submit btn--primary btn--large medium-width">Edit</button>
             </form>
         </div>
+-->
         <div class="s-content__header col-full">
             <h1 class="s-content__header-title">
                 {{ module.name }}
             </h1>
-            <ul class="s-content__header-meta">
-                <li class="date">December 16, 2017</li>
-                <li class="cat">
-                    In
-                    <a href="#0">Lifestyle</a>
-                    <a href="#0">Travel</a>
-                </li>
-            </ul>
+            
         </div> <!-- end s-content__header -->
 
         <div class="col-full s-content__main">
@@ -373,6 +384,7 @@
 
         </div> <!-- end row comments -->
     </div> <!-- end comments-wrap -->
+<!--
 <div class="row half-bottom">
 				<div class="col-six tab-full">
 					<a class="btn btn--primary full-width" href="{{url_for('module_info.download')}}" target="_blank" >Download</a>
@@ -397,6 +409,7 @@
 					<a class="btn btn--primary full-width" href="{{url_for('module_info.upload_module')}}" target="_blank">Upload</a>
 				</div>
 			</div>
+-->
 
 </section> <!-- s-content -->
 
@@ -421,6 +434,24 @@
 <script src="../../static/home/js/jquery-3.2.1.min.js"></script>
 <script src="../../static/home/js/plugins.js"></script>
 <script src="../../static/home/js/main.js"></script>
+<script>
+    $('.import').click(function(){
+
+    　　$(this).prev('form').find('[name="csv"]').trigger('click');
+    });
+
+    // 当表单文件有变化时执行提交动作
+
+    $('[name="csv"]').change(function(){
+    　　if($(this).val()){
+    　　　　$('.import').addClass('disabled');
+    　　　　$(this).parent().submit();
+            $("input[id=csv]").trigger("click");
+
+    　　}
+    });
+
+    </script>
 
 </body>
 
