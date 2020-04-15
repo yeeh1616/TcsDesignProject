@@ -3,7 +3,7 @@ import datetime
 from flask import current_app, jsonify
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, or_, PrimaryKeyConstraint
+from sqlalchemy import func, or_, PrimaryKeyConstraint, exists
 from sqlalchemy.orm import aliased
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.__init__ import db, login_manager
@@ -561,3 +561,18 @@ def get_question_avg_stars(qid, mid):
 def get_questionnaire():
     uestionnaire = Questionnaire.query.all()
     return uestionnaire
+
+
+def get_all_module2(email):
+    allmodule = db.session.query(Module.id, Module.name).filter(
+        Module.owner_id == User.id).filter(
+        ~exists().where(Module.id == UserModule.module_id)).filter(
+        UserModule.email == email)
+    return allmodule
+
+
+def get_all_module(email):
+    userm = db.session.query(UserModule.module_id).filter(UserModule.email == email).subquery()
+    allmodule = db.session.query(Module.id, Module.name, User.uname).filter(
+        Module.owner_id == User.id).filter(Module.id.notin_(userm))
+    return allmodule
