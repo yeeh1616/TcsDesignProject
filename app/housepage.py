@@ -85,7 +85,10 @@ def addhouse():
 
     if form.validate_on_submit():
         print('submit')
-        study_year = form.study_year.data
+        index = form.study_year.data
+        dict = form.study_year.choices
+        study_year_tuple = dict[int(index)-1]
+        study_year = study_year_tuple[1]
         #email = form.teacher_email.data
         house_name = form.house_name.data
         house = House.query.filter_by(year=study_year, house_name=house_name).first()
