@@ -125,15 +125,10 @@ def all_module2():
 @login_required
 @check_confirmed
 def all_module():
-    #
-    email1 = current_user.email
     search_term = request.args.get("search")
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 10
     offset = (page - 1) * per_page
-    allm = db.session.query(Module.id, Module.name, User.uname).filter(
-                                Module.owner_id == User.id).filter(
-                                ~exists().where(Module.id == UserModule.module_id)).all()
     if search_term is None or 0:
         all_modules = models.get_all_module().limit(per_page). \
             offset(offset).all()
