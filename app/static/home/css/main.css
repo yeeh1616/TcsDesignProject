@@ -3377,49 +3377,49 @@ footer h4::after {
    position: relative;
 }
 
-.s-footer__subscribe #mc-form {
+.s-footer__subscribe #searc {
    width: 100%;
 }
 
-.s-footer__subscribe #mc-form input[type="email"] {
+.s-footer__subscribe #searc input[type="search"] {
    width: 100%;
    height: 5.4rem;
    font-size: 1.5rem;
    padding: 1.2rem 100px 1.2rem 60px;
-   background: url(../images/icons/icon-mail.svg) 20px center no-repeat, rgba(0, 0, 0, 0.1);
+   background: url(../images/icons/icon-search.svg) 20px center no-repeat, rgba(0, 0, 0, 0.2);
    background-size: 24px 16px, auto;
    margin-bottom: 1.8rem;
-   color: rgba(255, 255, 255, 0.5);
+   color: #000000;
    border-radius: 3px;
    border: none;
 }
 
-.s-footer__subscribe #mc-form input[type="email"]:hover, 
-.s-footer__subscribe #mc-form input[type="email"]:focus {
+.s-footer__subscribe #searc input[type="search"]:hover,
+.s-footer__subscribe #searc input[type="search"]:focus {
    color: #FFFFFF;
 }
 
-.s-footer__subscribe #mc-form input[type="email"]::-webkit-input-placeholder {
-   color: rgba(255, 255, 255, 0.2);
+.s-footer__subscribe #searc input[type="search"]::-webkit-input-placeholder {
+   color: #656565;
 }
 
-.s-footer__subscribe #mc-form input[type="email"]:-moz-placeholder {
-   color: rgba(255, 255, 255, 0.2);  /* Firefox 18- */
+.s-footer__subscribe #searc input[type="search"]:-moz-placeholder {
+   color: #656565;  /* Firefox 18- */
 }
 
-.s-footer__subscribe #mc-form input[type="email"]::-moz-placeholder {
-   color: rgba(255, 255, 255, 0.2);  /* Firefox 19+ */
+.s-footer__subscribe #searc input[type="search"]::-moz-placeholder {
+   color: #656565;  /* Firefox 19+ */
 }
 
-.s-footer__subscribe #mc-form input[type="email"]:-ms-input-placeholder {
-   color: rgba(255, 255, 255, 0.2);
+.s-footer__subscribe #searc input[type="search"]:-ms-input-placeholder {
+   color: #656565;
 }
 
-.s-footer__subscribe #mc-form input[type="email"].placeholder {
-   color: rgba(255, 255, 255, 0.2) !important;
+.s-footer__subscribe #searc input[type="search"].placeholder {
+   color: #656565 !important;
 }
 
-.s-footer__subscribe #mc-form input[type=submit] {
+.s-footer__subscribe #searc input[type=submit] {
    position: absolute;
    top: 0;
    right: 0;
@@ -3430,14 +3430,14 @@ footer h4::after {
    border-radius: 0 3px 3px 0;
 }
 
-.s-footer__subscribe #mc-form label {
+.s-footer__subscribe #searc label {
    color: #FFFFFF;
    font-family: "metropolis-regular", sans-serif, sans-serif;
    font-size: 1.3rem;
    padding: 0 2rem;
 }
 
-.s-footer__subscribe #mc-form label i {
+.s-footer__subscribe #searc label i {
    padding-right: 6px;
 }
 
