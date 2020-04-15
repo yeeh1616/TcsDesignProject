@@ -118,7 +118,7 @@ class Student(db.Model):
 
     def get_full_info_by_id(id):
         student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name, User.email).filter(
-            User.id == Student.user_id).filter(Student.house_id == House.house_id).filter(User.id == id).first()
+            User.email == Student.student_email).filter(Student.house_id == House.house_id).filter(User.id == id).first()
         return student
 
     def get_full_info_by_email(email):
