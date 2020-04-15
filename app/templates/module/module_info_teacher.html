@@ -84,14 +84,14 @@
     <article class="row format-gallery">
 		<div class="row half-bottom">
 				<div class="col-six tab-full">
-					<form action="edit" method="post" novalidate>
+					<form action="edit" method="post" novalidate style="margin-bottom: 0">
 						<input type="hidden" id="id" name="id" value="{{ module.id }}">
 						<button type="submit" class="btn btn--primary full-width">Edit</button>
             		</form>
 				</div>
 				<div class="col-six tab-full">
 
-                    <form id="csvform" style="display:none" action="{{url_for('module_info.upload_module')}}" method="post" enctype="multipart/form-data">
+                    <form id="csvform" style="display:none; " action="{{url_for('module_info.upload_module')}}" method="post" enctype="multipart/form-data" >
                     　　<input type="file" name="csv" value="" id = "csv">
                         <input type="reset" name="reset" style="display: none;" >
                     </form>
