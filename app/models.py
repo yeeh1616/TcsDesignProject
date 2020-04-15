@@ -563,8 +563,16 @@ def get_questionnaire():
     return uestionnaire
 
 
-def get_all_module():
-    allmodule = db.session.query(Module.id, Module.name, User.uname).filter(
+def get_all_module2(email):
+    allmodule = db.session.query(Module.id, Module.name).filter(
         Module.owner_id == User.id).filter(
-        ~exists().where(Module.id == UserModule.module_id))
+        ~exists().where(Module.id == UserModule.module_id)).filter(
+        UserModule.email == email)
+    return allmodule
+
+
+def get_all_module(email):
+    userm = db.session.query(UserModule.module_id).filter(UserModule.email == email).subquery()
+    allmodule = db.session.query(Module.id, Module.name, User.uname).filter(
+        Module.owner_id == User.id).filter(Module.id.notin_(userm))
     return allmodule

@@ -3,6 +3,7 @@ from flask import (
 )
 from flask_login import login_required, current_user
 from sqlalchemy import exists
+from sqlalchemy.orm import aliased
 
 from app.decorators import check_confirmed, check_assigned_house
 from app import models
@@ -125,19 +126,28 @@ def all_module2():
 @login_required
 @check_confirmed
 def all_module():
+    email = current_user.email
     search_term = request.args.get("search")
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 10
     offset = (page - 1) * per_page
+    # alias = db.aliased(UserModule)
+    # userm = db.session.query(UserModule.module_id).filter(UserModule.email == email).subquery()
+    # # allm = Module.query.filter(Module.id.notin_(userm)).all()
+    # allm2 = db.session.query(Module.id, Module.name, User.uname).filter(
+    #     Module.owner_id == User.id).filter(Module.id.notin_(userm)).all()
+    # allmodule = db.session.query(Module.id, Module.name).filter(
+    #     Module.owner_id == User.id).filter(
+    #     alias.email == email).all()
     if search_term is None or 0:
-        all_modules = models.get_all_module().limit(per_page). \
+        all_modules = models.get_all_module(email).limit(per_page). \
             offset(offset).all()
-        total = models.get_all_module().count()
+        total = models.get_all_module(email).count()
         # all_modules = Module.query.all()
     else:
-        all_modules = models.get_all_module().filter(Module.name.like("%" + search_term + "%")).limit(per_page).offset(
+        all_modules = models.get_all_module(email).filter(Module.name.like("%" + search_term + "%")).limit(per_page).offset(
             offset).all()
-        total = models.get_all_module().filter(Module.name.like("%" + search_term + "%")).count()
+        total = models.get_all_module(email).filter(Module.name.like("%" + search_term + "%")).count()
         # all_modules = Module.query.filter_by(name=search_term)
     all_modules_c = []
     # had_modules = db.session.query(UserModule.module_id).filter(current_user.email)
