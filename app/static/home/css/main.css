@@ -3386,10 +3386,10 @@ footer h4::after {
    height: 5.4rem;
    font-size: 1.5rem;
    padding: 1.2rem 100px 1.2rem 60px;
-   background: url(../images/icons/icon-search.svg) 20px center no-repeat, rgba(0, 0, 0, 0.1);
+   background: url(../images/icons/icon-search.svg) 20px center no-repeat, rgba(0, 0, 0, 0.2);
    background-size: 24px 16px, auto;
    margin-bottom: 1.8rem;
-   color: rgba(255, 255, 255, 0.5);
+   color: #000000;
    border-radius: 3px;
    border: none;
 }
@@ -3400,23 +3400,23 @@ footer h4::after {
 }
 
 .s-footer__subscribe #searc input[type="search"]::-webkit-input-placeholder {
-   color: rgba(255, 255, 255, 0.2);
+   color: #656565;
 }
 
 .s-footer__subscribe #searc input[type="search"]:-moz-placeholder {
-   color: rgba(255, 255, 255, 0.2);  /* Firefox 18- */
+   color: #656565;  /* Firefox 18- */
 }
 
 .s-footer__subscribe #searc input[type="search"]::-moz-placeholder {
-   color: rgba(255, 255, 255, 0.2);  /* Firefox 19+ */
+   color: #656565;  /* Firefox 19+ */
 }
 
 .s-footer__subscribe #searc input[type="search"]:-ms-input-placeholder {
-   color: rgba(255, 255, 255, 0.2);
+   color: #656565;
 }
 
 .s-footer__subscribe #searc input[type="search"].placeholder {
-   color: rgba(255, 255, 255, 0.2) !important;
+   color: #656565 !important;
 }
 
 .s-footer__subscribe #searc input[type=submit] {
