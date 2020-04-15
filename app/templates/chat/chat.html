@@ -124,7 +124,7 @@
 										<textarea id="myMessage" class="full-width" placeholder=" Enter your text"></textarea>
 									</div>
                                     <button id="sendbutton" class="submit btn--primary btn--large full-width">Send</button>
-                                    <button id="sendbutton2" class="submit btn--primary btn--large full-width">Send 2</button>
+{#                                    <button id="sendbutton2" class="submit btn--primary btn--large full-width">Send 2</button>#}
                                 </div>
                             </div>
                         </div>
@@ -165,15 +165,17 @@
                     var msg_json = JSON.parse(msg);
                     var content = msg_json.content;
                     var ip = msg_json.ip;
+                    var email = msg_json.email;
+                    var img = msg_json.img;
 
                     if (msg_json.house_id != '{{ user.house_id }}'){
                         return;
                     }
 
-                    if (ip == '{{ remote_addr }}'){
+                    if (ip == '{{ remote_addr }}' && (email == '{{ user.email }}') ){
                         var ele = ['<li class="mar-btm">',
                             '<div class="media-right">',
-                                '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
+                                '<img src="../../static/home/images/avatars/' + img + '.jpg" class="img-circle img-sm" alt="Profile Picture">',
                             '</div>',
                             '<div class="media-body pad-hor speech-right">',
                                 '<div class="speech" style = "max-width:100%">',
@@ -190,7 +192,7 @@
                     } else {
                         var ele = ['<li class="mar-btm">',
                             '<div class="media-left">',
-                                '<img src="../../static/home/images/avatars/{{ user.img }}.jpg" class="img-circle img-sm" alt="Profile Picture">',
+                                '<img src="../../static/home/images/avatars/' + img + '.jpg" class="img-circle img-sm" alt="Profile Picture">',
                             '</div>',
                             '<div class="media-body pad-hor">',
                                 '<div class="speech" style = "max-width:100%">',
@@ -225,6 +227,7 @@
                     content:msg,
                     ip:'{{ remote_addr }}',
                     uname:'{{ user.uname }}',
+                    email:'{{ user.email }}',
                     img:'{{ user.img }}',
                     house_id:'{{ user.house_id }}',
                     date:(new Date()).toLocaleDateString("en-GB")

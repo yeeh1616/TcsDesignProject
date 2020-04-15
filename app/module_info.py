@@ -61,7 +61,7 @@ def info():
     questionnaire = get_questionnaire()
     for q in questionnaire:
         star_dict[q.id] = 0
-        avg = get_question_avg_stars(q.id, module_id).average
+        avg = get_question_avg_stars(q.id, '3').average
         if avg is None:
             q.avg_star = 0
         else:
