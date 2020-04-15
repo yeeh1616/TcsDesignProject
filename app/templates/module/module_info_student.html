@@ -129,8 +129,109 @@
         <div class="comments-wrap" style="margin-top: 10.2rem; padding: 8.4rem 0 9rem">
 
             <div id="comments" class="row">
+				
                 <div class="col-full">
+					<div class="respond" style="padding: 0 0 4rem 0">
+                        <script>
+                            function star(qid, grade)
+                            {
+                                var star_dict_json = document.getElementById("star").value;
+                                var star_dict = JSON.parse(star_dict_json);
+                                star_dict[qid] = grade;
+                                document.getElementById("star").value = JSON.stringify(star_dict);
 
+                                switch (grade) {
+                                    case 1:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star";
+                                        break;
+                                    case 2:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star";
+                                        break;
+                                    case 3:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star";
+                                        break;
+                                    case 4:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star";
+                                        break;
+                                    case 5:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star checked";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star checked";
+                                        break;
+                                    default:
+                                        document.getElementById(qid+"_star1").className = "fa fa-star";
+                                        document.getElementById(qid+"_star2").className = "fa fa-star";
+                                        document.getElementById(qid+"_star3").className = "fa fa-star";
+                                        document.getElementById(qid+"_star4").className = "fa fa-star";
+                                        document.getElementById(qid+"_star5").className = "fa fa-star";
+                                }
+                            }
+
+							function expandComment() {
+								var content = document.getElementById("commentBlock");
+								document.getElementById("expandC").classList.toggle("active");
+								if (content.style.display === "block") {
+								  content.style.display = "none";
+								} else {
+								  content.style.display = "block";
+								}
+							}
+                        </script>
+                    {% if not not_add %}
+                    {% if can_comment %}
+                        <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Add Comment</button>
+
+						<div id="commentBlock" class="content">
+							<form action="comment" method="post">
+								<fieldset>
+									<p class="h3">Before you add your comment, please fill in this questionnaire to help us improve our education.</p>
+
+
+                                    {% for question in questionnaire %}
+                                        <p class="h4">{{ question.question }}</p>
+
+                                        <div style="font-size:24px" class="rating">
+                                            &nbsp;
+                                            <span id="{{ question.id }}_star1" class="fa fa-star" onClick="star({{ question.id }},1)"></span>
+                                            <span id="{{ question.id }}_star2" class="fa fa-star" onClick="star({{ question.id }},2)"></span>
+                                            <span id="{{ question.id }}_star3" class="fa fa-star" onClick="star({{ question.id }},3)"></span>
+                                            <span id="{{ question.id }}_star4" class="fa fa-star" onClick="star({{ question.id }},4)"></span>
+                                            <span id="{{ question.id }}_star5" class="fa fa-star" onClick="star({{ question.id }},5)"></span>
+                                        </div>
+                                    {% endfor %}
+
+									<p class="h4">Put you comment here</p>
+									<div class="message form-field">
+										<textarea name="comment" id="comment" class="full-width" placeholder="Your Message"></textarea>
+										<input type="hidden" id="star" name="star" value="{{ star_dict }}">
+									</div>
+
+									<button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
+
+								</fieldset>
+							</form> <!-- end form -->
+						</div>
+                    {% endif %}
+                    {% endif %}
+                    </div> <!-- end respond -->
                     <h3 class="h2" style="text-align: inherit">{{totalComments}} Comments</h3>
                     <div style="font-size:24px" class="rating">
                         {% if avgStar > 0 and avgStar <= 1 %}
@@ -312,107 +413,7 @@
 
                     <!-- respond
                     ================================================== -->
-                    <div class="respond">
-                        <script>
-                            function star(qid, grade)
-                            {
-                                var star_dict_json = document.getElementById("star").value;
-                                var star_dict = JSON.parse(star_dict_json);
-                                star_dict[qid] = grade;
-                                document.getElementById("star").value = JSON.stringify(star_dict);
-
-                                switch (grade) {
-                                    case 1:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star";
-                                        break;
-                                    case 2:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star";
-                                        break;
-                                    case 3:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star";
-                                        break;
-                                    case 4:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star";
-                                        break;
-                                    case 5:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star checked";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star checked";
-                                        break;
-                                    default:
-                                        document.getElementById(qid+"_star1").className = "fa fa-star";
-                                        document.getElementById(qid+"_star2").className = "fa fa-star";
-                                        document.getElementById(qid+"_star3").className = "fa fa-star";
-                                        document.getElementById(qid+"_star4").className = "fa fa-star";
-                                        document.getElementById(qid+"_star5").className = "fa fa-star";
-                                }
-                            }
-
-							function expandComment() {
-								var content = document.getElementById("commentBlock");
-								document.getElementById("expandC").classList.toggle("active");
-								if (content.style.display === "block") {
-								  content.style.display = "none";
-								} else {
-								  content.style.display = "block";
-								}
-							}
-                        </script>
-                    {% if not not_add %}
-                    {% if can_comment %}
-                        <button id="expandC" type="button" class="collapsible" onClick="expandComment()">Add Comment</button>
-
-						<div id="commentBlock" class="content">
-							<form action="comment" method="post">
-								<fieldset>
-									<p class="h3">Before you add your comment, please fill in this questionnaire to help us improve our education.</p>
-
-
-                                    {% for question in questionnaire %}
-                                        <p class="h4">{{ question.question }}</p>
-
-                                        <div style="font-size:24px" class="rating">
-                                            &nbsp;
-                                            <span id="{{ question.id }}_star1" class="fa fa-star" onClick="star({{ question.id }},1)"></span>
-                                            <span id="{{ question.id }}_star2" class="fa fa-star" onClick="star({{ question.id }},2)"></span>
-                                            <span id="{{ question.id }}_star3" class="fa fa-star" onClick="star({{ question.id }},3)"></span>
-                                            <span id="{{ question.id }}_star4" class="fa fa-star" onClick="star({{ question.id }},4)"></span>
-                                            <span id="{{ question.id }}_star5" class="fa fa-star" onClick="star({{ question.id }},5)"></span>
-                                        </div>
-                                    {% endfor %}
-
-									<p class="h4">Put you comment here</p>
-									<div class="message form-field">
-										<textarea name="comment" id="comment" class="full-width" placeholder="Your Message"></textarea>
-										<input type="hidden" id="star" name="star" value="{{ star_dict }}">
-									</div>
-
-									<button type="submit" class="submit btn--primary btn--large full-width">Submit</button>
-
-								</fieldset>
-							</form> <!-- end form -->
-						</div>
-                    {% endif %}
-                    {% endif %}
-                    </div> <!-- end respond -->
+                    
                 </div> <!-- end col-full -->
             </div> <!-- end row comments -->
         </div> <!-- end comments-wrap -->
