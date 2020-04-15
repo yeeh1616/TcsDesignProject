@@ -140,18 +140,20 @@
 				<div class="table-responsive">
 					<table>
 						<thead>
-						<tr>
-							<th>#</th>
-{#							<th>Name</th>#}
-							<th>Email</th>
-						  </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
 						</thead>
 						{% for request in request_owner_list %}
 							<tbody>
 							<tr>
 								<td>{{ loop.index + pagination.skip }}</td>
-{#								<td>{{ request.uname }}</td>#}
+								<td>{{ request.uname }}</td>
 								<td>{{ request.student_email }}</td>
+								<td>{{ request.phone }}</td>
 							</tr>
 							</tbody>
 						{% endfor %}

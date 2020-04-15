@@ -41,11 +41,13 @@ def test3():
 @check_confirmed
 def info():
     title = User.get_user_by_id(current_user.id).title
-    if session['moduleId'] is None:
-        module_id = request.args.get("id")
-        session['moduleId'] = module_id
-    else:
-        module_id = session['moduleId']
+    module_id = request.args.get("id")
+    session['moduleId'] = module_id
+    # if session['moduleId'] is None:
+    #     module_id = request.args.get("id")
+    #     session['moduleId'] = module_id
+    # else:
+    #     module_id = session['moduleId']
     user_id = current_user.id
     module = Module.query.filter_by(id=module_id).first()
     user = User.query.filter_by(id=user_id).first()
@@ -256,7 +258,7 @@ def upload_module():
             csvFile.save(temp_file)
             process_csv_module(temp_file)
             os.remove(temp_file)
-            return redirect(url_for('module_info.info', upload_status=True))
+            return redirect(url_for('module_info.info',id=int(session['moduleId']), upload_status=True))
 
     return "Upload failed."
 
