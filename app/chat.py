@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, render_template, request
 from flask_login import login_required, current_user
 from flask_socketio import SocketIO, send
 
-from app import app
+from app import app, models
 from app.decorators import check_confirmed
 from app.models import Student
 import socket
@@ -35,5 +35,9 @@ def chat_page():
     # server = server + ':' + str(port)
     server = '127.0.0.1:5000'
     remote_addr = request.remote_addr
-    user = Student.get_full_info_by_id(current_user.id)
-    return render_template('chat/chat.html', server=server, remote_addr=remote_addr, user=user, title=user.title)
+
+    if current_user.title == models.HOUSEKEEPER:
+        user = Student.get_full_info_by_id_02(current_user.id)
+    else:
+        user = Student.get_full_info_by_id(current_user.id)
+    return render_template('chat/chat.html', server=server, remote_addr=remote_addr, user=user, title=current_user.title)

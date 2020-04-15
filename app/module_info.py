@@ -171,8 +171,9 @@ def comment():
 @login_required
 @check_confirmed
 def download():
-    student = Student.get_full_info_by_id(current_user.id)
-    houseid = student.house_id
+    # student = Student.get_full_info_by_id(current_user.id)
+    # houseid = student.house_id
+    houseid = House.query.filter_by(house_keeper=current_user.id).first().house_id
     try:
         conn = db.engine.raw_connection()
         path_ = get_temp_folder() + 'student.csv'
