@@ -32,8 +32,8 @@ def chat_page():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(('0.0.0.0', 0))
     port = sock.getsockname()[1]
-    # server = server + ':' + str(port)
-    server = '127.0.0.1:5000'
+    server = server + ':' + str(port)
+    # server = '127.0.0.1:5000'
     remote_addr = request.remote_addr
     user = Student.get_full_info_by_id(current_user.id)
     return render_template('chat/chat.html', server=server, remote_addr=remote_addr, user=user, title=user.title)
