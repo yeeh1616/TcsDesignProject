@@ -131,7 +131,7 @@
             <div id="comments" class="row">
                 <div class="col-full">
 
-                    <h3 class="h2">{{totalComments}} Comments</h3>
+                    <h3 class="h2" style="text-align: inherit">{{totalComments}} Comments</h3>
                     <div style="font-size:24px" class="rating">
                         {% if avgStar > 0 and avgStar <= 1 %}
                             <span class="fa fa-star checked"></span>
@@ -174,7 +174,9 @@
                         <span>{{ avgStar }}</span>
                     </div>
 
-                    <ol class="commentlist">
+                    
+						<div class="table-responsive">
+						
                         <table style='white-space: nowrap'>
                             <tbody>
                                 {% for q in questionnaire %}
@@ -232,7 +234,8 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                     </ol>
+					</div>
+                     
 
 
                     <!-- commentlist -->
