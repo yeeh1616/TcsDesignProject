@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, InputRequired
 from app.models import User, delete_a_user, House
-
+import datetime
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -96,6 +96,7 @@ class DeleteHouseForm(FlaskForm):
 
 class AddHouseForm(FlaskForm):
     # teacher_email = StringField('Email', validators=[DataRequired()])
-    study_year = SelectField('StudyYear', validators=[DataRequired()], choices=[(1, 1), (2, 2), (3, 3)], default=3,
+    current_year = datetime.datetime.today().year
+    study_year = SelectField('StudyYear', validators=[DataRequired()], choices=[(1, current_year-2), (2, current_year-1), (3, current_year)], default=3,
                              coerce=int)
     house_name = StringField('HouseName', validators=[DataRequired()])

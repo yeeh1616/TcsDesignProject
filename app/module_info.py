@@ -41,11 +41,15 @@ def test3():
 @check_confirmed
 def info():
     title = User.get_user_by_id(current_user.id).title
-    module_id = request.args.get("id")
-    session['moduleId'] = module_id
+    if session['moduleId'] is None:
+        module_id = request.args.get("id")
+        session['moduleId'] = module_id
+    else:
+        module_id = session['moduleId']
     user_id = current_user.id
     module = Module.query.filter_by(id=module_id).first()
     user = User.query.filter_by(id=user_id).first()
+    coordinator = User.query.filter_by(id=module.owner_id).first()
     comment_list = db.session.query(User.id, User.uname, User.img, Comment.module_id, Comment.content, Comment.star,
                                     Comment.date).filter(Comment.owner_id == User.id).filter(
         Comment.module_id == module_id).all()
@@ -66,6 +70,7 @@ def info():
         return render_template('module_info_teacher.html',
                                module=module,
                                user=user,
+                               coordinator=coordinator,
                                commentList=comment_list,
                                totalComments=len(comment_list),
                                avgStar=avg_star,
@@ -92,6 +97,7 @@ def info():
         return render_template('module_info_student.html',
                                module=module,
                                user=user,
+                               coordinator=coordinator,
                                commentList=comment_list,
                                totalComments=len(comment_list),
                                avgStar=avg_star,

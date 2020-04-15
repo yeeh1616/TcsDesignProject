@@ -542,8 +542,8 @@ def get_namelist_count(house_id):
 #         filter(Student.user_id == User.id)
 
 def get_namelist(house_id):
-    result = db.session.query(Student.student_email). \
-        filter(Student.house_id == house_id)
+    result = db.session.query(Student.student_email, User.uname, User.phone). \
+        filter(Student.house_id == house_id).filter(Student.student_email==User.email)
     # . \
     # filter(User.title == 0)
 
