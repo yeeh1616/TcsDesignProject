@@ -109,12 +109,16 @@ class Student(db.Model):
     house_id = db.Column(db.Integer)
     module_id = db.Column(db.Integer)
     student_email = db.Column(db.String)
+    name = db.Column(db.String)
+    phone = db.Column(db.Integer)
 
-    def __init__(self, house_id=None, module_id=None, student_email=None):
+    def __init__(self, house_id=None, module_id=None, student_email=None, name=None, phone=None):
         #self.year = year
         self.house_id = house_id
         self.module_id = module_id
         self.student_email = student_email
+        self.name = name
+        self.phone = phone
 
     def get_full_info_by_id(id):
         student = db.session.query(User.uname, User.img, User.title, House.house_id, House.house_name).filter(
@@ -541,9 +545,18 @@ def get_namelist_count(house_id):
 #         filter(Student.house_id == house_id). \
 #         filter(Student.user_id == User.id)
 
+# def get_namelist(house_id):
+#     result = db.session.query(Student.student_email, User.uname, User.phone). \
+#         filter(Student.house_id == house_id).filter(Student.student_email==User.email)
+#     # . \
+#     # filter(User.title == 0)
+#
+#     return result
+
+
 def get_namelist(house_id):
-    result = db.session.query(Student.student_email, User.uname, User.phone). \
-        filter(Student.house_id == house_id).filter(Student.student_email==User.email)
+    result = db.session.query(Student.student_email, Student.name, Student.phone). \
+        filter(Student.house_id == house_id)
     # . \
     # filter(User.title == 0)
 

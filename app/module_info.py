@@ -234,7 +234,7 @@ def process_csv(path):
     for item in dict_reader:
         student = Student.query.filter_by(student_email=item["email"]).first()
         if student is None:
-            student = Student(house_id=house.house_id, module_id=None, student_email=item["email"])
+            student = Student(house_id=house.house_id, module_id=None, student_email=item["email"], name=item["name"], phone=item["phone"])
             add_by_entity(student)
         else:
             student.house_id = house.house_id
